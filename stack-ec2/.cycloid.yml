@@ -25,3 +25,7 @@ config:
     lambda:
       path: 'terraform/main.tf.sample'
       destination: '($ project $)/terraform/($ environment $)/main.tf'
+  ansible:
+    front:
+      path: 'ansible/environments/ec2.yml.sample'
+      destination: '($ project $)/ansible/environments/($ environment $)-ec2.yml'

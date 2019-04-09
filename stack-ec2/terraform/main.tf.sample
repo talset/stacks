@@ -1,8 +1,21 @@
-module "lambda" {
-  source = "module-lambda"
+module "ec2" {
+  source = "module-ec2"
 
-  env            = "${var.env}"
-  project        = "${var.project}"
-  customer       = "${var.customer}"
-  lambda_env_foo = "bar"
+  env                = "${var.env}"
+  project            = "${var.project}"
+  customer           = "${var.customer}"
+
+  keypair_name       = "cycloid"
+  public_subnets_ids = "${data.terraform_remote_state.infrastructure.prod_public_subnets_ids}"
+
+}
+
+data "terraform_remote_state" "infrastructure" {
+  backend = "s3"
+
+  config {
+    bucket = "cycloid-terraform-remote-state"
+    key    = "infrastructure/infra/infrastructure-infra.tfstate"
+    region = "eu-west-1"
+  }
 }
