@@ -1,5 +1,0 @@
----
-- src: https://github.com/cycloidio/ansible-base-aws
-  version: master
-  name: cycloid.base-aws
-  scm: git
