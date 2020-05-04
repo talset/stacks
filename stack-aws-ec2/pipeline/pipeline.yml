@@ -63,7 +63,7 @@ resources:
       aws_region: ((aws_default_region))
 
 # The Terraform stack (will be merged with the config)
-- name: git_stack-terraform
+- name: git_stack
   type: git
   source:
     uri: ((git_repository))
@@ -73,7 +73,7 @@ resources:
       - stack-aws-ec2/terraform/*
 
 # The Terraform config (will be merged with the stack)
-- name: git_config-terraform
+- name: git_config
   type: git
   source:
     uri: ((git_repository))
@@ -95,9 +95,9 @@ jobs:
     build_logs_to_retain: 10
     plan:
       - do:
-        - get: git_stack-terraform
+        - get: git_stack
           trigger: true
-        - get: git_config-terraform
+        - get: git_config
           trigger: true
         - *task-merge-stack-and-config
         - get: git_code
@@ -116,7 +116,7 @@ jobs:
           trigger: false
           passed:
             - terraform-plan
-        - get: git_config-terraform
+        - get: git_config
           trigger: false
           passed:
             - terraform-plan
@@ -140,7 +140,7 @@ jobs:
       - do:
           - get: git_stack-terraform
             trigger: false
-          - get: git_config-terraform
+          - get: git_config
             trigger: false
           - *task-merge-stack-and-config
           - put: tfstate
