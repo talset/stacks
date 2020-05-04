@@ -66,8 +66,9 @@ resources:
 - name: git_stack-terraform
   type: git
   source:
-    uri: https://github.com/cycloid-community-catalog/stack-code
+    uri: ((git_repository))
     branch: ((stack_git_branch))
+    private_key: ((git_private_key))
     paths:
       - stack-aws-ec2/terraform/*
 
@@ -75,7 +76,7 @@ resources:
 - name: git_config-terraform
   type: git
   source:
-    uri: ((repository))
+    uri: ((git_repository))
     branch: ((config_git_branch))
     private_key: ((git_private_key))
     paths:
