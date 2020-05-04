@@ -24,7 +24,7 @@ terraform_storage_bucket_name: ($ organization_canonical $)-terraform-remote-sta
 # Repos
 #
 
-#. git_repository (required): git@github.com:MyUser/config-magento.git
+#. git_repository (required): git@github.com:MyUser/config-code.git
 #+ Git repository URL containing the config of the stack.
 git_repository: git@github.com:talset/stacks.git
 
@@ -38,9 +38,9 @@ config_git_branch: config
 #+ SSH key pair to fetch the config Git repository.
 git_private_key: ((ssh_config.ssh_key))
 
-#. magento_git_branch (required): master
-#+ Branch of the magento source code git repository.
-magento_git_branch: master
+#. code_git_branch (required): master
+#+ Branch of the code source code git repository.
+code_git_branch: master
 
 #
 # Default variables that shouldn't be changed except if needed
