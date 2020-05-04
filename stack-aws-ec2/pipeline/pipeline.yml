@@ -79,7 +79,7 @@ resources:
     branch: ((config_git_branch))
     private_key: ((git_private_key))
     paths:
-      - ((config_terraform_path))/*
+      - ((project))/terraform/((env))/*
 
 - name: git_code
   type: git
