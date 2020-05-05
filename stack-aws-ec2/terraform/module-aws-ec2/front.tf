@@ -48,9 +48,6 @@ resource "aws_instance" "front" {
   instance_type        = var.front_type
   vpc_security_group_ids = [aws_security_group.front.id]
 
-  # TMP
-  key_name = "cycloid"
-
   tags = {
     Name = "cycloid test"
     "cycloid.io" = "true"
