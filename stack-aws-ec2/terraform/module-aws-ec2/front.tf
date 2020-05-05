@@ -1,7 +1,6 @@
 resource "aws_security_group" "front" {
   name        = "${var.project}-front-${var.env}"
   description = "Front ${var.env} for ${var.project}"
-  vpc_id      = var.vpc_id
 
   egress {
     from_port   = 0
@@ -43,6 +42,7 @@ resource "aws_instance" "front" {
   vpc_security_group_ids = [aws_security_group.front.id]
 
   tags = {
+    Name = "cycloid test"
     "cycloid.io" = "true"
     env         = var.env
     project     = var.project

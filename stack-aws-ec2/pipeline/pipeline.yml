@@ -19,7 +19,7 @@ shared:
         - name: git_stack
           path: "stack"
       outputs:
-        - name: merged-stack/stack-aws-ec2/terraform
+        - name: merged-stack
           path: "merged-stack"
     params:
       CONFIG_PATH: ((project))/terraform/((env))
@@ -112,7 +112,7 @@ jobs:
     plan:
       - do:
         # Get the PR on the project #
-        - get: git_stack-terraform
+        - get: git_stack
           trigger: false
           passed:
             - terraform-plan
@@ -138,7 +138,7 @@ jobs:
     build_logs_to_retain: 10
     plan:
       - do:
-          - get: git_stack-terraform
+          - get: git_stack
             trigger: false
           - get: git_config
             trigger: false
