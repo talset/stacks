@@ -30,7 +30,6 @@ data "template_file" "user_data" {
   vars = {
     env         = var.env
     project     = var.project
-    customer    = var.customer
   }
 }
 
