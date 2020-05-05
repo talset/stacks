@@ -16,6 +16,14 @@ resource "aws_security_group" "front" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # TMP
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     "cycloid.io" = "true"
     env         = var.env
@@ -39,6 +47,9 @@ resource "aws_instance" "front" {
   associate_public_ip_address = true
   instance_type        = var.front_type
   vpc_security_group_ids = [aws_security_group.front.id]
+
+  # TMP
+  key_name = "cycloid"
 
   tags = {
     Name = "cycloid test"
