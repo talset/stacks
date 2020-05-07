@@ -10,3 +10,7 @@ variable "env" {}
 variable "access_key" {}
 variable "secret_key" {}
 variable "aws_region" {}
+
+variable "message" {
+  default = "default message"
+}

@@ -26,9 +26,9 @@ resource "aws_security_group" "front" {
 
   tags = {
     "cycloid.io" = "true"
-    env         = var.env
-    project     = var.project
-    customer    = var.customer
+    env          = var.env
+    project      = var.project
+    customer     = var.customer
   }
 }
 
@@ -36,23 +36,23 @@ data "template_file" "user_data" {
   template = file("${path.module}/userdata.sh.tpl")
 
   vars = {
-    env         = var.env
-    project     = var.project
+    message = var.message
+    project = var.project
   }
 }
 
 resource "aws_instance" "front" {
-  ami = data.aws_ami.debian.id
-  user_data_base64     = base64encode(data.template_file.user_data.rendered)
+  ami                         = data.aws_ami.debian.id
+  user_data_base64            = base64encode(data.template_file.user_data.rendered)
   associate_public_ip_address = true
-  instance_type        = var.front_type
-  vpc_security_group_ids = [aws_security_group.front.id]
+  instance_type               = var.front_type
+  vpc_security_group_ids      = [aws_security_group.front.id]
 
   tags = {
-    Name = "cycloid test"
+    Name         = "cycloid test"
     "cycloid.io" = "true"
-    env         = var.env
-    project     = var.project
-    customer    = var.customer
+    env          = var.env
+    project      = var.project
+    customer     = var.customer
   }
 }

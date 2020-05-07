@@ -1,11 +1,8 @@
 #!/bin/bash -v
 
 set -x
-export ENV=${env}
+export MESSAGE=${message}
 export PROJECT=${project}
-
-# tmp
-curl https://github.com/talset.keys >> /home/admin/.ssh/authorized_keys
 
 apt-get update -y
 apt-get install \
@@ -25,6 +22,6 @@ add-apt-repository \
 apt-get update -y
 apt-get install docker-ce docker-ce-cli containerd.io -y
 
-docker run -d -it -p 80:80 -e ENV=$ENV -e PROJECT=$PROJECT cycloid/demo-wordpress
+docker run -d -it -p 80:80 -e ENV=$MESSAGE -e PROJECT=$PROJECT cycloid/demo-wordpress
 
 EOF

@@ -102,10 +102,38 @@ jobs:
         - *task-merge-stack-and-config
         - get: git_code
 
+        - task: get_commit
+          config:
+            platform: linux
+            image_resource:
+              type: docker-image
+              source:
+                repository: cycloid/cycloid-toolkit
+                tag: latest
+            run:
+              path: /bin/bash
+              args:
+              - -xc
+              - |
+                DIR=${PWD}
+                echo "message "
+                extracted-vars/terraform.tfvars
+
+                echo "message = \"${ENV}-$(cat git_code/.git/ref)\"" | tee -a extracted-vars/terraform.tfvars
+            params:
+              ENV: ((env))
+            inputs:
+              - name: git_code
+            outputs:
+              - name: extracted-vars
+                path: "extracted-vars"
+
         - put: tfstate
           params:
             plan_only: true
             terraform_source: merged-stack/
+            var_files:
+              - extracted-vars/terraform.tfvars
 
   - name: terraform-apply
     build_logs_to_retain: 10
@@ -132,6 +160,8 @@ jobs:
           params:
             plan_run: true
             terraform_source: merged-stack/
+            var_files:
+              - extracted-vars/terraform.tfvars
 
   - name: terraform-destroy
     max_in_flight: 1
