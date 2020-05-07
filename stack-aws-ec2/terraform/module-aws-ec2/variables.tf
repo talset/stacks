@@ -15,4 +15,5 @@ variable "front_type" {
   default = "t3.small"
 }
 
-variable "message" {}
+variable "git_code_commit" {}
+variable "git_code_repo" {}

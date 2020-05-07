@@ -11,6 +11,9 @@ variable "access_key" {}
 variable "secret_key" {}
 variable "aws_region" {}
 
-variable "message" {
-  default = "default message"
+variable "git_code_commit" {
+  default = "master"
+}
+variable "git_code_repo" {
+  default = "https://github.com/talset/stacks"
 }

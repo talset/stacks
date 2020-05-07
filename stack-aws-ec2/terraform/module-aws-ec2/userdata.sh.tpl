@@ -1,8 +1,6 @@
 #!/bin/bash -v
 
 set -x
-export MESSAGE=${message}
-export PROJECT=${project}
 
 apt-get update -y
 apt-get install \
@@ -22,6 +20,6 @@ add-apt-repository \
 apt-get update -y
 apt-get install docker-ce docker-ce-cli containerd.io -y
 
-docker run -d -it -p 80:80 -e ENV=$MESSAGE -e PROJECT=$PROJECT cycloid/demo-wordpress
+docker run -d -it -p 80:80 -e repo=${git_code_repo} -e commit=${git_code_commit} -e PROJECT=${project} cycloid/demo-wordpress
 
 EOF
