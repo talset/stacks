@@ -146,6 +146,7 @@ jobs:
     plan:
     - do:
       - get: git_code
+        trigger: true
       - task: test
         config:
           platform: linux
@@ -175,6 +176,7 @@ jobs:
           trigger: true
         - *task-merge-stack-and-config
         - get: git_code
+          trigger: true
           passed:
             - unittest
         - *task-get-commit
