@@ -42,6 +42,11 @@ git_code_example_public: git@github.com:talset/stacks.git
 #+ Branch of the code source code git repository.
 code_git_branch: master
 
+# Cycloid events configuration
+api_login: ((basic_auth_cyclobot-account.username))
+api_password: ((basic_auth_cyclobot-account.password))
+api_url: https://http-api.cycloid.io
+
 #
 # Default variables that shouldn't be changed except if needed
 #
