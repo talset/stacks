@@ -152,14 +152,13 @@ jobs:
           image_resource:
             type: docker-image
             source:
-              repository: cycloid/cycloid-toolkit
+              repository: linkchecker/linkchecker
               tag: latest
           run:
             path: /bin/bash
             args:
             - -exc
             - |
-              apt-get install linkchecker -y
               linkchecker code/index.html
           inputs:
           - name: git_code

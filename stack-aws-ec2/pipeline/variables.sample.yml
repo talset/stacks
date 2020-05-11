@@ -37,7 +37,7 @@ config_git_branch: config
 #+ SSH key pair to fetch the config Git repository.
 git_private_key: ((ssh_config.ssh_key))
 
-git_code_example_public: git@github.com:talset/stacks.git
+git_code_example_public: https://github.com/talset/stacks
 #. code_git_branch (required): master
 #+ Branch of the code source code git repository.
 code_git_branch: master
