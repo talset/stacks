@@ -27,7 +27,6 @@ terraform_storage_bucket_name: cycloid-terraform-remote-state
 #. git_repository (required): git@github.com:MyUser/config-code.git
 #+ Git repository URL containing the config of the stack.
 git_repository: git@github.com:talset/stacks.git
-
 stack_git_branch: stacks
 
 #. config_git_branch (required): master
@@ -38,9 +37,15 @@ config_git_branch: config
 #+ SSH key pair to fetch the config Git repository.
 git_private_key: ((git_github.ssh_key))
 
+git_code_example_public: https://github.com/talset/stacks
 #. code_git_branch (required): master
 #+ Branch of the code source code git repository.
-code_git_branch: master
+code_git_branch: code
+
+# Cycloid events configuration
+api_login: ((basic_auth_cyclobot-account.username))
+api_password: ((basic_auth_cyclobot-account.password))
+api_url: https://http-api.cycloid.io
 
 #
 # Default variables that shouldn't be changed except if needed
