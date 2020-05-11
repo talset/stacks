@@ -176,6 +176,8 @@ jobs:
           trigger: true
         - *task-merge-stack-and-config
         - get: git_code
+          passed:
+            - unittest
         - *task-get-commit
         - put: tfstate
           params:
