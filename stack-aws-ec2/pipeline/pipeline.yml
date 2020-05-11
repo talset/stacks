@@ -252,22 +252,24 @@ jobs:
           run:
             path: /bin/bash
             args:
-            - -ec
+            - -c
             - |
               echo "Dummy functional tests"
 
               # Wait 5 min ec2 up
               for i in {1..20}
               do
-                STATUS=$(curl -s -o /dev/null -w '%{http_code}' $(jq -r .front_ip tfstate/metadata))
+                STATUS=$(curl --connect-timeout 2 -s -o /dev/null -w '%{http_code}' $(jq -r .front_ip tfstate/metadata))
                 if [ $STATUS -eq 200 ]; then
                   echo "Got 200! All done!"
-                  exit 1
+                  exit 0
                 else
-                  echo "Got $STATUS :( Not done yet... ($i/20)"
+                  echo "Got $STATUS :( Not done yet... (retry ${i}/20)"
                 fi
                 sleep 15
               done
+              echo "functional tests [Failed]"
+              exit 1
           inputs:
           - name: tfstate
       on_failure:

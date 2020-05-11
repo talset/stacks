@@ -38,6 +38,7 @@ data "template_file" "user_data" {
   vars = {
     git_code_commit = var.git_code_commit
     git_code_repo   = var.git_code_repo
+    env             = var.env
     project         = var.project
   }
 }
