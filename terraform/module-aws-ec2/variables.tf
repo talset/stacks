@@ -12,5 +12,5 @@ variable "project" {
 }
 
 variable "front_type" {
-  default = "t3.small"
+  default = "t3.nano"
 }
