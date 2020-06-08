@@ -20,6 +20,4 @@ add-apt-repository \
 apt-get update -y
 apt-get install docker-ce docker-ce-cli containerd.io -y
 
-docker run -d -it -p 80:80 -e REPO=${git_code_repo} -e COMMIT=${git_code_commit} -e PROJECT=${project} -e ENV=${env} cycloid/step-by-step-nginx
-
 EOF
