@@ -1,0 +1,9 @@
+module "tf-sazdaz" {
+  source = "module-sazdaz"
+
+  # env - type: string
+  # env = "[PLACEHOLDER]"
+
+  # project - type: string
+  # project = "[PLACEHOLDER]"
+}

@@ -21,3 +21,7 @@ config:
       variables:
         destination: ($ project $)/pipeline/variables-($ environment $).yml
         path: default/pipeline/variables.sample.yaml
+    terraform:
+      sazdaz:
+        destination: ($ project $)/default/terraform/($ environment $)/sazdaz.tf
+        path: default/terraform/sazdaz.tf.sample
