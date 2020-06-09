@@ -1,0 +1,23 @@
+version: "2"
+name: Test_website
+canonical: test_website
+author: Julie Horville
+status: private
+description: blabla
+image: ""
+keywords:
+- Website
+- provider:aws
+technologies:
+- technology: stackcraft
+  version: "1"
+config:
+  default:
+    description: ""
+    name: default
+    pipeline:
+      pipeline:
+        path: default/pipeline/terraform-pipeline.yaml
+      variables:
+        destination: ($ project $)/pipeline/variables-($ environment $).yml
+        path: default/pipeline/variables.sample.yaml
