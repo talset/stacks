@@ -1,9 +1,0 @@
-module "tf-test_website_2" {
-  source = "module-test_website_2"
-
-  # env - type: string
-  # env = "[PLACEHOLDER]"
-
-  # project - type: string
-  # project = "[PLACEHOLDER]"
-}
