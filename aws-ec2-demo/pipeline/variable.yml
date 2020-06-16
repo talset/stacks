@@ -40,7 +40,7 @@ git_private_key: ((git_github.ssh_key))
 git_code_example_public: https://github.com/talset/stacks
 #. code_git_branch (required): master
 #+ Branch of the code source code git repository.
-code_git_branch: master
+code_git_branch: code
 
 # Cycloid events configuration
 api_login: ((basic_auth_cyclobot-account.username))
