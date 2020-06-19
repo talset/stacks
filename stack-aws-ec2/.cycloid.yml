@@ -1,5 +1,6 @@
 ---
 # Configuration of the Cycloid stack
+version: '2'
 name: 'aws-ec2'
 canonical: 'stack-aws-ec2'
 status: 'private'
@@ -15,15 +16,19 @@ technologies:
     version: n/a
 
 config:
-  # Configuration of the CI pipeline
-  pipeline:
-    pipeline:
-      path: 'pipeline/pipeline.yml'
-    variables:
-      path: 'pipeline/variables.sample.yml'
+  default:
+    name: 'my default use-case'
+    description: 'this is the default pipeline of the stack'
 
-  # Configuration of terraform to setup the infrastructure
-  terraform:
-    aws-ec2:
-      path: 'terraform/main.tf.sample'
-      destination: '($ project $)/terraform/($ environment $)/main.tf'
+    # Configuration of the CI pipeline
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+
+    # Configuration of terraform to setup the infrastructure
+    terraform:
+      aws-ec2:
+        path: 'terraform/main.tf.sample'
+        destination: '($ project $)/terraform/($ environment $)/main.tf'
