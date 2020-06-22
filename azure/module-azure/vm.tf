@@ -1,7 +1,7 @@
 resource "azurerm_public_ip" "main" {
   name                = "${var.project}-${var.env}-ip"
   resource_group_name = var.resource_group_name
-  location            = var.region
+  location            = var.azure_location
   allocation_method   = "Static"
 
   tags = {
@@ -13,7 +13,7 @@ resource "azurerm_public_ip" "main" {
 
 resource "azurerm_network_interface" "main" {
   name                = "${var.project}-${var.env}-nic"
-  location            = var.region
+  location            = var.azure_location
   resource_group_name = var.resource_group_name
 
   ip_configuration {
@@ -44,7 +44,7 @@ data "template_file" "user_data" {
 
 resource "azurerm_virtual_machine" "main" {
   name                  = "${var.project}-front-${var.env}"
-  location              = var.region
+  location              = var.azure_location
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.main.id]
   vm_size               = "Standard_DS1_v2"
@@ -102,7 +102,7 @@ resource "azurerm_virtual_machine" "main" {
   }
   tags = {
     environment = var.env
-        "cycloid.io" = "true"
+    "cycloid.io" = "true"
 
   }
 }

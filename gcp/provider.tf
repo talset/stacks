@@ -9,11 +9,13 @@ variable "git_code_repo" {
   default = "https://github.com/talset/stacks"
 }
 
-provider "aws" {
-  access_key = var.access_key
-  secret_key = var.secret_key
-  region     = var.aws_region
+provider "google" {
+  version = "~> 2.18.0"
+  project = var.gcp_project
 }
-variable "access_key" {}
-variable "secret_key" {}
-variable "aws_region" {}
+variable "gcp_project" {
+default = "cycloid-demo"
+}
+variable "gcp_zone" {
+default = "europe-west1-b"
+}
