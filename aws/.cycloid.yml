@@ -1,0 +1,36 @@
+---
+# Configuration of the Cycloid stack
+version: '2'
+name: 'aws-sample'
+canonical: 'stack-aws-sample'
+keywords:
+  - 'aws'
+  - 'instance'
+  - 'provider:aws'
+status: 'private'
+description: |
+  This stack will deploy a running Wordpress on a compute instance.
+author: 'Cycloid'
+image: |
+technologies:
+  - technology: Wordpress
+    version: n/a
+
+config:
+  default:
+    name: 'Basic deployment'
+    description: 'This pipeline will deploy a basic Wordpress'
+
+    # Configuration of the CI pipeline
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ project $)/pipeline/($ environment $)/variables.yml'
+
+    # Configuration of terraform to setup the infrastructure
+    terraform:
+      instance:
+        path: 'terraform/main.tf.sample'
+        destination: '($ project $)/terraform/($ environment $)/main.tf'
