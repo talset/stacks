@@ -9,13 +9,14 @@ variable "git_code_repo" {
   default = "https://github.com/talset/stacks"
 }
 
+# GCP
 provider "google" {
   version = "~> 2.18.0"
   project = var.gcp_project
 }
 variable "gcp_project" {
-default = "cycloid-demo"
+  default = "cycloid-demo"
 }
 variable "gcp_zone" {
-default = "europe-west1-b"
+  default = "europe-west1-b"
 }

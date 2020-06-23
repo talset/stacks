@@ -8,9 +8,12 @@ variable "keypair_name" {
 }
 
 variable "project" {
-  default = "aws-ec2"
+  default = "cycloid"
 }
 
-variable "front_type" {
-  default = "t3.nano"
+variable "instance_type" {
+  default = "t3.small"
 }
+
+variable "git_code_commit" {}
+variable "git_code_repo" {}

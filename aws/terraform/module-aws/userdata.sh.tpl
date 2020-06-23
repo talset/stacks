@@ -2,6 +2,17 @@
 
 set -x
 
+apt_wait () {
+  while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
+    sleep 1
+  done
+  while sudo fuser /var/lib/apt/lists/lock >/dev/null 2>&1 ; do
+    sleep 1
+  done
+}
+
+apt_wait
+
 apt-get update -y
 apt-get install \
     apt-transport-https \

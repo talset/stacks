@@ -2,17 +2,18 @@
 # Configuration of the Cycloid stack
 version: '2'
 name: 'aws-ec2'
-canonical: 'stack-aws-ec2'
+canonical: 'stack-aws'
 status: 'private'
 description: |
   This stack will deploy a docker image with magento on EC2 instance using default vpc.
 keywords:
-  - 'aws-ec2'
+  - 'aws'
+  - 'instance'
   - 'provider:aws'
 author: 'Cycloid'
 image: |
 technologies:
-  - technology: aws-ec2
+  - technology: aws
     version: n/a
 
 config:

@@ -1,4 +1,4 @@
-output "front_ip" {
-  value       = module.instance.front_ip
-  description = "IP of the front server."
+output "ip_address" {
+  value       = module.instance.ip_address
+  description = "IP of the server"
 }

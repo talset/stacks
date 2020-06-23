@@ -9,6 +9,7 @@ variable "git_code_repo" {
   default = "https://github.com/talset/stacks"
 }
 
+# Aws
 provider "aws" {
   access_key = var.access_key
   secret_key = var.secret_key

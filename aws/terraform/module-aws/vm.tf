@@ -39,7 +39,7 @@ resource "aws_instance" "front" {
   ami                         = data.aws_ami.debian.id
   user_data_base64            = base64encode(data.template_file.user_data.rendered)
   associate_public_ip_address = true
-  instance_type               = var.front_type
+  instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.front.id]
 
   tags = {

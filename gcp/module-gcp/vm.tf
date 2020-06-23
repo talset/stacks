@@ -21,8 +21,8 @@ resource "google_compute_firewall" "default" {
 }
 
 resource "google_compute_instance" "main" {
-  name                  = "${var.project}-front-${var.env}"
-  machine_type = "n1-standard-1"
+  name         = "${var.project}-front-${var.env}"
+  machine_type = var.instance_type
   zone         = var.gcp_zone
 
   tags = ["${var.project}-front-${var.env}-http"]
@@ -32,11 +32,6 @@ resource "google_compute_instance" "main" {
       image = "debian-cloud/debian-10"
     }
   }
-
-  # // Local SSD disk
-  # scratch_disk {
-  #   interface = "SCSI"
-  # }
 
   network_interface {
     network = "default"
@@ -48,12 +43,8 @@ resource "google_compute_instance" "main" {
 
   metadata = {
     environment = var.env
-    project = var.project
+    project     = var.project
   }
 
   metadata_startup_script = data.template_file.user_data.rendered
-
-  # service_account {
-  #   scopes = ["userinfo-email", "compute-ro", "storage-ro"]
-  # }
 }
