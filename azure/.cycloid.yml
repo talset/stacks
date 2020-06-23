@@ -1,12 +1,12 @@
 ---
 # Configuration of the Cycloid stack
 version: '2'
-name: 'aws-sample'
-canonical: 'stack-aws-sample'
+name: 'azure-sample'
+canonical: 'stack-azure-sample'
 keywords:
-  - 'aws'
+  - 'azure'
   - 'instance'
-  - 'provider:aws'
+  - 'provider:azure'
 status: 'private'
 description: |
   This stack will deploy a running Wordpress on a compute instance.
