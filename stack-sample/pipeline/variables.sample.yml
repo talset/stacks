@@ -9,7 +9,7 @@ code_git_public_repository: https://github.com/talset/stacks
 code_git_branch: code
 
 # Branch used to store the config of the stack
-stack_git_repository: git@github.com:talset/stacks.git
+git_repository: git@github.com:talset/stacks.git
 config_git_branch: config
 stack_git_branch: stacks
 
