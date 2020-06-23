@@ -1,0 +1,287 @@
+# YAML anchors
+shared:
+
+  # Task : sync and merge with rsync 2 rep. Used to merge stack and config
+  - &task-merge-stack-and-config
+    task: merge-stack-and-config
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: cycloid/cycloid-toolkit
+          tag: latest
+      run:
+        path: /usr/bin/merge-stack-and-config
+      inputs:
+        - name: git_config
+          path: "config"
+        - name: git_stack
+          path: "stack"
+      outputs:
+        - name: merged-stack
+          path: "merged-stack"
+    params:
+      CONFIG_PATH: ((project))/terraform/((env))
+      STACK_PATH: stack-sample/terraform
+
+  - &task-get-commit
+    task: get-commit
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: cycloid/cycloid-toolkit
+          tag: latest
+      run:
+        path: /bin/bash
+        args:
+        - -c
+        - |
+          DIR=${PWD}
+          echo "git_code_commit = \"$(cat git_code/.git/ref)\"" | tee -a extracted-vars/terraform.tfvars
+          echo "git_code_repo = \"${GIT_CODE_REPO}\"" | tee -a extracted-vars/terraform.tfvars
+      params:
+        ENV: ((env))
+        GIT_CODE_REPO: ((git_code_example_public))
+      inputs:
+        - name: git_code
+      outputs:
+        - name: extracted-vars
+          path: "extracted-vars"
+
+groups:
+- name: overview
+  jobs:
+  - unittest
+  - terraform-plan
+  - terraform-apply
+  - functional-tests
+- name: destroy
+  jobs:
+  - terraform-destroy
+
+resource_types:
+- name: terraform
+  type: docker-image
+  source:
+    repository: ljfranklin/terraform-resource
+    tag: '0.12.24'
+
+- name: cycloid-events
+  type: docker-image
+  source:
+    repository: cycloid/cycloid-events-resource
+
+resources:
+- name: tfstate
+  type: terraform
+  source:
+    env_name: ((env))
+    backend_type: s3
+    backend_config:
+      bucket: ((terraform_storage_bucket_name))
+      key: ((project))-((env)).tfstate
+      workspace_key_prefix: ((project))
+      region: ((aws_default_region))
+      access_key: ((aws_access_key))
+      secret_key: ((aws_secret_key))
+    vars:
+      access_key: ((aws_access_key))
+      secret_key: ((aws_secret_key))
+      env: ((env))
+      project: ((project))
+      customer: ((customer))
+      aws_region: ((aws_default_region))
+
+# The Terraform stack (will be merged with the config)
+- name: git_stack
+  type: git
+  source:
+    uri: ((git_repository))
+    branch: ((stack_git_branch))
+    private_key: ((git_private_key))
+    paths:
+      - stack-sample/terraform/*
+
+# The Terraform config (will be merged with the stack)
+- name: git_config
+  type: git
+  source:
+    uri: ((git_repository))
+    branch: ((config_git_branch))
+    private_key: ((git_private_key))
+    paths:
+      - ((project))/terraform/((env))/*
+
+- name: git_code
+  type: git
+  source:
+    uri: ((git_code_example_public))
+    branch: ((code_git_branch))
+
+- name: cycloid-events
+  type: cycloid-events
+  source:
+    api_login: ((api_login))
+    api_password: ((api_password))
+    api_url: ((api_url))
+    icon: fa-code-branch
+    organization: ((customer))
+    severity: info
+    type: Custom
+    tags:
+      - key: project
+        value: ((project))
+      - key: env
+        value: ((env))
+      - key: customer
+        value: ((customer))
+
+jobs:
+  - name: unittest
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+    - do:
+      - get: git_code
+        trigger: true
+      - task: test
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: linkchecker/linkchecker
+              tag: latest
+          run:
+            path: /bin/bash
+            args:
+            - -exc
+            - |
+              linkchecker code/index.html
+          inputs:
+          - name: git_code
+            path: code
+
+  - name: terraform-plan
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+      - do:
+        - get: git_stack
+          trigger: true
+        - get: git_config
+          trigger: true
+        - *task-merge-stack-and-config
+        - get: git_code
+          trigger: true
+          passed:
+            - unittest
+        - *task-get-commit
+        - put: tfstate
+          params:
+            plan_only: true
+            terraform_source: merged-stack/
+            var_files:
+              - extracted-vars/terraform.tfvars
+
+  - name: terraform-apply
+    build_logs_to_retain: 10
+    plan:
+      - do:
+        # Get the PR on the project #
+        - get: git_stack
+          trigger: false
+          passed:
+            - terraform-plan
+        - get: git_config
+          trigger: false
+          passed:
+            - terraform-plan
+        - get: tfstate
+          trigger: false
+          passed:
+            - terraform-plan
+        - get: git_code
+          passed:
+            - terraform-plan
+        - *task-merge-stack-and-config
+        - *task-get-commit
+        - put: tfstate
+          params:
+            plan_run: true
+            terraform_source: merged-stack/
+            var_files:
+              - extracted-vars/terraform.tfvars
+
+  - name: terraform-destroy
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+      - do:
+          - get: git_stack
+            trigger: false
+          - get: git_config
+            trigger: false
+          - *task-merge-stack-and-config
+          - put: tfstate
+            params:
+              action: destroy
+              terraform_source: merged-stack/
+            get_params:
+              action: destroy
+
+  - name: functional-tests
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+    - do:
+      - get: tfstate
+        passed: [terraform-apply]
+        trigger: true
+      - task: test
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: latest
+          run:
+            path: /bin/bash
+            args:
+            - -c
+            - |
+              echo "Dummy functional tests"
+
+              # Wait 5 min ec2 up
+              for i in {1..20}
+              do
+                STATUS=$(curl --connect-timeout 2 -s -o /dev/null -w '%{http_code}' $(jq -r .front_ip tfstate/metadata))
+                if [ $STATUS -eq 200 ]; then
+                  echo "Got 200! All done!"
+                  exit 0
+                else
+                  echo "Got $STATUS :( Not done yet... (retry ${i}/20)"
+                fi
+                sleep 15
+              done
+              echo "functional tests [Failed]"
+              exit 1
+          inputs:
+          - name: tfstate
+      on_failure:
+        do:
+        - put: cycloid-events
+          params:
+            severity: crit
+            message: Oops
+            title: The deployment of ((project)) owl have failed on ((env)) environment
+      on_success:
+        do:
+        - put: cycloid-events
+          params:
+            message: Congrats !
+            title: Successful deployment of ((project)) owl on ((env)) environment
