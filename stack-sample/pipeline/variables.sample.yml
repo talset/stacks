@@ -13,11 +13,6 @@ git_repository: git@github.com:talset/stacks.git
 config_git_branch: config
 stack_git_branch: gcp
 
-# Aws access to use inside the pipeline
-aws_access_key: ((aws_step-by-step.access_key))
-aws_secret_key: ((aws_step-by-step.secret_key))
-aws_default_region: eu-west-1
-
 # Terraform tfstate storage Configuration
 terraform_storage_bucket_name: ($ organization_canonical $)-terraform-remote-state
 terraform_storage_bucket_path: ($ project $)
@@ -26,3 +21,7 @@ terraform_storage_bucket_path: ($ project $)
 api_login: ((basic_auth_cyclobot-account.username))
 api_password: ((basic_auth_cyclobot-account.password))
 api_url: https://http-api.cycloid.io
+
+gcp_project: cycloid-demo
+gcp_zone: "europe-west1-b"
+gcp_credentials_json: ((gcp_step-by-step.json_key))
