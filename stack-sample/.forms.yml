@@ -6,13 +6,11 @@ default:
         key: azure_resource_group_name
         widget: simple_text
         type: string
-        description: ""
         default: "cycloid-demo"
       - name: "Azure environment"
         key: azure_env
         widget: radios
         type: string
-        description: ""
         values:
         - public
         - china
@@ -24,70 +22,59 @@ default:
         key: azure_location
         widget: auto_complete
         type: string
-        description: ""
         values: [eastasia,southeastasia,centralus,eastus,eastus2,westus,northcentralus,southcentralus,northeurope,westeurope,japanwest,japaneast,brazilsouth,australiaeast,australiasoutheast,southindia,centralindia,westindia,canadacentral,canadaeast,uksouth,ukwest,westcentralus,westus2,koreacentral,koreasouth,francecentral,francesouth,australiacentral,australiacentral2,uaecentral,uaenorth,southafricanorth,southafricawest,switzerlandnorth,switzerlandwest,germanynorth,germanywestcentral,norwaywest,norwayeast]
         default: francecentral
       - name: "Azure subscription id"
         key: azure_subscription_id
         widget: cy_cred
         type: string
-        description: ""
         default: "((azure_step-by-step.subscription_id))"
       - name: "Azure tenant id"
         key: azure_tenant_id
         widget: cy_cred
         type: string
-        description: ""
         default: "((azure_step-by-step.tenant_id))"
       - name: "Azure client id"
         key: azure_client_id
         widget: cy_cred
         type: string
-        description: ""
         default: "((azure_step-by-step.client_id))"
       - name: "Azure client secret"
         key: azure_client_secret
         widget: cy_cred
         type: string
-        description: ""
         default: "((azure_step-by-step.client_secret))"
     Git:
       - name: "Gits ssh key"
         key: git_ssh_key
         widget: cy_cred
         type: string
-        description: ""
         default: "((ssh_step-by-step.ssh_key))"
       - name: "Code git repository url"
         key: code_git_public_repository
         widget: simple_text
         type: string
-        description: ""
         default: "https://github.com/talset/stacks"
       - name: "Code git repository branch"
         key: code_git_branch
         widget: simple_text
         type: string
-        description: ""
         default: code
       - name: "Service catalog repository"
         key: git_repository
         widget: cy_scs
         type: string
-        description: ""
         default: git@github.com:talset/stacks.git
       - name: "Service catalog branch"
         key: stack_git_branch
         widget: cy_branch
         type: string
-        description: ""
         source: git_repository
         default: azure
       - name: "Config catalog branch"
         key: config_git_branch
         widget: cy_branch
         type: string
-        description: ""
         source: git_repository
         default: config
     Terraform:
@@ -95,48 +82,40 @@ default:
         key: terraform_storage_account_name
         widget: cy_cred
         type: string
-        description: ""
         default: "((azure_storage_step-by-step.account_name))"
       - name: "Terraform Azure storage access key"
         key: terraform_storage_access_key
         widget: cy_cred
         type: string
-        description: ""
         default: "((azure_storage_step-by-step.access_key))"
       - name: "Azure storage account name"
         key: azure_storage_account_name
         widget: simple_text
         type: string
-        description: ""
         default: "cycloiddemotfstate"
       - name: "Azure storage container name"
         key: terraform_storage_container_name
         widget: simple_text
         type: string
-        description: ""
         default: "cycloid-demo"
       - name: "Azure storage container path"
         key: terraform_storage_container_path
         widget: simple_text
         type: string
-        description: ""
         default: "($ project $)/($ environment $)"
     Cycloid-API:
       - name: "Cycloid api login"
         key: api_login
         widget: cy_cred
         type: string
-        description: ""
         default: "((basic_auth_cyclobot-account.username))"
       - name: "Cycloid api password"
         key: api_password
         widget: cy_cred
         type: string
-        description: ""
         default: "((basic_auth_cyclobot-account.password))"
       - name: "Cycloid api url"
         key: api_url
         widget: simple_text
         type: string
-        description: ""
         default: https://http-api.cycloid.io
