@@ -1,0 +1,37 @@
+env: test
+project: step-azure
+customer: cycloid-sandbox
+
+git_ssh_key: ((ssh_step-by-step.ssh_key))
+
+# Code repo configuration
+code_git_public_repository: https://github.com/talset/stacks
+code_git_branch: code
+
+# Branch used to store the config of the stack
+git_repository: git@github.com:talset/stacks.git
+config_git_branch: config
+stack_git_branch: azure
+
+# Cycloid events configuration
+api_login: ((basic_auth_cyclobot-account.username))
+api_password: ((basic_auth_cyclobot-account.password))
+api_url: https://http-api.cycloid.io
+
+# Terraform tfstate storage Configuration
+terraform_storage_container_path: step-azure/test
+terraform_storage_container_name: cycloid-demo
+terraform_storage_access_key: ((azure_storage_stepp-by-step.access_key))
+terraform_storage_account_name: ((azure_storage_step-by-step.account_name))
+
+azure_resource_group_name: cycloid-demo
+azure_storage_account_name: cycloiddemotfstate
+azure_location: francecentral
+azure_env: public
+
+azure_subscription_id: ((azure_step-by-step.subscription_id))
+azure_tenant_id: ((azure_step-by-step.tenant_id))
+azure_client_id: ((azure_step-by-step.client_id))
+azure_client_secret: ((azure_step-by-step.client_secret))
+
+
