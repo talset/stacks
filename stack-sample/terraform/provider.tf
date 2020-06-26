@@ -33,11 +33,8 @@ variable "azure_env" {
   default = "public"
 }
 
+variable "azure_resource_group_name" {}
+
 variable "azure_location" {
   default = "francecentral"
-}
-variable "azure_resource_group" {
-  default = "cycloid-demo"
-}
-variable "azure_subnet_id" {
 }

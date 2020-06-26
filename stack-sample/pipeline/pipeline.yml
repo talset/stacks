@@ -75,23 +75,27 @@ resource_types:
 resources:
 - name: tfstate
   type: terraform
+  icon: terraform
   source:
     env_name: ((env))
-    backend_type: s3
+    backend_type: azurerm
     backend_config:
-      bucket: ((terraform_storage_bucket_name))
-      key: terraform.tfstate
-      workspace_key_prefix: ((project))
-      region: ((aws_default_region))
-      access_key: ((aws_access_key))
-      secret_key: ((aws_secret_key))
+      container_name: ((terraform_storage_container_name))
+      key: ((terraform_storage_container_path))/((project))-((env)).tfstate
+      resource_group_name: ((azure_resource_group_name))
+      storage_account_name: ((terraform_storage_account_name))
+      access_key: ((terraform_storage_access_key))
     vars:
-      access_key: ((aws_access_key))
-      secret_key: ((aws_secret_key))
-      aws_region: ((aws_default_region))
+      azure_location: ((azure_location))
+      azure_env: ((azure_env))
+      azure_client_id: ((azure_client_id))
+      azure_client_secret: ((azure_client_secret))
+      azure_subscription_id: ((azure_subscription_id))
+      azure_tenant_id: ((azure_tenant_id))
       env: ((env))
       project: ((project))
       customer: ((customer))
+
 
 # The Terraform stack (will be merged with the config)
 - name: git_stack
