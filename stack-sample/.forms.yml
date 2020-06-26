@@ -10,7 +10,7 @@ default:
         default: "cycloid-demo"
       - name: "Azure environment"
         key: azure_env
-        widget: dropdown
+        widget: radios
         type: string
         description: ""
         values:
