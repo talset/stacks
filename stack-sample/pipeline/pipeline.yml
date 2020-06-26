@@ -86,6 +86,7 @@ resources:
       storage_account_name: ((terraform_storage_account_name))
       access_key: ((terraform_storage_access_key))
     vars:
+      azure_resource_group_name: ((azure_resource_group_name))
       azure_location: ((azure_location))
       azure_env: ((azure_env))
       azure_client_id: ((azure_client_id))
