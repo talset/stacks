@@ -8,7 +8,7 @@ module "instance" {
   git_code_repo   = "${var.git_code_repo}"
 
   // Azure
-  resource_group_name = var.azure_resource_group_name
+  resource_group_name = "${var.azure_resource_group_name}"
   subnet_id           = "/subscriptions/.../subnets/default"
   azure_location      = "${var.azure_location}"
   instance_type       = "Standard_DS1_v2"
