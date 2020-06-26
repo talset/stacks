@@ -21,7 +21,7 @@ api_url: https://http-api.cycloid.io
 # Terraform tfstate storage Configuration
 terraform_storage_container_path: step-azure/test
 terraform_storage_container_name: cycloid-demo
-terraform_storage_access_key: ((azure_storage_stepp-by-step.access_key))
+terraform_storage_access_key: ((azure_storage_step-by-step.access_key))
 terraform_storage_account_name: ((azure_storage_step-by-step.account_name))
 
 azure_resource_group_name: cycloid-demo
