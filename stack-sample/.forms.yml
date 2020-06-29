@@ -1,0 +1,106 @@
+---
+default:
+  pipeline:
+    Cloud-provider:
+      - name: "Aws region"
+        key: aws_default_region
+        widget: auto_complete
+        type: string
+        values: ["eu-north-1","ap-south-1","eu-west-3","eu-west-2","eu-west-1","ap-northeast-2","ap-northeast-1","sa-east-1","ca-central-1","ap-southeast-1","ap-southeast-2","eu-central-1","us-east-1","us-east-2","us-west-1","us-west-2"]
+        default: eu-west-1
+      - name: "AWS access key id"
+        description: "AWS access key id which should be used"
+        key: aws_access_key
+        widget: cy_cred
+        type: string
+        default: "((aws_step-by-step.access_key))"
+      - name: "AWS secret key"
+        description: "AWS secret key which should be used"
+        key: aws_secret_key
+        widget: cy_cred
+        type: string
+        default: "((aws_step-by-step.secret_key))"
+    Application-code:
+      - name: "Application git public url"
+        description: "The url of the public GIT repository containing the source code of the application"
+        key: code_git_public_repository
+        widget: simple_text
+        type: string
+        default: "https://github.com/talset/stacks"
+      - name: "Application git repository branch"
+        description: "The branch of the public GIT repository containing the source code of the application"
+        key: code_git_branch
+        widget: simple_text
+        type: string
+        default: code
+    Private-stack:
+      - name: "Service catalog repository"
+        description: "Service catalog repository containing your private stack"
+        key: git_repository
+        widget: cy_scs
+        type: string
+        default: git@github.com:talset/stacks.git
+      - name: "Service catalog branch"
+        description: "Branch to use containing the source code of your stack"
+        key: stack_git_branch
+        widget: cy_branch
+        type: string
+        source: git_repository
+        default: azure
+      - name: "Config catalog branch"
+        description: "Branch to use which will contain the Configuration of your environment"
+        key: config_git_branch
+        widget: cy_branch
+        type: string
+        source: git_repository
+        default: config
+      - name: "Service catalog repository credential (SSH key)"
+        description: "Credential (SSH key) used to fetch the service catalog of the stack"
+        key: git_ssh_key
+        widget: cy_cred
+        type: string
+        default: "((ssh_step-by-step.ssh_key))"
+    Terraform:
+      - name: "AWS S3 bucket name"
+        description: "Name of the AWS S3 bucket used to store Terraform tfstate file"
+        key: terraform_storage_bucket_name
+        widget: simple_text
+        type: string
+        default: "($ organization_canonical $)-terraform-remote-state"
+      - name: "AWS S3 bucket path"
+        description: "The path in the AWS S3 bucket used to store Terraform tfstate file"
+        key: terraform_storage_bucket_path
+        widget: simple_text
+        type: string
+        default: "($ project $)"
+    Cycloid-API:
+      - name: "Cycloid api url"
+        description: "Url of the Cycloid API to use"
+        key: api_url
+        widget: simple_text
+        type: string
+        default: https://http-api.cycloid.io
+      - name: "Cycloid api login"
+        key: api_login
+        widget: cy_cred
+        type: string
+        default: "((basic_auth_cyclobot-account.username))"
+      - name: "Cycloid api password"
+        key: api_password
+        widget: cy_cred
+        type: string
+        default: "((basic_auth_cyclobot-account.password))"
+
+  terraform:
+    configuration:
+      - name: "AWS instance type"
+        description: "The type of instance you want to create"
+        key: instance_type
+        widget: slider_list
+        type: string
+        values:
+        - t3.nano
+        - t3.micro
+        - t3.small
+        - t3.medium
+        default: t3.small
