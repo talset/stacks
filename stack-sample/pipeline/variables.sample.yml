@@ -25,7 +25,6 @@ terraform_storage_access_key: ((azure_storage_step-by-step.access_key))
 terraform_storage_account_name: ((azure_storage_step-by-step.account_name))
 
 azure_resource_group_name: cycloid-demo
-azure_storage_account_name: cycloiddemotfstate
 azure_location: francecentral
 azure_env: public
 
