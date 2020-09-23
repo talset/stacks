@@ -1,0 +1,12 @@
+---
+default:
+  pipeline:
+    Git:
+      - name: Config git branch
+        key: config_git_branch
+        widget: simple_text
+        type: string
+        description: "Config git branch"
+        default:  master
+        required: true
+
