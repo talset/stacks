@@ -127,7 +127,7 @@ resources:
         - key: customer
           value: ((customer))
 
-jobs:
+#jobs:
 
   - name: terraform-plan
     max_in_flight: 1
