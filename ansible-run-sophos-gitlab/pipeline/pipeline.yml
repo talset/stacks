@@ -1,0 +1,117 @@
+resources:
+
+# YAML anchors
+shared:
+
+  # Task : sync and merge with rsync 2 rep. Used to merge stack and config
+  - &merge-stack-and-config
+    platform: linux
+    image_resource:
+      type: docker-image
+      source:
+        repository: cycloid/cycloid-toolkit
+        tag: latest
+    run:
+      path: /usr/bin/merge-stack-and-config
+    outputs:
+    - name: merged-stack
+      path: "merged-stack"
+
+  - &run-ansible-from-bastion
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: cycloid/cycloid-toolkit
+          tag: py3-a2.8
+      run:
+        path: /usr/bin/ansible-runner
+      caches:
+        - path: ansible-playbook/roles
+      inputs:
+      - name: merged-stack
+        path: ansible-playbook
+
+#jobs:
+# The Ansible config (will be merged with the stack)
+- name: git_config-ansible
+  type: git
+  source:
+    uri: ((config_git_repository))
+    branch: ((config_git_branch))
+    private_key: ((config_git_private_key))
+    paths:
+      - ((config_ansible_path))/*
+
+- name: git_stack-ansible
+  type: git
+  source:
+    uri: git@github.com:abhaysrivastava-orange/ansible-run-sophos-gitlab.git 
+    branch: stacks
+    private_key: ((stack_git_private_key))
+    paths:
+      - ansible/*
+
+
+jobs:
+# Ansible runner documentation https://cloud.docker.com/u/cycloid/repository/docker/cycloid/cycloid-toolkit
+  - name: run-ansible
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+    - do:
+      - get: git_config-ansible
+        trigger: false
+      - get: git_stack-ansible
+        trigger: false
+
+      - task: merge-stack-and-config
+        config:
+          <<: *merge-stack-and-config
+          inputs:
+          - name: git_config-ansible
+            path: "config"
+          - name: git_stack-ansible
+            path: "stack"
+        params:
+          CONFIG_PATH: ((config_ansible_path))
+          STACK_PATH: ansible
+          
+      - task: run-ansible
+        <<: *run-ansible-from-bastion
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: py3-a2.8
+          container_limits: {}
+          params:
+            STACK_PATH: ansible
+          run:
+            path: /bin/sh 
+            args:
+              - '-ec'
+              - |
+                set -o pipefail
+                /usr/bin/ansible-runner  | tee -a /ansible.log
+          caches:
+            - path: ansible-playbook/roles
+          inputs:
+          - name: merged-stack
+            path: ansible-playbook
+        params:
+          BASTION_URL: ((bastion_url))
+          BASTION_PRIVATE_KEY: ((bastion_private_key_pair))
+          ANSIBLE_PLAYBOOK_PATH: ansible-playbook
+          ANSIBLE_PLAYBOOK_NAME: playbook.yml
+          ANSIBLE_REMOTE_USER: cloud
+          ANSIBLE_FORCE_GALAXY: false
+          EXTRA_ANSIBLE_ARGS: "--inventory inventory_final"
+          SSH_PRIVATE_KEY: ((instance_ssh_key))
+          EXTRA_VARS:
+            customer: ((customer))
+            project: ((project))
+            env: ((env))

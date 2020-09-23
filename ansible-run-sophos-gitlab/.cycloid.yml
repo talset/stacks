@@ -1,0 +1,28 @@
+# Configuration of the CI pipeline
+name: 'Sophos ansible gitlab stack'
+canonical: 'sophos-ansible-gitlab-stack'
+description: 'Demo stack to deploy sophos'
+keywords:
+  - 'FE'
+  - 'sophos'
+  - 'Managed'
+technologies:
+  - technology: FE cloud
+    version: n/a
+author: 'Abhay Srivastava'
+image: 'https://raw.githubusercontent.com/abhaysrivastava-orange/cycloid-image-icon/master/sophos.jpg'
+type: 'stack'
+config:
+  # Configuration of the CI pipeline
+  pipeline:
+    pipeline:
+      path: 'pipeline/pipeline.yml'
+    variables:
+      path: 'pipeline/variables.sample.yml'
+      destination: '($ project $)/pipeline/variables-($ environment $)/pipleline_var.yml'
+
+  ansible:
+    sophos:
+      path: 'ansible/inventory'
+      destination: '($ project $)/ansible/($ environment $)/inventory_final'
+
