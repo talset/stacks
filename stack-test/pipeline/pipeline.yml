@@ -15,35 +15,36 @@ shared:
     - name: merged-stack
       path: "merged-stack"
 
-  # Task : connect on the bastion server and run ansible from it
-  - &run-ansible
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: cycloid/cycloid-toolkit
-          tag: v2.7
-      run:
-        path: /usr/bin/ansible-runner
-      caches:
-        - path: ansible-playbook/roles
-      inputs:
-      - name: merged-stack
-        path: ansible-playbook
-
-
 resources:
-  - name: git_stack
-    type: git
-    check_every: 2m
-    source:
-      uri: ((git_repository))
-      branch: stacks
-      private_key: ((git_ssh_key))
-      paths:
-        - stack-ec2/terraform/*
-  
+- name: git_stack
+  type: git
+  check_every: 2m
+  source:
+    uri: ((git_repository))
+    branch: stacks
+    private_key: ((git_ssh_key))
+    paths:
+      - stack-ec2/terraform/*
+
+- name: tfstate
+  type: terraform
+  source:
+    env_name: ((env))
+    backend_type: s3
+    backend_config:
+      bucket: ((terraform_storage_bucket_name))
+      key: ((terraform_storage_bucket_path))/terraform.tfstate
+      region: ((aws_default_region))
+      access_key: ((aws_access_key))
+      secret_key: ((aws_secret_key))
+    vars:
+      access_key: ((aws_access_key))
+      secret_key: ((aws_secret_key))
+      aws_region: ((aws_default_region))
+      env: ((env))
+      project: ((project))
+      customer: ((customer))
+
 groups:
   - name: all
     jobs:
