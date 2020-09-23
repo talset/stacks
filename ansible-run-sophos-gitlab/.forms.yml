@@ -17,12 +17,3 @@ default:
         description: "Config Git repo"
         default: git@github.com:abhaysrivastava-orange/config-all-project-abhay.git
         required: true
-
-    Ansible:
-      - name: Bastion url
-        key: "bastion_url"
-        widget: simple_text
-        type: string
-        description: "Bastion url"
-        default: cloud@90.84.243.183
-        required: true
