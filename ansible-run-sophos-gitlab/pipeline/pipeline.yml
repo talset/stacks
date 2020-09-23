@@ -33,7 +33,7 @@ shared:
       - name: merged-stack
         path: ansible-playbook
 
-#jobs:
+jobs:
 # The Ansible config (will be merged with the stack)
 - name: git_config-ansible
   type: git
