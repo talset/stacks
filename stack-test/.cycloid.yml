@@ -2,6 +2,7 @@
 name: 'My test stack'
 canonical: 'stack-flo-test'
 description: 'Test with terraform'
+status: 'private'
 keywords:
   - 'aws'
   - 'ec2'
