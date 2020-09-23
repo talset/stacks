@@ -58,76 +58,76 @@ resource_types:
 
 resources:
 
-  - name: git_stack
-    type: git
-    check_every: 2m
-    source:
-      uri: ((git_repository))
-      branch: stacks
-      private_key: ((git_ssh_key))
-      paths:
-        - stack-ec2/terraform/*
+        #  - name: git_stack
+        #    type: git
+        #    check_every: 2m
+        #    source:
+        #      uri: ((git_repository))
+        #      branch: stacks
+        #      private_key: ((git_ssh_key))
+        #      paths:
+        #        - stack-ec2/terraform/*
+        #
+        #  - name: git_stack_ansible
+        #    type: git
+        #    check_every: 2m
+        #    source:
+        #      uri: ((git_repository))
+        #      branch: stacks
+        #      private_key: ((git_ssh_key))
+        #      paths:
+        #        - stack-ec2/ansible/*
+        #
+        #  - name: git_config
+        #    type: git
+        #    check_every: 2m
+        #    source:
+        #      uri: ((git_repository))
+        #      branch: ((config_git_branch))
+        #      private_key: ((git_ssh_key))
+        #
+        #  - name: tfstate
+        #    type: terraform
+        #    source:
+        #      env_name: ((env))
+        #      backend_type: s3
+        #      backend_config:
+        #        bucket: ((terraform_storage_bucket_name))
+        #        key: ((terraform_storage_bucket_path))/terraform.tfstate
+        #        region: ((aws_default_region))
+        #        access_key: ((aws_access_key))
+        #        secret_key: ((aws_secret_key))
+        #      vars:
+        #        access_key: ((aws_access_key))
+        #        secret_key: ((aws_secret_key))
+        #        aws_region: ((aws_default_region))
+        #        env: ((env))
+        #        project: ((project))
+        #        customer: ((customer))
+        #      env:
+        #        AWS_ACCESS_KEY_ID: ((aws_access_key))
+        #        AWS_SECRET_ACCESS_KEY: ((aws_secret_key))
+        #        AWS_DEFAULT_REGION: ((aws_default_region))
+        #
+        #  - name: cycloid-events
+        #    type: cycloid-events
+        #    source:
+        #      api_login: ((api_login))
+        #      api_password: ((api_password))
+        #      api_url: ((api_url))
+        #      icon: fa-code-branch
+        #      organization: ((customer))
+        #      severity: info
+        #      type: Custom
+        #      tags:
+        #        - key: project
+        #          value: ((project))
+        #        - key: env
+        #          value: ((env))
+        #        - key: customer
+        #          value: ((customer))
 
-  - name: git_stack_ansible
-    type: git
-    check_every: 2m
-    source:
-      uri: ((git_repository))
-      branch: stacks
-      private_key: ((git_ssh_key))
-      paths:
-        - stack-ec2/ansible/*
-
-  - name: git_config
-    type: git
-    check_every: 2m
-    source:
-      uri: ((git_repository))
-      branch: ((config_git_branch))
-      private_key: ((git_ssh_key))
-
-  - name: tfstate
-    type: terraform
-    source:
-      env_name: ((env))
-      backend_type: s3
-      backend_config:
-        bucket: ((terraform_storage_bucket_name))
-        key: ((terraform_storage_bucket_path))/terraform.tfstate
-        region: ((aws_default_region))
-        access_key: ((aws_access_key))
-        secret_key: ((aws_secret_key))
-      vars:
-        access_key: ((aws_access_key))
-        secret_key: ((aws_secret_key))
-        aws_region: ((aws_default_region))
-        env: ((env))
-        project: ((project))
-        customer: ((customer))
-      env:
-        AWS_ACCESS_KEY_ID: ((aws_access_key))
-        AWS_SECRET_ACCESS_KEY: ((aws_secret_key))
-        AWS_DEFAULT_REGION: ((aws_default_region))
-
-  - name: cycloid-events
-    type: cycloid-events
-    source:
-      api_login: ((api_login))
-      api_password: ((api_password))
-      api_url: ((api_url))
-      icon: fa-code-branch
-      organization: ((customer))
-      severity: info
-      type: Custom
-      tags:
-        - key: project
-          value: ((project))
-        - key: env
-          value: ((env))
-        - key: customer
-          value: ((customer))
-
-#jobs:
+jobs:
 
   - name: terraform-plan
     max_in_flight: 1
