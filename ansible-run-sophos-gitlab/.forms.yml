@@ -10,28 +10,12 @@ default:
         default:  master
         required: true
 
-      - name: Config git private key
-        key: config_git_private_key
-        widget: cy_cred
-        type: string
-        description: "Config git private key"
-        default: "((git_abhay_git_ssh.ssh_key))"
-        required: true
-
       - name: Config git repo
         key: config_git_repository
         widget: simple_text
         type: string
         description: "Config Git repo"
         default: git@github.com:abhaysrivastava-orange/config-all-project-abhay.git
-        required: true
-
-      - name: Stack Git private key
-        key: stack_git_private_key
-        widget: cy_cred
-        type: string
-        description: "Stack Git private key"
-        default: "((git_abhay_git_ssh.ssh_key))"
         required: true
 
     Ansible:
@@ -41,20 +25,4 @@ default:
         type: string
         description: "Bastion url"
         default: cloud@90.84.243.183
-        required: true
-
-      - name: FE Bastion key
-        key: "bastion_private_key_pair"
-        widget: cy_cred
-        type: string
-        description: "FE Bastion key"
-        default: "((git_abhay-fe-ssh.ssh_key))"
-        required: true
-
-      - name: FE Instance key
-        key: "instance_ssh_key"
-        widget: cy_cred
-        type: string
-        description: "FE Instance key"
-        default: "((git_abhay-fe-ssh.ssh_key))"
         required: true
