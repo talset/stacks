@@ -10,7 +10,7 @@ code_git_branch: code
 
 # Branch used to store the config of the stack
 git_repository: git@github.com:gaelL/tmp_test.git
-stack_git_branch: stack-aws
+stack_git_branch: stacks
 
 # Aws access to use inside the pipeline
 aws_access_key: ((aws_step-by-step.access_key))
