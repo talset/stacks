@@ -10,6 +10,7 @@ code_git_branch: code-v2
 
 # Branch used to store the config of the stack
 git_repository: git@github.com:gaelL/tmp_test.git
+config_git_branch: config
 stack_git_branch: stacks
 
 # Aws access to use inside the pipeline
