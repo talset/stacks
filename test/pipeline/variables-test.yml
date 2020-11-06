@@ -14,9 +14,8 @@ aws_secret_key: ""
 config_git_branch: config
 config_git_private_key: ((aws_admin.access_key))
 config_git_repository: git@github.com:cycloidio/cycloid-stacks-test.git
-config_terraform_path: test/terraform/test
 customer: cycloid-sandbox
 env: test
 project: test
-stack_git_branch: master
 terraform_storage_bucket_name: cycloid-sandbox-terraform-remote-state
+terraform_storage_bucket_path: test/test
