@@ -8,27 +8,15 @@
 #
 # Any extra variables not found in the original file have been ignored.
 #
-ansible_vault_password: ""
-ansible_version: "2.7"
 aws_access_key: ""
 aws_default_region: eu-west-1
 aws_secret_key: ""
-bastion_private_key_pair: ""
-bastion_url: user@bastion.server.com
-config_ansible_path: test/ansible
 config_git_branch: config
 config_git_private_key: ((aws_admin.access_key))
 config_git_repository: git@github.com:cycloidio/cycloid-stacks-test.git
 config_terraform_path: test/terraform/test
 customer: cycloid-sandbox
 env: test
-magento_admin_password: ((custom_magento_admin_password))
-magento_deploy_bucket_name: test-deploy
-magento_deploy_bucket_object_path: /catalog-magento/test/magento.tar.gz
-magento_git_branch: master
-magento_git_private_key: ""
-magento_git_repository: git@github.com:MyUser/code-magento.git
 project: test
-rds_password: ((custom_rds_password))
 stack_git_branch: master
 terraform_storage_bucket_name: cycloid-sandbox-terraform-remote-state
