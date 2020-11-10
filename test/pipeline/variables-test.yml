@@ -8,14 +8,4 @@
 #
 # Any extra variables not found in the original file have been ignored.
 #
-aws_access_key: ""
-aws_default_region: eu-west-1
-aws_secret_key: ""
-config_git_branch: config
-config_git_private_key: ((aws_admin.access_key))
-config_git_repository: git@github.com:cycloidio/cycloid-stacks-test.git
-customer: cycloid-sandbox
-env: test
-project: test
-terraform_storage_bucket_name: cycloid-sandbox-terraform-remote-state
-terraform_storage_bucket_path: test/test
+message: hello world and especially to cycloid-sandbox
