@@ -8,7 +8,7 @@
 #
 # Any extra variables not found in the original file have been ignored.
 #
-ansible_params: test une string\nsuyr plusieurs lignes
+ansible_params: une string sur plusieurs lignes
 ansible_version: v2.7
 customer: cycloid-sandbox
 env: test3
