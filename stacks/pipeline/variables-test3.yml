@@ -8,11 +8,9 @@
 #
 # Any extra variables not found in the original file have been ignored.
 #
-ansible_params:
+ansible_params: |-
   li: gnes
   plus: ieurs
-  su: r
-  une: string
 ansible_version: v2.7
 customer: cycloid-sandbox
 env: test3
