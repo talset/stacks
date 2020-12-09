@@ -18,7 +18,8 @@ ansible_params:
     project: stacks
   SSH_JUMP_URL: user1@Bastion1
   SSH_PRIVATE_KEYS:
-  - ((ssh_bastion.ssh_key))
+  - mysecretbastion key
+  - second key
 ansible_version: v2.7
 customer: cycloid-sandbox
 env: test2
