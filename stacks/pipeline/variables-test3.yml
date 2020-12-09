@@ -8,17 +8,7 @@
 #
 # Any extra variables not found in the original file have been ignored.
 #
-ansible_params:
-  ANSIBLE_PLAYBOOK_NAME: playbook.yml
-  ANSIBLE_PLAYBOOK_PATH: ansible-playbook/
-  ANSIBLE_VAULT_PASSWORD: ((raw_ansible_password))
-  EXTRA_ANSIBLE_VARS:
-    customer: cycloid-sandbox
-    enfv: test3
-    project: stacks
-  SSH_JUMP_URL: user1@Bastion1
-  SSH_PRIVATE_KEYS:
-  - ((ssh_bastion.ssh_key))
+ansible_params: test une string\nsuyr plusieurs lignes
 ansible_version: v2.7
 customer: cycloid-sandbox
 env: test3
