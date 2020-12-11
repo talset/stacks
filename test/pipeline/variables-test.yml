@@ -8,4 +8,36 @@
 #
 # Any extra variables not found in the original file have been ignored.
 #
-message: hello world and especially to cycloid
+aws_access_key: ""
+aws_region: ""
+aws_secret_key: ""
+code_build_args: {}
+code_build_context: .
+code_dockerfile_location: Dockerfile
+code_git_branch: master
+code_git_private_key: ""
+code_git_repository: git@github.com:...
+config_git_branch: config
+config_git_private_key: ((aws_step-by-step.access_key))
+config_git_repository: git@github.com:talset/stacks.git
+customer: cycloid-sandbox
+env: test
+k8s_base_path: base
+k8s_continuous_deployment: true
+k8s_env_path: overlays/test
+k8s_kubeconfig: ((basic_auth_cyclobot-account.password))
+k8s_namespace: test
+k8s_path: test/k8s
+k8s_version: "1.16"
+k8s_wait_ready_seconds: 60
+k8s_wait_ready_selector: ""
+project: test
+registry_extra_tags: ""
+registry_image_name: myuser/imagename
+registry_password: ""
+registry_tag: test
+registry_tag_commit_id: true
+registry_tag_custom_script: false
+registry_tag_describe_ref: false
+registry_username: ""
+stack_git_branch: master
