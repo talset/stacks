@@ -18,6 +18,6 @@ config:
   # Configuration of the CI pipeline
   pipeline:
     pipeline:
-      path: 'dummy-test/pipeline/dummy.yml'
+      path: 'pipeline/dummy.yml'
     variables:
-      path: 'dummy-test/pipeline/variables.sample.yml'
+      path: 'pipeline/variables.sample.yml'
