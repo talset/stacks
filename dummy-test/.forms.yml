@@ -8,4 +8,10 @@ default:
         widget: simple_text
         type: string
         default: "hello world and especially to ($ organization_canonical $)"
-
+      - name: "OS Disk size"
+        key: size_a
+        type: integer
+        widget: slider_range
+        description: "OS Disk size"
+        values: ["30", "250"]
+        required: true
