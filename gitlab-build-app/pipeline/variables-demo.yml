@@ -23,7 +23,7 @@ project: gitlab-build-app
 registry_extra_tags: ""
 registry_image_name: talset/test
 registry_password: ((basic_auth_florian-docker-tmp.password))
-registry_tag: demo
+registry_tag: latest
 registry_tag_commit_id: false
 registry_tag_custom_script: false
 registry_tag_describe_ref: false
