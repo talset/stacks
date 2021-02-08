@@ -11,8 +11,7 @@
 aws_access_key: ""
 aws_region: ""
 aws_secret_key: ""
-code_build_args:
-  foo: bla
+code_build_args: {}
 code_build_context: step-by-step-nginx
 code_dockerfile_location: Dockerfile
 code_git_branch: develop
