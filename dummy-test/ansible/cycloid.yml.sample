@@ -1,0 +1,42 @@
+######################
+### Onprem Section ###
+######################
+
+# provided by terraform
+#cycloid_console_dns: ""
+
+# Initial Cycloid user
+cycloid_initial_user:
+  username: admin
+  email: admin+onprem_$ENV@cycloid.io
+  password: $CYCLOID_INITIAL_USER_PASSWORD
+  given_name: admin
+  family_name: cycloid
+
+concourse_service_enabled: no
+concourse_worker_env:
+    CONCOURSE_GARDEN_ASSETS_DIR: "{{ concourse_work_dir }}/garden_assets/"
+    CONCOURSE_GARDEN_DEPOT: "{{ concourse_work_dir }}/garden_depot"
+    CONCOURSE_GARDEN_LOG_LEVEL: "error"
+    CONCOURSE_GARDEN_NETWORK_POOL: "10.254.0.0/16"
+    CONCOURSE_GARDEN_MAX_CONTAINERS: 1024
+    CONCOURSE_GARDEN_ADDITIONAL_DNS_SERVER: "1.1.1.1,1.0.0.1"
+
+# define it as block due to https://github.com/cycloidio/youdeploy-http-api/issues/2935
+concourse_worker_options: |
+  --ephemeral \
+  --baggageclaim-log-level=error \
+  --baggageclaim-volumes={{ concourse_work_dir }}/baggageclaim_volumes \
+  --baggageclaim-driver=overlay 2>&1 | tee -a /var/log/concourse-worker.log ; exit ${PIPESTATUS[0]}
+
+concourse_install_dir: /var/lib/concourse
+concourse_work_dir: /var/lib/concourse/datas
+
+concourse_version: "{{ concourse_web_image.split(':').1 }}"
+concourse_tsa_port: "2222"
+concourse_tsa_host: "{{ groups['cycloid_scheduler'][0] }}"
+concourse_tsa_public_key: "{{lookup('file', 'keys/id_rsa.pub')}}"
+concourse_tsa_worker_key: "{{lookup('file', 'keys/id_rsa')}}"
+
+# Concourse admin user password
+concourse_auth_password: $CONCOURSE_AUTH_PASSWORD

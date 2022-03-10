@@ -21,3 +21,8 @@ config:
       path: 'pipeline/dummy.yml'
     variables:
       path: 'pipeline/variables.sample.yml'
+
+  ansible:
+    onprem:
+      path: 'ansible/cycloid.yml.sample'
+      destination: '($ project $)/ansible/cycloid-($ environment $).yml'
