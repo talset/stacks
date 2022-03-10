@@ -1,17 +1,29 @@
 ---
 default:
   pipeline:
-    config:
-      - name: "Message"
-        description: "Message to display in the job"
+    Terraform:
+      - name: "message"
+        description: "AWS S3 bucket name to store terraform remote state file."
         key: message
         widget: simple_text
         type: string
-        default: "hello world and especially to ($ organization_canonical $)"
-      - name: "OS Disk size"
-        key: size_a
-        type: integer
-        widget: slider_range
-        description: "OS Disk size"
-        values: ["30", "250"]
-        required: true
+        default: message
+  ansible:
+    configuration:
+      - name: "Initial Organization name"
+        description: "Initial Organization name."
+        key: cycloid_initial_organization_name
+        widget: simple_text
+        type: string
+        default: "Cycloid"
+      - name: "Cycloid initial user information"
+        description: "Cycloid initial user information"
+        key: cycloid_initial_user
+        widget: text_area
+        type: raw
+        default: |+
+          username: "admin"
+          email: "disabled@email.cycloid"
+          password: "$$$$$$$$"
+          given_name: admin
+          family_name: cycloid

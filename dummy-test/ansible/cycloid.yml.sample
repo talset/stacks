@@ -38,5 +38,7 @@ concourse_tsa_host: "{{ groups['cycloid_scheduler'][0] }}"
 concourse_tsa_public_key: "{{lookup('file', 'keys/id_rsa.pub')}}"
 concourse_tsa_worker_key: "{{lookup('file', 'keys/id_rsa')}}"
 
+
+cycloid_initial_organization_name: "foo"
 # Concourse admin user password
 concourse_auth_password: $CONCOURSE_AUTH_PASSWORD
