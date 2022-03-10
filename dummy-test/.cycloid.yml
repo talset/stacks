@@ -1,7 +1,9 @@
-# Configuration of the CI pipeline
-name: 'Dummy test stack'
-canonical: 'stack-dummy-test'
+---
+version: '2'
+name: 'Ansible test stack'
+canonical: 'stack-ansible-test'
 description: 'This stack is a dummy stack which contain only a hello world pipeline'
+status: 'private'
 keywords:
   - 'concourse'
   - 'dummy'
@@ -12,7 +14,6 @@ technologies:
   - technology: busybox
     version: n/a
 author: 'Cycloid'
-image: 'https://raw.githubusercontent.com/cycloid-community-catalog/stack-dummy/master/icon.png'
 type: 'stack'
 config:
   # define the default pipeline here
@@ -27,5 +28,5 @@ config:
         destination: '($ project $)/pipeline/variables-($ environment $).yml'
     ansible:
       onprem:
-        path: 'ansible/environments/cycloid.yml.sample'
-        destination: '($ project $)/ansible/environments/cycloid-($ environment $).yml'
+        path: 'ansible/cycloid.yml.sample'
+        destination: '($ project $)/ansible/cycloid-($ environment $).yml'

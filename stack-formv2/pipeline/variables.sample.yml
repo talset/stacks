@@ -1,0 +1,25 @@
+#### variables
+
+# "Git repository URL containing the config of the stack."
+config_git_repository: "git@github.com:cycloidio/cycloid-labs.git"
+
+# "SSH key pair to fetch the config Git repository."
+config_git_private_key: ((github-labs.ssh_key))
+
+# "The branch used by the config repository"
+config_git_branch: "config"
+
+stack_path: "stack-formv2"
+config_path: ($ project $)/stack_yml/($ environment $)
+
+#. env (required): ($ environment $)
+#+ Name of the project's environment.
+env: ($ environment $)
+
+#. project (required): ($ project $)
+#+ Name of the project.
+project: ($ project $)
+
+#. organization (required): ($ organization_canonical $)
+#+ Name of the Cycloid Organization.
+organization: ($ organization_canonical $)

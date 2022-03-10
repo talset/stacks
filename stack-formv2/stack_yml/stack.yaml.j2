@@ -1,0 +1,184 @@
+#
+# ███████╗████████╗ █████╗  ██████╗██╗  ██╗
+# ██╔════╝╚══██╔══╝██╔══██╗██╔════╝██║ ██╔╝
+# ███████╗   ██║   ███████║██║     █████╔╝
+# ╚════██║   ██║   ██╔══██║██║     ██╔═██╗
+# ███████║   ██║   ██║  ██║╚██████╗██║  ██╗
+# ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
+#
+cpe_stack_version: v0.6.6
+#
+# You should never change these ones
+#
+application_name: {{ application_name }}
+environment_name: sbox
+stack_name: adiop-sbox
+stack_id: dtry
+csp_name: google
+
+iam:
+  groups:
+    - cpebuilders@compagny.net
+
+monitoring:
+  business_department: cpe
+  env: staging
+  sma_1st_level_group: ce-cpe
+  sma_2nd_level_group: ce-cpe
+  sma_service: cpe
+  disable_ticketing: true
+  on_duty: false
+  invoiced_team: ce-cpe
+#
+#  ██████╗ ██╗████████╗██╗  ██╗██╗   ██╗██████╗
+# ██╔════╝ ██║╚══██╔══╝██║  ██║██║   ██║██╔══██╗
+# ██║  ███╗██║   ██║   ███████║██║   ██║██████╔╝
+# ██║   ██║██║   ██║   ██╔══██║██║   ██║██╔══██╗
+# ╚██████╔╝██║   ██║   ██║  ██║╚██████╔╝██████╔╝
+#  ╚═════╝ ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝
+#
+github:
+  repositories:
+    stack:
+      github_repo: cpe-adiop-sbox-stack
+    k8s-infra-01:
+      github_repo: k8s-infra-adiop-sbox
+    k8s-apps-01:
+      github_repo: k8s-apps-adiop-sbox
+
+teams:
+  - name: cpe-team
+    groups:
+      - cpestackteam@compagny.net
+    github_teams:
+      - cpe-stack-core
+  - name: team-A
+    groups:
+      - cpestackteam@compagny.net
+    github_teams:
+      - cpe-stack-core
+
+{% if use_gcp and (gcp_gke_name|length or gcp_gitops_repo_id|length) %}
+
+#
+#  ██████╗  ██████╗██████╗
+# ██╔════╝ ██╔════╝██╔══██╗
+# ██║  ███╗██║     ██████╔╝
+# ██║   ██║██║     ██╔═══╝
+# ╚██████╔╝╚██████╗██║
+#  ╚═════╝  ╚═════╝╚═╝
+#
+gcp:
+  project_id: sandbox-a2bb
+  default_region: europe-west4
+  {% if gcp_gke_name|length %}
+  gke:
+    - name: {{ gcp_gke_name }}
+      subnet_index: 0
+      maintenance_start_time: "03:00"
+      maintenance_end_time: "07:00"
+      maintenance_recurrence: ""
+      cluster_wide_rbac:
+        - role: root
+          teams :
+            - cpe-team
+      ingress_controllers:
+        - name: "ig1"
+          type: "nginx"
+      app_node_pool_list:
+        - name: "pool-apps-01"
+          machine_type: "n1-standard-4"
+          min_count: 0
+          max_count: 1
+      components:
+        datadog:
+          enabled: false
+        dynatrace:
+          enabled: false
+        fluxcd:
+          values:
+            image-automation-controller:
+              resources:
+                limits:
+                  memory: "2Gi"
+  {% endif %}
+
+  {% if gcp_gitops_repo_id|length %}
+      gitops:
+        infra:
+          repo_id: {{ gcp_gitops_repo_id }}
+          branch: main
+          path: /k8s/staging/dev-01
+          charts_base_dir: charts/staging/dev-01
+        apps:
+          - namespace: staging
+            repo_id: k8s-apps-01
+            branch: main
+            path: k8s/staging/dev-01
+            flux:
+              prune: true
+              interval: "5m"
+            rbac:
+              - role: dev
+                teams:
+                  - team-A
+  {% endif %}
+{% endif %}
+
+
+{% if use_aiven and aiven_project_id|length %}
+aiven:
+  projects:
+    - project_id_fixed: {{ aiven_project_id }}
+      termination_protection: false
+      partner_index: 0
+      cost_center: fake_cost_center
+      postgresql_instances:
+        - name: mydb
+          plan: startup-4
+          maintenance_window_dow: monday
+          maintenance_window_time: "04:00:00"
+          databases:
+            - name: my_app
+          users:
+            - name: my_app
+              secret_readers:
+                k8s:
+                - "testapp"
+                groups:
+                  - cpestackteam@compagny.net
+            - name: feature1
+              secret_readers:
+                k8s:
+                - "testapp"
+            - name: dba1
+              secret_readers:
+                k8s:
+                - "testapp"
+          schemas:
+            - name: my_app
+              dbname: my_app
+              owner: my_app
+              termination_protection: false
+          acls:
+            - user: my_app
+              schema: my_app
+              dbname: my_app
+              permission: readwrite
+            - user: dba1
+              schema: my_app
+              dbname: my_app
+              permission: readwrite
+            - user: feature1
+              schema: my_app
+              dbname: my_app
+              permission: readonly
+          pools:
+            - name: my_app_pool
+              dbname: my_app
+              username: my_app
+              size: 10
+              mode: transaction
+{% endif %}
+
+{{ raw_params | to_nice_yaml  }}
