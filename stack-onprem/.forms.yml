@@ -9,14 +9,14 @@ use_cases:
       technologies: [pipeline]
       vars:
         - name: Display Cycloid advanced options
-          description: Check to see advanced options to configure your project.
+          description: Check to see Cycloid advanced options to configure your project.
           key: advanced_opt
           widget: switch
           type: boolean
           default: false
 
-        - name: Stack advanced options
-          description: Check to see advanced options to configure your project.
+        - name: Display Stack advanced options
+          description: Check to see Stack advanced options to configure your project.
           key: advanced_stack_opt
           widget: switch
           type: boolean
@@ -68,7 +68,7 @@ use_cases:
     - name: Licence
       # TODO: not supported
       # condition: cycloid_api_tag != "prod"
-      condition: cycloid_api_tag > prod
+      condition: cycloid_api_tag==staging
       technologies: [pipeline]
       vars:
         - name: "Cycloid Licence"
