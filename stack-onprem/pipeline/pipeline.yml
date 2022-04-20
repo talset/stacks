@@ -1,0 +1,23 @@
+# YAML anchors
+jobs:
+
+- name: install-onprem
+  serial: True
+  build_logs_to_retain: 10
+  plan:
+  - do:
+    - task: ansible
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: cycloid/cycloid-toolkit
+            tag: latest
+        run:
+          path: /bin/bash
+          args:
+          - -ec
+          - |
+            DIR=${PWD}
+            exit 0
