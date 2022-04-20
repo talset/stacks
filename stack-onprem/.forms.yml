@@ -8,12 +8,20 @@ use_cases:
     - name: Common
       technologies: [pipeline]
       vars:
-        - name: Display advanced/optional options
+        - name: Display Cycloid advanced options
           description: Check to see advanced options to configure your project.
           key: advanced_opt
           widget: switch
           type: boolean
           default: false
+
+        - name: Stack advanced options
+          description: Check to see advanced options to configure your project.
+          key: advanced_stack_opt
+          widget: switch
+          type: boolean
+          default: false
+
 
     - name: Product
       technologies: [ansible, pipeline]
@@ -60,7 +68,7 @@ use_cases:
     - name: Licence
       # TODO: not supported
       # condition: cycloid_api_tag != "prod"
-      condition: cycloid_api_tag>prod
+      condition: cycloid_api_tag > prod
       technologies: [pipeline]
       vars:
         - name: "Cycloid Licence"
@@ -71,7 +79,7 @@ use_cases:
           default: "((custom_onprem_licence.prod))"
 
     - name: Default config
-      condition: advanced_opt==true
+      condition: advanced_stack_opt==true
       technologies: [pipeline]
       vars:
         - name: "AWS access key"
@@ -183,9 +191,31 @@ use_cases:
               #github_client_id: ""
               #github_client_secret: ""
 
-
     - name: Service-ansible
-      condition: advanced_opt==true
+      condition: advanced_stack_opt==true
+      technologies: [ansible]
+      vars:
+        - name: "SAML Auth enable"
+          description: "Enable SAML or not."
+          key: saml_auth_enabled
+          widget: switch
+          type: boolean
+          default: false
+    - name: External authentification
+      condition: saml_auth_enabled==true
+      technologies: [ansible]
+      vars:
+        - name: "SAML IDP Metadata URL"
+          description: "SAML IDP Metadata URL. (if SAML enabled)"
+          key: saml_idp_metadata_url
+          widget: auto_complete
+          type: string
+          default: "https://samltest.id/saml/idp"
+          values:
+              - "https://samltest.id/saml/idp"
+
+    - name: Service-ansible-opt
+      condition: advanced_stack_opt==true
       technologies: [ansible]
       vars:
         - name: "Create Public stacks catalog repository"
@@ -206,12 +236,6 @@ use_cases:
           widget: switch
           type: boolean
           default: true
-        - name: "SAML Auth enable"
-          description: "Enable SAML or not."
-          key: saml_auth_enabled
-          widget: switch
-          type: boolean
-          default: false
         - name: "Cycloid Database image"
           description: "Cycloid Database image."
           key: cycloid_db_image
@@ -223,23 +247,10 @@ use_cases:
               - "mysql:8.0.25"
               - "mariadb:10.2.11"
 
-    - name: External authentification
-      condition: saml_auth_enabled==true
-      technologies: [ansible]
-      vars:
-        - name: "SAML IDP Metadata URL"
-          description: "SAML IDP Metadata URL. (if SAML enabled)"
-          key: saml_idp_metadata_url
-          widget: auto_complete
-          type: string
-          default: "https://samltest.id/saml/idp"
-          values:
-              - "https://samltest.id/saml/idp"
-
   - name: Security
-    condition: advanced_opt==true
     groups:
     - name: Password
+      condition: advanced_opt==true
       technologies: [ansible]
       vars:
         - name: "Cycloid Database password"
@@ -333,7 +344,7 @@ use_cases:
               - "ami-01ebd2b650c37e4d6"
 
     - name: terraform-opt
-      condition: advanced_opt==true
+      condition: advanced_stack_opt==true
       technologies: [terraform]
       vars:
         - name: "Instance disk size"
