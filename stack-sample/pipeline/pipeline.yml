@@ -1,8 +1,37 @@
+# YAML anchors
+shared:
+  - &task-get-commit
+    task: get-commit
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: cycloid/cycloid-toolkit
+          tag: latest
+      run:
+        path: /bin/bash
+        args:
+        - -c
+        - |
+          DIR=${PWD}
+          echo "git_code_commit = \"$(cat git_code/.git/ref)\"" | tee -a extracted-vars/terraform.tfvars
+          echo "git_code_repo = \"${GIT_CODE_REPO}\"" | tee -a extracted-vars/terraform.tfvars
+      params:
+        ENV: ((env))
+        GIT_CODE_REPO: ((code_git_public_repository))
+      inputs:
+        - name: git_code
+      outputs:
+        - name: extracted-vars
+          path: "extracted-vars"
+
 groups:
 - name: overview
   jobs:
   - unittest
   - terraform-plan
+  - terraform-apply
 
 resource_types:
 - name: terraform
@@ -86,7 +115,33 @@ jobs:
           trigger: true
           passed:
             - unittest
+        - *task-get-commit
         - put: tfstate
           params:
             plan_only: true
             terraform_source: git_stack/stack-sample/terraform
+            var_files:
+              - extracted-vars/terraform.tfvars
+
+  - name: terraform-apply
+    build_logs_to_retain: 10
+    plan:
+      - do:
+        - get: git_stack
+          trigger: false
+          passed:
+            - terraform-plan
+        - get: tfstate
+          trigger: false
+          passed:
+            - terraform-plan
+        - get: git_code
+          passed:
+            - terraform-plan
+        - *task-get-commit
+        - put: tfstate
+          params:
+            plan_run: true
+            terraform_source: git_stack/stack-sample/terraform
+            var_files:
+              - extracted-vars/terraform.tfvars
