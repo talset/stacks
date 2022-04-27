@@ -1,0 +1,39 @@
+groups:
+- name: overview
+  jobs:
+  - unittest
+
+resources:
+
+- name: git_code
+  type: git
+  source:
+    uri: ((code_git_public_repository))
+    branch: ((code_git_branch))
+
+jobs:
+  - name: unittest
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+    - do:
+      - get: git_code
+        trigger: true
+      - task: test
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: latest
+          run:
+            path: /bin/bash
+            args:
+            - -ec
+            - |
+              echo "Testing the application"
+              ls code
+          inputs:
+          - name: git_code
+            path: code

@@ -1,0 +1,7 @@
+env: ($ environment $)
+project: ($ project $)
+customer: ($ organization_canonical $)
+
+# Code repo configuration
+code_git_public_repository: https://github.com/cycloid-community-catalog/docs-step-by-step-stack.git
+code_git_branch: code
