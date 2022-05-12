@@ -10,11 +10,11 @@
 #
 config_git_branch: config
 config_git_private_key: ((github-labs.ssh_key))
-config_git_repository: git@github.com:cycloidio/cycloid-labs.git
+config_git_repository: git@github.com:talset/stacks.git
 config_path: floforms/stack_yml/test
 env: test
 organization: cycloid-sandbox
 project: floforms
 stack_git_branch: stacks
-stack_git_repository: ($ cr_url $)
+stack_git_repository: git@github.com:talset/stacks.git
 stack_path: stack-formv2
