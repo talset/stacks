@@ -29,7 +29,7 @@ resources:
   icon: github-circle
   type: git
   source:
-    uri: https://github.com/talset/stacks
+    uri: ((stack_git_repository))
     branch: ((stack_git_branch))
     paths:
       - ((stack_path))/stack_yml/*
