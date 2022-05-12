@@ -1,13 +1,19 @@
 #### variables
 
 # "Git repository URL containing the config of the stack."
-config_git_repository: "git@github.com:cycloidio/cycloid-labs.git"
+config_git_repository: "($ cr_url $)"
 
 # "SSH key pair to fetch the config Git repository."
 config_git_private_key: ((github-labs.ssh_key))
 
 # "The branch used by the config repository"
-config_git_branch: "config"
+config_git_branch: "($ cr_branch $)"
+
+# not used since we want http
+stack_git_repository: "($ cr_url $)"
+
+# stack branch
+stack_git_branch: "($ scs_branch $)"
 
 stack_path: "stack-formv2"
 config_path: ($ project $)/stack_yml/($ environment $)

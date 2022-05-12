@@ -30,7 +30,7 @@ resources:
   type: git
   source:
     uri: https://github.com/talset/stacks
-    branch: stacks
+    branch: ((stack_git_branch))
     paths:
       - ((stack_path))/stack_yml/*
 
