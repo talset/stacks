@@ -10,7 +10,7 @@ config_git_private_key: ((github-labs.ssh_key))
 config_git_branch: "($ cr_branch $)"
 
 # not used since we want http
-stack_git_repository: "($ cr_url $)"
+stack_git_repository: "($ scs_url $)"
 
 # stack branch
 stack_git_branch: "($ scs_branch $)"
