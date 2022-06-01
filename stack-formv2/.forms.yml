@@ -2,7 +2,27 @@ version: "2"
 use_cases:
 - name: cycloid-common
   sections:
+    - name: Environment and backups
+      technologies: [pipeline]
+      vars:
+        - name: Environment
+          description: "In which environment the VM need to be ?"
+          key: environment
+          widget: dropdown
+          type: string
+          values: ["Dev", "UAT", "Prod"]
 
+    - name: "Backup policies"
+      technologies: [pipeline]
+      condition: "environment==Dev"
+      vars:
+      - name: Backup Policies
+        key: backup_policy_name_dev
+        type: string
+        widget: dropdown
+        values:
+        - bkgazuvm00y00m15d04h00
+        - bkgazuvm00y06m30d03h30
 
 - name: default
   sections:
