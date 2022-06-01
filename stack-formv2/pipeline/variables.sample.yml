@@ -32,3 +32,5 @@ organization: ($ organization_canonical $)
 
 environment: ""
 backup_policy_name_dev: ""
+backup_policy_name_uat: ""
+backup_policy_name_prod: ""
