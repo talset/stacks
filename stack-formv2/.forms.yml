@@ -136,7 +136,6 @@ use_cases:
           type: string
           widget: cy_cred
           default: "((github-labs.ssh_key))"
-          required: true
         #- name: "Config branch"
         #  description: "The branch used by the config repository"
         #  key: config_git_branch
