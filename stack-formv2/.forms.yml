@@ -29,6 +29,27 @@ use_cases:
           - bkgazuvm00y00m15d04h00
           - bkgazuvm00y06m30d03h30
 
+    - name: "Backup policies"
+      technologies: [pipeline]
+      condition: "environment==UAT"
+      vars:
+      - name: Backup Policies
+        key: backup_policy_name_uat
+        type: string
+        widget: dropdown
+        values:
+        - bkgazuvm00y06m30d03h30
+    - name: "Backup policies"
+      technologies: [pipeline]
+      condition: "environment==Prod"
+      vars:
+      - name: Backup Policies
+        key: backup_policy_name_prod
+        type: string
+        widget: dropdown
+        values:
+        - bkgazuvm00y00m15d04h00
+
     - name: Application
       technologies: [ansible]
       vars:
