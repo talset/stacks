@@ -17,7 +17,7 @@ use_cases:
           type: string
           values: ["Dev", "UAT", "Prod"]
 
-    - name: "Backup policies"
+    - name: "Backup policies dev"
       technologies: [pipeline]
       condition: "environment==Dev"
       vars:
@@ -29,7 +29,7 @@ use_cases:
           - bkgazuvm00y00m15d04h00
           - bkgazuvm00y06m30d03h30
 
-    - name: "Backup policies"
+    - name: "Backup policies uat"
       technologies: [pipeline]
       condition: "environment==UAT"
       vars:
@@ -39,7 +39,7 @@ use_cases:
         widget: dropdown
         values:
         - bkgazuvm00y06m30d03h30
-    - name: "Backup policies"
+    - name: "Backup policies prod"
       technologies: [pipeline]
       condition: "environment==Prod"
       vars:
