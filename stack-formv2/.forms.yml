@@ -17,7 +17,7 @@ use_cases:
           type: string
           values: ["Dev", "UAT", "Prod"]
 
-    - name: "Backup policies"
+    - name: "Backup policies dev"
       technologies: [pipeline]
       condition: "environment==Dev"
       vars:
@@ -25,12 +25,12 @@ use_cases:
           key: backup_policy_name_dev
           type: string
           widget: dropdown
-          # default: bkgazuvm00y00m15d04h00
+          default: bkgazuvm00y00m15d04h00
           values:
           - bkgazuvm00y00m15d04h00
           - bkgazuvm00y06m30d03h30
 
-    - name: "Backup policies"
+    - name: "Backup policies uat"
       technologies: [pipeline]
       condition: "environment==UAT"
       vars:
@@ -38,11 +38,11 @@ use_cases:
         key: backup_policy_name_uat
         type: string
         widget: dropdown
-        # default: bkgazuvm00y06m30d03h30
+        default: bkgazuvm00y06m30d03h30
         values:
         - bkgazuvm00y06m30d03h30
         - foo
-    - name: "Backup policies"
+    - name: "Backup policies prod"
       technologies: [pipeline]
       condition: "environment==Prod"
       vars:
@@ -50,7 +50,7 @@ use_cases:
         key: backup_policy_name_prod
         type: string
         widget: dropdown
-        # default: bla
+        default: bla
         values:
         - bkgazuvm00y00m15d04h00
         - bla
