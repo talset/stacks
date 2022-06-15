@@ -204,7 +204,6 @@ groups:
   - name: destroy
     jobs:
     - terraform-destroy
-    - reject-lock
 
 jobs:
 
