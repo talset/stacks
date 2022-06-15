@@ -1,0 +1,668 @@
+aws:
+  pipeline:
+    Cloud-provider:
+      - name: "AWS Region"
+        key: demo_aws_default_region
+        widget: auto_complete
+        type: string
+        values: ["eu-north-1","ap-south-1","eu-west-3","eu-west-2","eu-west-1","ap-northeast-2","ap-northeast-1","sa-east-1","ca-central-1","ap-southeast-1","ap-southeast-2","eu-central-1","us-east-1","us-east-2","us-west-1","us-west-2"]
+        default: eu-west-1
+      - name: "AWS Access Key ID"
+        description: "AWS Access Key ID which should be used"
+        key: demo_aws_access_key
+        widget: cy_cred
+        type: string
+        default: "((aws.access_key))"
+      - name: "AWS Secret Key"
+        description: "AWS Secret Key which should be used"
+        key: demo_aws_secret_key
+        widget: cy_cred
+        type: string
+        default: "((aws.secret_key))"
+    Application-source-code:
+      - name: "Application Git public URL"
+        description: "The URL of the public Git repository containing the source code of the application"
+        key: code_git_public_repository
+        widget: simple_text
+        type: string
+        default: "https://github.com/cycloid-community-catalog/docs-step-by-step-stack.git"
+      - name: "Application Git repository branch"
+        description: "The branch of the public Git repository containing the source code of the application"
+        key: code_git_branch
+        widget: simple_text
+        type: string
+        default: code
+      - name: "Application type"
+        description: "The type of the application to deploy"
+        key: demo_app_type
+        widget: radios
+        type: string
+        values:
+          - php
+          - golang
+          - nodejs
+          - python
+        default: php
+    Cycloid-stack:
+      - name: "Catalog repository"
+        description: "Catalog repository containing your private stack"
+        key: demo_stack_git_repository
+        widget: cy_scs
+        type: string
+        default: git@github.com:cycloidio/cycloid-demo-stacks.git
+      - name: "Catalog repository branch"
+        description: "Branch to use containing the source code of your stack"
+        key: demo_stack_git_branch
+        widget: cy_branch
+        type: string
+        source: demo_stack_git_repository
+        default: master
+      - name: "Catalog repository credential (SSH key)"
+        description: "Credential (SSH key) used to fetch the service catalog of the stack"
+        key: demo_stack_git_key
+        widget: cy_cred
+        type: string
+        default: "((git_readonly.ssh_key))"
+    Application:
+      - name: "Instance type"
+        description: "The type of instance you want to create"
+        key: demo_instance_type
+        widget: slider_list
+        type: string
+        values:
+          - t3.nano
+          - t3.micro
+          - t3.small
+          - t3.medium
+        default: t3.small
+      - name: "Instance disk size"
+        description: "Size of the disk space to allocate to the instance"
+        key: demo_instance_disk_size
+        widget: slider_range
+        type: integer
+        values:
+          - 10
+          - 100
+        default: 20
+        unit: "Go"
+#    Cycloid-API:
+#      - name: "Cycloid API URL"
+#        description: "Url of the Cycloid API to use"
+#        key: demo_api_url
+#        widget: simple_text
+#        type: string
+#        default: https://http-api.cycloid.io
+#      - name: "Cycloid API login"
+#        key: demo_api_login
+#        widget: cy_cred
+#        type: string
+#        default: "((raw_cyclobot-account.login))"
+#      - name: "Cycloid API password"
+#        key: demo_api_password
+#        widget: cy_cred
+#        type: string
+#        default: "((raw_cyclobot-account.password))"
+#  terraform:
+#    configuration:
+#      - name: "AWS instance type"
+#        description: "The type of instance you want to create"
+#        key: instance_type
+#        widget: slider_list
+#        type: string
+#        values:
+#        - t3.nano
+#        - t3.micro
+#        - t3.small
+#        - t3.medium
+#        default: t3.small
+
+gcp:
+  pipeline:
+    Cloud-provider:
+      - name: "GCP Project name"
+        description: "The GCP project name to use"
+        key: demo_gcp_project
+        widget: simple_text
+        type: string
+        default: cycloid-demo
+      - name: "GCP Zone"
+        key: demo_gcp_zone
+        widget: auto_complete
+        type: string
+        values: [asia-east1-a,asia-east1-b,asia-east1-c,asia-east2-a,asia-east2-b,asia-east2-c,asia-northeast1-a,asia-northeast1-b,asia-northeast1-c,asia-northeast2-a,asia-northeast2-b,asia-northeast2-c,asia-northeast3-a,asia-northeast3-b,asia-northeast3-c,asia-south1-a,asia-south1-b,asia-south1-c,asia-southeast1-a,asia-southeast1-b,asia-southeast1-c,australia-southeast1-a,australia-southeast1-b,australia-southeast1-c,europe-north1-a,europe-north1-b,europe-north1-c,europe-west1-b,europe-west1-c,europe-west1-d,europe-west2-a,europe-west2-b,europe-west2-c,europe-west3-a,europe-west3-b,europe-west3-c,europe-west4-a,europe-west4-b,europe-west4-c,europe-west6-a,europe-west6-b,europe-west6-c,northamerica-northeast1-a,northamerica-northeast1-b,northamerica-northeast1-c,southamerica-east1-a,southamerica-east1-b,southamerica-east1-c,us-central1-a,us-central1-b,us-central1-c,us-central1-f,us-east1-b,us-east1-c,us-east1-d,us-east4-a,us-east4-b,us-east4-c,us-west1-a,us-west1-b,us-west1-c,us-west2-a,us-west2-b,us-west2-c,us-west3-a,us-west3-b,us-west3-c,us-west4-a,us-west4-b,us-west4-c]
+        default: "europe-west1-b"
+      - name: "GCP JSON credentials"
+        description: "GCP credentials in JSON format which should be used"
+        key: demo_gcp_credentials_json
+        widget: cy_cred
+        type: string
+        default: "((gcp_step-by-step.json_key))"
+    Application-source-code:
+      - name: "Application Git public URL"
+        description: "The URL of the public Git repository containing the source code of the application"
+        key: code_git_public_repository
+        widget: simple_text
+        type: string
+        default: "https://github.com/cycloid-community-catalog/docs-step-by-step-stack.git"
+      - name: "Application Git repository branch"
+        description: "The branch of the public Git repository containing the source code of the application"
+        key: code_git_branch
+        widget: simple_text
+        type: string
+        default: code
+      - name: "Application type"
+        description: "The type of the application to deploy"
+        key: demo_app_type
+        widget: radios
+        type: string
+        values:
+          - php
+          - golang
+          - nodejs
+          - python
+        default: php
+    Cycloid-stack:
+      - name: "Catalog repository"
+        description: "Catalog repository containing your private stack"
+        key: demo_stack_git_repository
+        widget: cy_scs
+        type: string
+        default: git@github.com:cycloidio/cycloid-demo-stacks.git
+      - name: "Catalog repository branch"
+        description: "Branch to use containing the source code of your stack"
+        key: demo_stack_git_branch
+        widget: cy_branch
+        type: string
+        source: demo_stack_git_repository
+        default: master
+      - name: "Catalog repository credential (SSH key)"
+        description: "Credential (SSH key) used to fetch the service catalog of the stack"
+        key: demo_stack_git_key
+        widget: cy_cred
+        type: string
+        default: "((git_readonly.ssh_key))"
+    Application:
+      - name: "Instance type"
+        description: "The type of instance you want to create"
+        key: demo_instance_type
+        widget: slider_list
+        type: string
+        values:
+          - n1-standard-1
+          - n1-standard-2
+          - n1-standard-4
+          - n1-standard-8
+        default: n1-standard-1
+      - name: "Instance disk size"
+        description: "Size of the disk space to allocate to the instance"
+        key: demo_instance_disk_size
+        widget: slider_range
+        type: integer
+        values:
+          - 10
+          - 100
+        default: 20
+#  terraform:
+#    configuration:
+#      - name: "AWS instance type"
+#        description: "The type of instance you want to create"
+#        key: instance_type
+#        widget: slider_list
+#        type: string
+#        values:
+#        - n1-standard-1
+#        - n1-standard-2
+#        - n1-standard-4
+#        - n1-standard-8
+#        default: n1-standard-1
+azure:
+  pipeline:
+    Cloud-provider:
+      - name: "Azure Resource Group Name"
+        description: "The name of the resource group in which create the resources"
+        key: demo_azure_resource_group_name
+        widget: simple_text
+        type: string
+        default: "cycloid-demo"
+      - name: "Azure Environment"
+        description: "The Cloud Environment which should be used"
+        key: demo_azure_env
+        widget: radios
+        type: string
+        values:
+          - public
+          - china
+          - german
+          - stack
+          - usgovernment
+        default: public
+      - name: "Azure Location"
+        key: demo_azure_location
+        widget: auto_complete
+        type: string
+        values: [eastasia,southeastasia,centralus,eastus,eastus2,westus,northcentralus,southcentralus,northeurope,westeurope,japanwest,japaneast,brazilsouth,australiaeast,australiasoutheast,southindia,centralindia,westindia,canadacentral,canadaeast,uksouth,ukwest,westcentralus,westus2,koreacentral,koreasouth,francecentral,francesouth,australiacentral,australiacentral2,uaecentral,uaenorth,southafricanorth,southafricawest,switzerlandnorth,switzerlandwest,germanynorth,germanywestcentral,norwaywest,norwayeast]
+        default: francecentral
+      - name: "Azure Subscription ID"
+        description: "The Subscription ID which should be used"
+        key: demo_azure_subscription_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.subscription_id))"
+      - name: "Azure Tenant ID"
+        description: "The Tenant ID which should be used"
+        key: demo_azure_tenant_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.tenant_id))"
+      - name: "Azure Client ID"
+        description: "The Client ID which should be used"
+        key: demo_azure_client_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.client_id))"
+      - name: "Azure Client secret"
+        description: "The Client Secret which should be used"
+        key: demo_azure_client_secret
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.client_secret))"
+    Application-source-code:
+      - name: "Application Git public URL"
+        description: "The URL of the public Git repository containing the source code of the application"
+        key: code_git_public_repository
+        widget: simple_text
+        type: string
+        default: "https://github.com/cycloid-community-catalog/docs-step-by-step-stack.git"
+      - name: "Application git repository branch"
+        description: "The branch of the public Git repository containing the source code of the application"
+        key: code_git_branch
+        widget: simple_text
+        type: string
+        default: code
+      - name: "Application type"
+        description: "The type of the application to deploy"
+        key: demo_app_type
+        widget: radios
+        type: string
+        values:
+          - php
+          - golang
+          - nodejs
+          - python
+        default: php
+    Cycloid-stack:
+      - name: "Catalog repository"
+        description: "Catalog repository containing your private stack"
+        key: demo_stack_git_repository
+        widget: cy_scs
+        type: string
+        default: git@github.com:cycloidio/cycloid-demo-stacks.git
+      - name: "Catalog repository branch"
+        description: "Branch to use containing the source code of your stack"
+        key: demo_stack_git_branch
+        widget: cy_branch
+        type: string
+        source: demo_stack_git_repository
+        default: master
+      - name: "Catalog repository credential (SSH key)"
+        description: "Credential (SSH key) used to fetch the service catalog of the stack"
+        key: demo_stack_git_key
+        widget: cy_cred
+        type: string
+        default: "((git_readonly.ssh_key))"
+    Application:
+      - name: "Instance type"
+        description: "The type of instance you want to create"
+        key: demo_instance_type
+        widget: slider_list
+        type: string
+        values:
+          - Standard_DS1_v2
+          - Standard_DS2_v2
+          - Standard_DS3_v2
+        default: Standard_DS1_v2
+      - name: "Instance disk size"
+        description: "Size of the disk space to allocate to the instance"
+        key: demo_instance_disk_size
+        widget: slider_range
+        type: integer
+        values:
+        - 10
+        - 100
+        default: 20
+        unit: "Go"
+  #terraform:
+  #  configuration:
+  #    - name: "Azure subnet ID"
+  #      description: "Subnet on which you want to create the instance"
+  #      key: demo_subnet_id
+  #      description: "it should looks like: /subscriptions/.../subnets/default"
+  #      widget: simple_text
+  #      type: string
+  #      default: "/subscriptions/edce4685-4988-4a09-8b4a-3d5b917022cd/resourceGroups/cycloid-demo/providers/Microsoft.Network/virtualNetworks/default/subnets/default"
+  #    - name: "Azure instance type"
+  #      description: "The type of instance you want to create"
+  #      key: instance_type
+  #      widget: slider_list
+  #      type: string
+  #      values:
+  #      - Standard_DS1_v2
+  #      - Standard_DS2_v2
+  #      - Standard_DS3_v2
+  #      default: Standard_DS1_v2
+
+vmware:
+  pipeline:
+    Cloud-provider:
+      - name: "Azure Resource Group Name"
+        description: "The name of the resource group in which create the resources"
+        key: demo_azure_resource_group_name
+        widget: simple_text
+        type: string
+        default: "cycloid-demo"
+      - name: "Azure Environment"
+        description: "The Cloud Environment which should be used"
+        key: demo_azure_env
+        widget: radios
+        type: string
+        values:
+          - public
+          - china
+          - german
+          - stack
+          - usgovernment
+        default: public
+      - name: "Azure Location"
+        key: demo_azure_location
+        widget: auto_complete
+        type: string
+        values: [eastasia,southeastasia,centralus,eastus,eastus2,westus,northcentralus,southcentralus,northeurope,westeurope,japanwest,japaneast,brazilsouth,australiaeast,australiasoutheast,southindia,centralindia,westindia,canadacentral,canadaeast,uksouth,ukwest,westcentralus,westus2,koreacentral,koreasouth,francecentral,francesouth,australiacentral,australiacentral2,uaecentral,uaenorth,southafricanorth,southafricawest,switzerlandnorth,switzerlandwest,germanynorth,germanywestcentral,norwaywest,norwayeast]
+        default: francecentral
+      - name: "Azure Subscription ID"
+        description: "The Subscription ID which should be used"
+        key: demo_azure_subscription_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.subscription_id))"
+      - name: "Azure Tenant ID"
+        description: "The Tenant ID which should be used"
+        key: demo_azure_tenant_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.tenant_id))"
+      - name: "Azure Client ID"
+        description: "The Client ID which should be used"
+        key: demo_azure_client_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.client_id))"
+      - name: "Azure Client secret"
+        description: "The Client Secret which should be used"
+        key: demo_azure_client_secret
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.client_secret))"
+    Application-source-code:
+      - name: "Application Git public URL"
+        description: "The URL of the public Git repository containing the source code of the application"
+        key: code_git_public_repository
+        widget: simple_text
+        type: string
+        default: "https://github.com/cycloid-community-catalog/docs-step-by-step-stack.git"
+      - name: "Application git repository branch"
+        description: "The branch of the public Git repository containing the source code of the application"
+        key: code_git_branch
+        widget: simple_text
+        type: string
+        default: code
+      - name: "Application type"
+        description: "The type of the application to deploy"
+        key: demo_app_type
+        widget: radios
+        type: string
+        values:
+          - php
+          - golang
+          - nodejs
+          - python
+        default: php
+    Cycloid-stack:
+      - name: "Catalog repository"
+        description: "Catalog repository containing your private stack"
+        key: demo_stack_git_repository
+        widget: cy_scs
+        type: string
+        default: git@github.com:cycloidio/cycloid-demo-stacks.git
+      - name: "Catalog repository branch"
+        description: "Branch to use containing the source code of your stack"
+        key: demo_stack_git_branch
+        widget: cy_branch
+        type: string
+        source: demo_stack_git_repository
+        default: master
+      - name: "Catalog repository credential (SSH key)"
+        description: "Credential (SSH key) used to fetch the service catalog of the stack"
+        key: demo_stack_git_key
+        widget: cy_cred
+        type: string
+        default: "((git_readonly.ssh_key))"
+    Application:
+      - name: "Instance type"
+        description: "The type of instance you want to create"
+        key: demo_instance_type
+        widget: slider_list
+        type: string
+        values:
+          - Standard_DS1_v2
+          - Standard_DS2_v2
+          - Standard_DS3_v2
+        default: Standard_DS1_v2
+      - name: "Instance disk size"
+        description: "Size of the disk space to allocate to the instance"
+        key: demo_instance_disk_size
+        widget: slider_range
+        type: integer
+        values:
+        - 10
+        - 100
+        default: 20
+        unit: "Go"
+
+fe:
+  pipeline:
+    Cloud-provider:
+      - name: "Azure Resource Group Name"
+        description: "The name of the resource group in which create the resources"
+        key: demo_azure_resource_group_name
+        widget: simple_text
+        type: string
+        default: "cycloid-demo"
+      - name: "Azure Environment"
+        description: "The Cloud Environment which should be used"
+        key: demo_azure_env
+        widget: radios
+        type: string
+        values:
+          - public
+          - china
+          - german
+          - stack
+          - usgovernment
+        default: public
+      - name: "Azure Location"
+        key: demo_azure_location
+        widget: auto_complete
+        type: string
+        values: [eastasia,southeastasia,centralus,eastus,eastus2,westus,northcentralus,southcentralus,northeurope,westeurope,japanwest,japaneast,brazilsouth,australiaeast,australiasoutheast,southindia,centralindia,westindia,canadacentral,canadaeast,uksouth,ukwest,westcentralus,westus2,koreacentral,koreasouth,francecentral,francesouth,australiacentral,australiacentral2,uaecentral,uaenorth,southafricanorth,southafricawest,switzerlandnorth,switzerlandwest,germanynorth,germanywestcentral,norwaywest,norwayeast]
+        default: francecentral
+      - name: "Azure Subscription ID"
+        description: "The Subscription ID which should be used"
+        key: demo_azure_subscription_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.subscription_id))"
+      - name: "Azure Tenant ID"
+        description: "The Tenant ID which should be used"
+        key: demo_azure_tenant_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.tenant_id))"
+      - name: "Azure Client ID"
+        description: "The Client ID which should be used"
+        key: demo_azure_client_id
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.client_id))"
+      - name: "Azure Client secret"
+        description: "The Client Secret which should be used"
+        key: demo_azure_client_secret
+        widget: cy_cred
+        type: string
+        default: "((azure_step-by-step.client_secret))"
+    Application-source-code:
+      - name: "Application Git public URL"
+        description: "The URL of the public Git repository containing the source code of the application"
+        key: code_git_public_repository
+        widget: simple_text
+        type: string
+        default: "https://github.com/cycloid-community-catalog/docs-step-by-step-stack.git"
+      - name: "Application git repository branch"
+        description: "The branch of the public Git repository containing the source code of the application"
+        key: code_git_branch
+        widget: simple_text
+        type: string
+        default: code
+      - name: "Application type"
+        description: "The type of the application to deploy"
+        key: demo_app_type
+        widget: radios
+        type: string
+        values:
+          - php
+          - golang
+          - nodejs
+          - python
+        default: php
+    Cycloid-stack:
+      - name: "Catalog repository"
+        description: "Catalog repository containing your private stack"
+        key: demo_stack_git_repository
+        widget: cy_scs
+        type: string
+        default: git@github.com:cycloidio/cycloid-demo-stacks.git
+      - name: "Catalog repository branch"
+        description: "Branch to use containing the source code of your stack"
+        key: demo_stack_git_branch
+        widget: cy_branch
+        type: string
+        source: demo_stack_git_repository
+        default: master
+      - name: "Catalog repository credential (SSH key)"
+        description: "Credential (SSH key) used to fetch the service catalog of the stack"
+        key: demo_stack_git_key
+        widget: cy_cred
+        type: string
+        default: "((git_readonly.ssh_key))"
+    Application:
+      - name: "Instance type"
+        description: "The type of instance you want to create"
+        key: demo_instance_type
+        widget: slider_list
+        type: string
+        values:
+          - Standard_DS1_v2
+          - Standard_DS2_v2
+          - Standard_DS3_v2
+        default: Standard_DS1_v2
+      - name: "Instance disk size"
+        description: "Size of the disk space to allocate to the instance"
+        key: demo_instance_disk_size
+        widget: slider_range
+        type: integer
+        values:
+        - 10
+        - 100
+        default: 20
+        unit: "Go"
+
+aws-gitlab:
+  pipeline:
+    Cloud-provider:
+      - name: "AWS Region"
+        key: demo_aws_default_region
+        widget: auto_complete
+        type: string
+        values: ["eu-north-1","ap-south-1","eu-west-3","eu-west-2","eu-west-1","ap-northeast-2","ap-northeast-1","sa-east-1","ca-central-1","ap-southeast-1","ap-southeast-2","eu-central-1","us-east-1","us-east-2","us-west-1","us-west-2"]
+        default: eu-west-1
+      - name: "AWS Access Key ID"
+        description: "AWS Access Key ID which should be used"
+        key: demo_aws_access_key
+        widget: cy_cred
+        type: string
+        default: "((aws.access_key))"
+      - name: "AWS Secret Key"
+        description: "AWS Secret Key which should be used"
+        key: demo_aws_secret_key
+        widget: cy_cred
+        type: string
+        default: "((aws.secret_key))"
+    Application-source-code:
+      - name: "Application Docker image"
+        description: "The Docker image name of the application"
+        key: docker_image_code
+        widget: simple_text
+        type: string
+        default: "cycloid/demo-gitlab-wordpress"
+      - name: "Application type"
+        description: "The type of the application to deploy"
+        key: demo_app_type
+        widget: radios
+        type: string
+        values:
+          - php
+          - golang
+          - nodejs
+          - python
+        default: php
+    Cycloid-stack:
+      - name: "Catalog repository"
+        description: "Catalog repository containing your private stack"
+        key: demo_stack_git_repository
+        widget: cy_scs
+        type: string
+        default: git@github.com:cycloidio/cycloid-demo-stacks.git
+      - name: "Catalog repository branch"
+        description: "Branch to use containing the source code of your stack"
+        key: demo_stack_git_branch
+        widget: cy_branch
+        type: string
+        source: demo_stack_git_repository
+        default: master
+      - name: "Catalog repository credential (SSH key)"
+        description: "Credential (SSH key) used to fetch the service catalog of the stack"
+        key: demo_stack_git_key
+        widget: cy_cred
+        type: string
+        default: "((git_readonly.ssh_key))"
+    Application:
+      - name: "Instance type"
+        description: "The type of instance you want to create"
+        key: demo_instance_type
+        widget: slider_list
+        type: string
+        values:
+          - t3.nano
+          - t3.micro
+          - t3.small
+          - t3.medium
+        default: t3.small
+      - name: "Instance disk size"
+        description: "Size of the disk space to allocate to the instance"
+        key: demo_instance_disk_size
+        widget: slider_range
+        type: integer
+        values:
+          - 10
+          - 100
+        default: 20
+        unit: "Go"
