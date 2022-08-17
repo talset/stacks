@@ -217,7 +217,7 @@ module "aks" {
   service_principal_client_secret = var.aks_service_principal_client_secret
 
   depends_on = [
-    module.config,
+    module.config
   ]
 }
 
