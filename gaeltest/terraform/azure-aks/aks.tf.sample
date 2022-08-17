@@ -67,9 +67,9 @@ module "vpc" {
   resource_group_name = module.config.azurerm_resource_group_name
   location            = module.config.azurerm_resource_group_location
 
-  depends_on = [
-    module.config,
-  ]
+  #depends_on = [
+  #  module.config
+  #]
 }
 
 module "aks" {
