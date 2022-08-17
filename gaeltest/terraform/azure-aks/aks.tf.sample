@@ -216,9 +216,6 @@ module "aks" {
   service_principal_client_id     = var.aks_service_principal_client_id
   service_principal_client_secret = var.aks_service_principal_client_secret
 
-  depends_on = [
-    module.config
-  ]
 }
 
 # You can duplicate this module to create mutiple AKS node groups.
