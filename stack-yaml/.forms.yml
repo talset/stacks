@@ -1,0 +1,55 @@
+version: "2"
+use_cases:
+- name: cycloid-common
+  sections:
+
+- name: default
+  sections:
+  - name: Stack
+    groups:
+    - name: Application
+      technologies: [ansible]
+      vars:
+        - name: Application name
+          description: "Name of the application"
+          key: application_name
+          widget: simple_text
+          type: string
+          required: true
+          default: cycloidapp
+
+        - name: "Raw"
+          description: "extra yaml to write"
+          key: raw_params
+          widget: text_area
+          type: raw
+          default: |+
+            # Specific plugin config
+
+
+  - name: Advanced (optional)
+    groups:
+    - name: config-repository
+      technologies: [pipeline]
+      vars:
+        #- name: "Config repository"
+        #  description: "Git repository URL containing the config of the stack."
+        #  key: config_git_repository
+        #  type: string
+        #  widget: cy_crs
+        #  default: "git@github.com:cycloidio/cycloid-labs.git"
+        #  required: true
+        #- name: "Config git key"
+        #- description: "SSH key pair to fetch the config Git repository."
+        #- key: config_git_private_key
+        #- type: string
+        #- widget: cy_cred
+        #- default: "((github-labs.ssh_key))"
+        #- name: "Config branch"
+        #  description: "The branch used by the config repository"
+        #  key: config_git_branch
+        #  widget: cy_branch
+        #  type: string
+        #  source: config_git_repository
+        #  default: "config"
+        #  required: true

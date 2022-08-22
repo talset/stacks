@@ -1,0 +1,29 @@
+---
+version: '2'
+name: Cycloid stack yaml (florian)
+canonical: cycloid-yaml-florian
+description: |
+  Generate yaml files froms forms
+keywords:
+  - formsv2
+  - forms
+  - cycloid
+  - stack
+  - stacks
+author: Cycloid
+image: https://www.cycloid.io/themes/cycloid/images/owl_logo.png
+
+config:
+  default:
+    name: default
+    description: Default
+    pipeline:
+      pipeline:
+        path: pipeline/pipeline.yml
+      variables:
+        path: pipeline/variables.sample.yml
+        destination: '($ project $)/pipeline/($ environment $)/variables.yml'
+    ansible:
+      stack:
+        path: 'yml/vars.yml.sample'
+        destination: '($ project $)/yml/($ environment $)/vars.yml'
