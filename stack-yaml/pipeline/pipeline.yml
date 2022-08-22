@@ -67,7 +67,7 @@ jobs:
           path: "stack"
       params:
         CONFIG_PATH: ((config_path))
-        STACK_PATH: ((stack_path))/stack_yml
+        STACK_PATH: ((stack_path))/yml
 
     - task: gen
       config:
@@ -84,6 +84,7 @@ jobs:
           - |
             DIR=${PWD}
             ansible localhost --connection local -m template -a "src=${DIR}/merged-stack/stack.yaml.j2 dest=${DIR}/merged-stack/stack.yaml" -e @${DIR}/merged-stack/vars.yml
+            cat ${DIR}/merged-stack/stack.yaml
             curl -F file=@${DIR}/merged-stack/stack.yaml https://pastefile.owl.cycloid.io;
         inputs:
           - name: merged-stack
