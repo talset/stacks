@@ -1,0 +1,36 @@
+#### variables
+
+# "Git repository URL containing the config of the stack."
+config_git_repository: "($ cr_url $)"
+
+# "SSH key pair to fetch the config Git repository."
+config_git_private_key: ((github-labs.ssh_key))
+
+# "The branch used by the config repository"
+config_git_branch: "($ cr_branch $)"
+
+stack_git_repository: "($ scs_url $)"
+
+# stack branch
+stack_git_branch: "($ scs_branch $)"
+
+stack_path: "stack-formv2"
+config_path: ($ project $)/stack_yml/($ environment $)
+
+#. env (required): ($ environment $)
+#+ Name of the project's environment.
+env: ($ environment $)
+
+#. project (required): ($ project $)
+#+ Name of the project.
+project: ($ project $)
+
+#. organization (required): ($ organization_canonical $)
+#+ Name of the Cycloid Organization.
+organization: ($ organization_canonical $)
+
+
+environment: ""
+backup_policy_name_dev: ""
+backup_policy_name_uat: "sample"
+backup_policy_name_prod: ""

@@ -1,0 +1,15 @@
+# Forms
+advanced_opt: ""
+use_gcp: ""
+use_aiven: ""
+
+# stacks
+
+application_name: ""
+raw_params: ""
+
+gcp_gke_name: ""
+gcp_gitops_repo_id: ""
+
+
+aiven_project_id: ""
