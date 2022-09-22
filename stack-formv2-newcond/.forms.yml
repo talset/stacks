@@ -19,7 +19,7 @@ use_cases:
 
     - name: "Backup policies dev"
       technologies: [pipeline]
-      condition: "environment == 'Dev'"
+      condition: "$environment == 'Dev'"
       vars:
         - name: Backup Policies
           key: backup_policy_name_dev
@@ -32,7 +32,7 @@ use_cases:
 
     - name: "Backup policies uat"
       technologies: [pipeline]
-      condition: "environment == 'UAT'"
+      condition: "$environment == 'UAT'"
       vars:
       - name: Backup Policies
         key: backup_policy_name_uat
@@ -44,7 +44,7 @@ use_cases:
         - foo
     - name: "Backup policies prod"
       technologies: [pipeline]
-      condition: "environment == 'Prod'"
+      condition: "$environment == 'Prod'"
       vars:
       - name: Backup Policies
         key: backup_policy_name_prod
@@ -97,7 +97,7 @@ use_cases:
 
     - name: GCP
       technologies: [ansible]
-      condition: "use_gcp == true && (environment == 'Dev' || environment == 'UAT')"
+      condition: "$use_gcp == true && ($environment == 'Dev' || $environment == 'UAT')"
       vars:
         - name: GKE name
           description: "Name of the GKE cluster"
@@ -113,7 +113,7 @@ use_cases:
 
     - name: Aiven
       technologies: [ansible]
-      condition: "use_aiven == true && (environment == 'Prod')"
+      condition: "$use_aiven == true && ($environment == 'Prod')"
       vars:
         - name: Aiven project name
           description: "Name of the Aiven cluster"
@@ -125,7 +125,7 @@ use_cases:
   - name: Advanced (optional)
     groups:
     - name: config-repository
-      condition: "advanced_opt == true"
+      condition: "$advanced_opt == true"
       technologies: [pipeline]
       vars:
         #- name: "Config repository"
