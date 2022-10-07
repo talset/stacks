@@ -17,6 +17,14 @@ use_cases:
           type: string
           values: ["Dev", "UAT", "Prod"]
 
+        - name: VPC and Subnet name mapped value
+          description: VPC name
+          key: mapped
+          widget: dropdown
+          type: map
+          values: [{label: "default-europe-west1", value: "NETWORK:default SUBNET:default REGION:europe-west1 IIP-RANGE:10.132.0.0/20"}]
+          default: "default-europe-west1"
+
     - name: "Backup policies dev"
       technologies: [pipeline]
       condition: "environment==Dev"

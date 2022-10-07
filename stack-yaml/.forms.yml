@@ -24,4 +24,4 @@ use_cases:
           widget: text_area
           type: raw
           default: |+
-            # Specific plugin config
+            # Specific plugin config. Can't be empty

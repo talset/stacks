@@ -30,6 +30,7 @@ project: ($ project $)
 organization: ($ organization_canonical $)
 
 
+mapped: ""
 environment: ""
 backup_policy_name_dev: ""
 backup_policy_name_uat: "sample"
