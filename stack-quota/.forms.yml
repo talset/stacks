@@ -57,18 +57,18 @@ use_cases:
           quota_config:
             type: "cpu"
 
-        - name: "MEM Mo"
-          description: "Type of Aws EC2 onprem servers."
-          key: instance_b_memory
-          widget: radios
-          type: map
-          default: "128m"
-          values:
-              - {label: "128m", value: 128}
-              - {label: "256m", value: 256}
-              - {label: "512m", value: 512}
-          quota_config:
-            type: "memory"
+        # - name: "MEM Mo"
+        #   description: "Type of Aws EC2 onprem servers."
+        #   key: instance_b_memory
+        #   widget: radios
+        #   type: map
+        #   default: "128m"
+        #   values:
+        #       - {label: "128m", value: 128}
+        #       - {label: "256m", value: 256}
+        #       - {label: "512m", value: 512}
+        #   quota_config:
+        #     type: "memory"
 
         - name: "disk size type mapping"
           unit: Go
@@ -83,9 +83,9 @@ use_cases:
               - {label: L, value: 100}
           quota_config:
             mapping:
-              "10": "10 storage"
-              "50": "50 storage"
-              "100": "100 storage"
+              S: "10 storage"
+              M: "50 storage"
+              L: "100 storage"
 
     - name: InstanceC
       technologies: [terraform]
