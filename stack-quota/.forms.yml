@@ -43,8 +43,8 @@ use_cases:
               - 10
               - 500
           quota_config:
+            count_ref: instance_a_count
             type: "storage"
-
 
     - name: InstanceB
       technologies: [terraform]
