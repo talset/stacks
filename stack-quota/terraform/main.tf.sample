@@ -1,0 +1,22 @@
+module "quota" {
+  #####################################
+  # Do not modify the following lines #
+  source = "./module-quota"
+
+  project            = var.project
+  env                = var.env
+  customer           = var.customer
+
+  #####################################
+
+  instance_a_count = 1
+  instance_a_type = "t3.small"
+  instance_a_disk_size = 60
+
+
+  instance_b_cpu = 2
+  instance_b_memory = 256
+  instance_b_disk_size = 60
+
+  instance_c_type = "r5.large"
+}

@@ -1,0 +1,107 @@
+version: "2"
+use_cases:
+- name: default
+  sections:
+  - name: General
+    groups:
+
+    - name: InstanceA
+      technologies: [terraform]
+      vars:
+        - name: "count"
+          description: "Number of Aws EC2 onprem server to create."
+          key: instance_a_count
+          widget: simple_text
+          type: string
+          default: "1"
+
+        - name: "type auto_complete/string"
+          description: "Type of Aws EC2 onprem servers. (micro missing)"
+          key: instance_a_type
+          widget: auto_complete
+          type: string
+          default: "t3.small"
+          values:
+              - "t3.micro"
+              - "t3.small"
+              - "t3.medium"
+              - "t3.large"
+          quota_config:
+            mapping:
+              "t3.small": "2 cpu, 2048 memory"
+              "t3.medium": "2 cpu, 4096 memory"
+              "t3.large": "2 cpu, 8192 memory"
+
+        - name: "disk size"
+          unit: Go
+          description: "Disk size of Aws EC2 onprem servers."
+          key: instance_a_disk_size
+          widget: slider_range
+          type: integer
+          default: 60
+          values:
+              - 10
+              - 500
+          quota_config:
+            type: "storage"
+
+
+    - name: InstanceB
+      technologies: [terraform]
+      vars:
+        - name: "CPU"
+          description: "Number of Aws EC2 onprem server to create."
+          key: instance_b_cpu
+          widget: number
+          type: integer
+          default: 1
+          quota_config:
+            type: "cpu"
+
+        - name: "MEM Mo"
+          description: "Type of Aws EC2 onprem servers."
+          key: instance_b_memory
+          widget: slider_range
+          type: integer
+          default: 256
+          values:
+              - 128
+              - 2048
+          quota_config:
+            type: "memory"
+
+        - name: "disk size type mapped"
+          unit: Go
+          description: "Disk size of Aws EC2 onprem servers. (**S** 10G, **M** 50G, **L** 100G)"
+          key: instance_b_disk_size
+          widget: radios
+          type: map
+          default: "S"
+          values:
+              - {label: S, value: 10}
+              - {label: M, value: 50}
+              - {label: L, value: 100}
+          quota_config:
+            mapping:
+              "S": "10 storage"
+              "M": "50 storage"
+              "L": "100 storage"
+
+    - name: InstanceC
+      technologies: [terraform]
+      vars:
+      - name: "type auto_complete/string"
+        description: "Type of Aws EC2 onprem servers"
+        key: instance_c_type
+        widget: dropdown
+        type: string
+        default: "r5.large"
+        values:
+            - "r5.large"
+            - "r5.xlarge"
+            - "r5.2xlarge"
+        quota_config:
+          mapping:
+            "r5.large": "1 cpu, 1024 memory, 10 storage"
+            "r5.xlarge": "2 cpu, 2048 memory, 50 storage"
+            "r5.2xlarge": "4 cpu, 4096 memory, 100 storage"
