@@ -82,9 +82,9 @@ use_cases:
               - {label: L, value: 100}
           quota_config:
             mapping:
-              "S": "10 storage"
-              "M": "50 storage"
-              "L": "100 storage"
+              "10": "10 storage"
+              "50": "50 storage"
+              "100": "100 storage"
 
     - name: InstanceC
       technologies: [terraform]
