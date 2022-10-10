@@ -11,8 +11,8 @@ use_cases:
         - name: "count"
           description: "Number of Aws EC2 onprem server to create."
           key: instance_a_count
-          widget: simple_text
-          type: string
+          widget: number
+          type: integer
           default: "1"
 
         - name: "type auto_complete/string"
@@ -26,6 +26,7 @@ use_cases:
               - "t3.medium"
               - "t3.large"
           quota_config:
+            count_ref: instance_a_count
             mapping:
               "t3.small": "1 cpu, 2048 memory"
               "t3.medium": "2 cpu, 4096 memory"
@@ -71,22 +72,24 @@ use_cases:
         #   quota_config:
         #     type: "memory"
 
-        - name: "disk size type mapping"
-          unit: Go
-          description: "Disk size of Aws EC2 onprem servers. (**S** 10G, **M** 50G, **L** 100G)"
-          key: instance_b_disk_size
-          widget: radios
-          type: map
-          # default: "S"
-          values:
-              - {label: S, value: 10}
-              - {label: M, value: 50}
-              - {label: L, value: 100}
-          quota_config:
-            mapping:
-              S: "10 storage"
-              M: "50 storage"
-              L: "100 storage"
+
+        # Not working right now, need francesc fix
+        # - name: "disk size type mapping"
+        #   unit: Go
+        #   description: "Disk size of Aws EC2 onprem servers. (**S** 10G, **M** 50G, **L** 100G)"
+        #   key: instance_b_disk_size
+        #   widget: radios
+        #   type: map
+        #   default: "S"
+        #   values:
+        #       - {label: S, value: 10}
+        #       - {label: M, value: 50}
+        #       - {label: L, value: 100}
+        #   quota_config:
+        #     mapping:
+        #       S: "10 storage"
+        #       M: "50 storage"
+        #       L: "100 storage"
 
     - name: InstanceC
       technologies: [terraform]
