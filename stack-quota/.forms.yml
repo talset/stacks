@@ -22,15 +22,14 @@ use_cases:
           type: string
           default: "t3.small"
           values:
-              - "t3.micro"
               - "t3.small"
               - "t3.medium"
               - "t3.large"
           quota_config:
             mapping:
-              "t3.small": "2 cpu, 2048 memory"
+              "t3.small": "1 cpu, 2048 memory"
               "t3.medium": "2 cpu, 4096 memory"
-              "t3.large": "2 cpu, 8192 memory"
+              "t3.large": "4 cpu, 8192 memory"
 
         - name: "disk size"
           unit: Go
