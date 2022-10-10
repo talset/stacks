@@ -60,16 +60,17 @@ use_cases:
         - name: "MEM Mo"
           description: "Type of Aws EC2 onprem servers."
           key: instance_b_memory
-          widget: slider_range
-          type: integer
-          default: 256
+          widget: radios
+          type: map
+          default: "128m"
           values:
-              - 128
-              - 2048
+              - {label: "128m", value: 128}
+              - {label: "256m", value: 256}
+              - {label: "512m", value: 512}
           quota_config:
             type: "memory"
 
-        - name: "disk size type mapped"
+        - name: "disk size type mapping"
           unit: Go
           description: "Disk size of Aws EC2 onprem servers. (**S** 10G, **M** 50G, **L** 100G)"
           key: instance_b_disk_size
