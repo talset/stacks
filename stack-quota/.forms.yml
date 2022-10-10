@@ -13,7 +13,7 @@ use_cases:
           key: instance_a_count
           widget: number
           type: integer
-          default: "1"
+          default: 1
 
         - name: "type auto_complete/string"
           description: "Type of Aws EC2 onprem servers. (micro missing)"
