@@ -74,6 +74,13 @@ use_cases:
           required: true
           default: cycloidapp
 
+        - name: "map"
+          description: "List of EC2 FTP to create. Exemple: { \"ftp1\": { \"allowed_networks\": [\"0.0.0.0/0\"], \"instance_type\": \"t3.micro\"} }"
+          key: ftp_list
+          widget: text_area
+          type: map
+          default: {}
+
         - name: "Raw"
           description: "extra yaml to write"
           key: raw_params

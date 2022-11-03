@@ -6,6 +6,7 @@ use_aiven: ""
 # stacks
 
 application_name: ""
+ftp_list:
 raw_params: ""
 
 gcp_gke_name: ""
