@@ -19,4 +19,7 @@ module "quota" {
   instance_b_disk_size = 60
 
   instance_c_type = "r5.large"
+  
+  instance_d_env  = "dev"
+  instance_d_type = "t2.nano"
 }
