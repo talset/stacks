@@ -24,27 +24,6 @@ groups:
 resource_types:
 resources:
 
-# The Terraform stack (will be merged with the config)
-- name: git_stack
-  icon: github-circle
-  type: git
-  source:
-    uri: ((stack_git_repository))
-    branch: ((stack_git_branch))
-    paths:
-      - ((stack_path))/*
-
-# The Terraform config (will be merged with the stack)
-- name: git_config
-  type: git
-  icon: github-circle
-  source:
-    uri: ((config_git_repository))
-    branch: ((config_git_branch))
-    private_key: ((config_git_private_key))
-    paths:
-      - ((config_path))/*
-
 jobs:
 
 - name: generate-stacks-yml
@@ -53,22 +32,6 @@ jobs:
   build_logs_to_retain: 3
   plan:
   - do:
-    - get: git_config
-      trigger: true
-    - get: git_stack
-
-    - task: merge-stack-and-config
-      config:
-        <<: *merge-stack-and-config
-        inputs:
-        - name: git_config
-          path: "config"
-        - name: git_stack
-          path: "stack"
-      params:
-        CONFIG_PATH: ((config_path))
-        STACK_PATH: ((stack_path))/terraform
-
     - task: gen
       config:
         platform: linux
@@ -84,8 +47,6 @@ jobs:
           - |
             DIR=${PWD}
             ls
-        inputs:
-          - name: merged-stack
         params:
           ENV: ((env))
           ORG: ((organization))
