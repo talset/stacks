@@ -109,3 +109,45 @@ use_cases:
             "r5.large": "1 cpu, 1024 memory, 10 storage"
             "r5.xlarge": "2 cpu, 2048 memory, 50 storage"
             "r5.2xlarge": "4 cpu, 4096 memory, 100 storage"
+
+
+    - name: InstanceDynamic
+      technologies: [terraform]
+      vars:
+      - name: Env
+        default: dev
+        description: Dict of extra tags to add to the vm instance.
+        key: env
+        mismatch_values:
+        type: string
+        values:
+        - "dev"
+        - "prod"
+        widget: dropdown
+      - name: Vm type
+        description: Type of instance to use for the instance.
+        key: instance_d_type
+        mismatch_values:
+        required: true
+        type: map
+        default: "M"
+        values: 
+          options:
+            - name: "Dev instance types"     # optional a name to appy to this option
+              condition: "$env == 'dev'"     # Condition to respect to have the following values
+              values:                        # The values to apply
+                - {"label": "XS", "value": "t2.nano"}
+                - {"label": "S", "value": "t2.small"}
+                - {"label": "M", "value": "t2.medium"}
+            - name: "Prod instance types"
+              condition: "$env == 'prod'"
+              values: 
+                - {"label": "M", "value": "t2.medium"}
+                - {"label": "L", "value": "t2.large"}
+        widget: radios
+        quota_config:
+         mapping:
+           "t2.nano": "1 cpu, 512 memory"
+           "t2.small": "2 cpu, 2048 memory"
+           "t2.medium": "3 cpu, 4096 memory"
+           "t2.large": "4 cpu, 8192 memory"
