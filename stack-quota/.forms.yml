@@ -19,8 +19,8 @@ use_cases:
           description: "Type of Aws EC2 onprem servers. (micro missing)"
           key: instance_a_type
           # auto_complete not compatible for now. We choose to not allow it
-          # widget: auto_complete
-          widget: dropdown
+          widget: auto_complete
+          # widget: dropdown
           type: string
           default: "t3.small"
           values:
