@@ -117,7 +117,7 @@ use_cases:
       - name: Env
         default: dev
         description: Dict of extra tags to add to the vm instance.
-        key: env
+        key: instance_d_env
         mismatch_values:
         type: string
         values:
