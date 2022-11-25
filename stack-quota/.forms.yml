@@ -60,38 +60,36 @@ use_cases:
           quota_config:
             type: "cpu"
 
-        # Doesn't work for now. Need to use mapping like storage below
-        # - name: "MEM Mo"
-        #   description: "Type of Aws EC2 onprem servers."
-        #   key: instance_b_memory
-        #   widget: radios
-        #   type: map
-        #   default: "128m"
-        #   values:
-        #       - {label: "128m", value: 128}
-        #       - {label: "256m", value: 256}
-        #       - {label: "512m", value: 512}
-        #   quota_config:
-        #     type: "memory"
+        - name: "MEM Mo"
+          description: "Type of Aws EC2 onprem servers."
+          key: instance_b_memory
+          widget: radios
+          type: map
+          default: "128m"
+          values:
+              - {label: "128m", value: 128}
+              - {label: "256m", value: 256}
+              - {label: "512m", value: 512}
+          quota_config:
+            type: "memory"
 
 
-        # Not working right now, need francesc fix
-        # - name: "disk size type mapping"
-        #   unit: Go
-        #   description: "Disk size of Aws EC2 onprem servers. (**S** 10G, **M** 50G, **L** 100G)"
-        #   key: instance_b_disk_size
-        #   widget: radios
-        #   type: map
-        #   default: "S"
-        #   values:
-        #       - {label: S, value: 10}
-        #       - {label: M, value: 50}
-        #       - {label: L, value: 100}
-        #   quota_config:
-        #     mapping:
-        #       S: "10 storage"
-        #       M: "50 storage"
-        #       L: "100 storage"
+        - name: "disk size type mapping"
+          unit: Go
+          description: "Disk size of Aws EC2 onprem servers. (**S** 10G, **M** 50G, **L** 100G)"
+          key: instance_b_disk_size
+          widget: radios
+          type: map
+          default: "S"
+          values:
+              - {label: S, value: 10}
+              - {label: M, value: 50}
+              - {label: L, value: 100}
+          quota_config:
+            mapping:
+              S: "10 storage"
+              M: "50 storage"
+              L: "100 storage"
 
     - name: InstanceC
       technologies: [terraform]
