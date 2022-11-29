@@ -134,13 +134,13 @@ use_cases:
           values:
             options:
               - name: "Dev instance types"     # optional a name to appy to this option
-                condition: "$env == 'dev'"     # Condition to respect to have the following values
+                condition: "$instance_d_env == 'dev'"     # Condition to respect to have the following values
                 values:                        # The values to apply
                   - {"label": "XS", "value": "t2.nano"}
                   - {"label": "S", "value": "t2.small"}
                   - {"label": "M", "value": "t2.medium"}
               - name: "Prod instance types"
-                condition: "$env == 'prod'"
+                condition: "$instance_d_env == 'prod'"
                 values:
                   - {"label": "M", "value": "t2.medium"}
                   - {"label": "L", "value": "t2.large"}
