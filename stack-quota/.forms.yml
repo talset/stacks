@@ -4,7 +4,6 @@ use_cases:
   sections:
   - name: General
     groups:
-
     - name: InstanceA
       technologies: [terraform]
       vars:
@@ -75,80 +74,80 @@ use_cases:
 
         # comment since it doesn't works
         # The Forms File has an invalid format: use case "default" invalid definition for variable "instance_b_disk_size" (key) in section "General" of "InstanceB": The Forms Entity has an invalid format: invalid quota mapping, key "S" is not a value on the entity
-        #- name: "disk size type mapping"
-        #  unit: Go
-        #  description: "Disk size of Aws EC2 onprem servers. (**S** 10G, **M** 50G, **L** 100G)"
-        #  key: instance_b_disk_size
-        #  widget: radios
-        #  type: map
-        #  default: "S"
-        #  values:
-        #      - {label: S, value: 10}
-        #      - {label: M, value: 50}
-        #      - {label: L, value: 100}
-        #  quota_config:
-        #    mapping:
-        #      S: "10 storage"
-        #      M: "50 storage"
-        #      L: "100 storage"
+        - name: "disk size type mapping"
+          unit: Go
+          description: "Disk size of Aws EC2 onprem servers. (**S** 10G, **M** 50G, **L** 100G)"
+          key: instance_b_disk_size
+          widget: radios
+          type: map
+          default: "S"
+          values:
+              - {label: S, value: 10}
+              - {label: M, value: 50}
+              - {label: L, value: 100}
+          quota_config:
+            mapping:
+              10: "10 storage"
+              50: "50 storage"
+              100: "100 storage"
 
     - name: InstanceC
       technologies: [terraform]
       vars:
-      - name: "type auto_complete/string"
-        description: "Type of Aws EC2 onprem servers"
-        key: instance_c_type
-        widget: dropdown
-        type: string
-        default: "r5.large"
-        values:
-            - "r5.large"
-            - "r5.xlarge"
-            - "r5.2xlarge"
-        quota_config:
-          mapping:
-            "r5.large": "1 cpu, 1024 memory, 10 storage"
-            "r5.xlarge": "2 cpu, 2048 memory, 50 storage"
-            "r5.2xlarge": "4 cpu, 4096 memory, 100 storage"
+        - name: "type auto_complete/string"
+          description: "Type of Aws EC2 onprem servers"
+          key: instance_c_type
+          widget: dropdown
+          type: string
+          default: "r5.large"
+          values:
+              - "r5.large"
+              - "r5.xlarge"
+              - "r5.2xlarge"
+          quota_config:
+            mapping:
+              "r5.large": "1 cpu, 1024 memory, 10 storage"
+              "r5.xlarge": "2 cpu, 2048 memory, 50 storage"
+              "r5.2xlarge": "4 cpu, 4096 memory, 100 storage"
 
 
     - name: InstanceDynamic
       technologies: [terraform]
       vars:
-      - name: Env
-        default: dev
-        description: Dict of extra tags to add to the vm instance.
-        key: instance_d_env
-        mismatch_values:
-        type: string
-        values:
-        - "dev"
-        - "prod"
-        widget: dropdown
-      #- name: Vm type
-      #  description: Type of instance to use for the instance.
-      #  key: instance_d_type
-      #  mismatch_values:
-      #  required: true
-      #  type: map
-      #  default: "M"
-      #  values: 
-      #    options:
-      #      - name: "Dev instance types"     # optional a name to appy to this option
-      #        condition: "$env == 'dev'"     # Condition to respect to have the following values
-      #        values:                        # The values to apply
-      #          - {"label": "XS", "value": "t2.nano"}
-      #          - {"label": "S", "value": "t2.small"}
-      #          - {"label": "M", "value": "t2.medium"}
-      #      - name: "Prod instance types"
-      #        condition: "$env == 'prod'"
-      #        values: 
-      #          - {"label": "M", "value": "t2.medium"}
-      #          - {"label": "L", "value": "t2.large"}
-      #  widget: radios
-      #  quota_config:
-      #   mapping:
-      #     "t2.nano": "1 cpu, 512 memory"
-      #     "t2.small": "2 cpu, 2048 memory"
-      #     "t2.medium": "3 cpu, 4096 memory"
-      #     "t2.large": "4 cpu, 8192 memory"
+        - name: Env
+          default: dev
+          description: Dict of extra tags to add to the vm instance.
+          key: instance_d_env
+          mismatch_values:
+          type: string
+          values:
+          - "dev"
+          - "prod"
+          widget: dropdown
+        - name: Vm type
+          description: Type of instance to use for the instance.
+          key: instance_d_type
+          mismatch_values:
+          required: true
+          type: map
+          default: "M"
+          values:
+            options:
+              - name: "Dev instance types"     # optional a name to appy to this option
+                condition: "$env == 'dev'"     # Condition to respect to have the following values
+                values:                        # The values to apply
+                  - {"label": "XS", "value": "t2.nano"}
+                  - {"label": "S", "value": "t2.small"}
+                  - {"label": "M", "value": "t2.medium"}
+              - name: "Prod instance types"
+                condition: "$env == 'prod'"
+                values:
+                  - {"label": "M", "value": "t2.medium"}
+                  - {"label": "L", "value": "t2.large"}
+          widget: radios
+          quota_config:
+           mapping:
+             "t2.nano": "1 cpu, 512 memory"
+             "t2.small": "2 cpu, 2048 memory"
+             "t2.medium": "3 cpu, 4096 memory"
+             "t2.large": "4 cpu, 8192 memory"
