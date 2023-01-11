@@ -43,19 +43,19 @@ resources:
 - name: tfstate
   type: terraform
   source:
-    #env_name: default
-    #backend_type: http
-    #backend_config:
-    #  address: '((cycloid_api_url))/inventory?jwt=($ inventory_jwt $)'
-    env_name: ((env))
-    backend_type: s3
+    env_name: default
+    backend_type: http
     backend_config:
-      bucket: ((terraform_storage_bucket_name))
-      key: terraform.tfstate
-      workspace_key_prefix: ((project))
-      region: ((aws_default_region))
-      access_key: ((aws_access_key))
-      secret_key: ((aws_secret_key))
+      address: '((cycloid_api_url))/inventory?jwt=($ inventory_jwt $)'
+    #env_name: ((env))
+    #backend_type: s3
+    #backend_config:
+    #  bucket: ((terraform_storage_bucket_name))
+    #  key: terraform.tfstate
+    #  workspace_key_prefix: ((project))
+    #  region: ((aws_default_region))
+    #  access_key: ((aws_access_key))
+    #  secret_key: ((aws_secret_key))
     vars:
       access_key: ((aws_access_key))
       secret_key: ((aws_secret_key))
