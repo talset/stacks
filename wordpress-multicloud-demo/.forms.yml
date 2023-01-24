@@ -343,7 +343,7 @@ use_cases:
                 type: integer
                 default: 1024
 
-  - name: windows
+  - name: aws
     sections:
       - name: Commons
         groups:
@@ -449,7 +449,7 @@ use_cases:
                   - 81
                   - 500
                   
-  - name: linux
+  - name: azure
     sections:
       - name: Commons
         groups:
