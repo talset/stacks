@@ -1,12 +1,13 @@
-module "instance" {
-  source   = "./module-aws"
-  customer = "${var.customer}"
-  project  = "${var.project}"
-  env      = "${var.env}"
-
-  git_code_commit = "${var.git_code_commit}"
-  git_code_repo   = "${var.git_code_repo}"
-
-  instance_type       = "t3.small"
+module "vmstack" {
+  source             = "./module-vmstack"
+  cluster_name       = ""
+  server_cpu         = 0
+  server_ram         = 0
+  size_a             = 0
+  size_b             = 0
+  size_c             = 0
+  size_d             = 0
+  size_e             = 0
+  size_f             = 0
+  vm_infos           = var.vm_infos
 }
-
