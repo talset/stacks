@@ -59,7 +59,8 @@ use_cases:
                   - {"label": "Agent", "value": "3"}     
 
           - name: VM Type
-            technologies: [terraform,pipeline]
+            technologies: [pipeline]
+            #technologies: [terraform,pipeline]
             vars:
               - name: VM Type
                 description: What type of VM do you need ?
