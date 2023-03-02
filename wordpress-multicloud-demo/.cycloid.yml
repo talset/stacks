@@ -15,20 +15,20 @@ technologies:
     version: "n/a"
 
 config:
-  azure:
-    name: 'Azure'
-    description: 'Deploy a Wordpress application on Azure instance'
-    cloud_provider: azurerm
-    pipeline:
-      pipeline:
-        path: pipeline/azure/pipeline.yaml
-      variables:
-        path: pipeline/azure/variables.sample.yaml
-        destination: ($ project $)/pipeline/($ environment $)/variables.yaml
-    terraform:
-      wordpress-demo:
-        destination: ($ project $)/terraform/($ environment $)/main.tf
-        path: terraform/azure/azure.tf.sample
+#  azure:
+#    name: 'Azure'
+#    description: 'Deploy a Wordpress application on Azure instance'
+#    cloud_provider: azurerm
+#    pipeline:
+#      pipeline:
+#        path: pipeline/azure/pipeline.yaml
+#      variables:
+#        path: pipeline/azure/variables.sample.yaml
+#        destination: ($ project $)/pipeline/($ environment $)/variables.yaml
+#    terraform:
+#      wordpress-demo:
+#        destination: ($ project $)/terraform/($ environment $)/main.tf
+#        path: terraform/azure/azure.tf.sample
 
   aws:
     name: 'AWS'
