@@ -38,7 +38,7 @@ use_cases:
             - condition: $retention == "Long"
               values: ["30 daily, 13 monthly, 3 yearly at midnight", "30 daily, 13 monthly, 5 yearly at 9 PM", "30 daily, 13 monthly, 10 yearly at 1 AM", "30 daily, 13 monthly, 10 yearly at 10:30 PM", "60 daily, 13 monthly, 10 yearly at 10 PM"] 
             - condition: $retention == ""
-              values: []
+              values: [""]
     - name: PAC Backup policy
       technologies: [pipeline]
       condition: $region == "PAC"
