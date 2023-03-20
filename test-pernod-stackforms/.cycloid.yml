@@ -1,0 +1,35 @@
+---
+version: '2'
+name: 'test-pernod-stackforms'
+canonical: 'test-pernod-stackforms'
+description: |
+  this is my dummy stack created
+keywords:
+  - 'terraform'
+  - 'start'
+  - 'sample'
+  - 'aws'
+author: 'Cycloid'
+image: |
+  https://raw.githubusercontent.com/cycloid-community-catalog/stack-dummy/master/icon.png
+technologies:
+  - technology: concourse
+    version: n/a
+  - technology: terraform
+    version: n/a
+
+config:
+  default:
+    name: 'Default'
+    description: 'Default pipeline usecase'
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ project $)/pipeline/variables-($ environment $).yml'
+    terraform:
+      main:
+        path: 'terraform/main.tf.sample'
+        destination: '($ project $)/terraform/($ environment $)/main.tf'
+

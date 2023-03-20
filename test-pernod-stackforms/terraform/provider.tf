@@ -1,0 +1,26 @@
+variable "organization" {}
+variable "project" {}
+variable "env" {}
+
+# Aws
+provider "aws" {
+  access_key = var.aws_cred.access_key
+  secret_key = var.aws_cred.secret_key
+  region     = var.aws_region
+  default_tags {
+    tags = {
+      "cycloid.io" = "true"
+      env          = var.env
+      project      = var.project
+      organization = var.organization
+    }
+  }
+}
+variable "aws_cred" {}
+# contains:
+# .access_key
+# .secret_key
+variable "aws_region" {
+  description = "AWS region to launch servers."
+  default     = "eu-west-1"
+}
