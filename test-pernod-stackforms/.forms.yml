@@ -23,8 +23,8 @@ use_cases:
         widget: dropdown
         type: string
         values: ["Short", "Medium", "Long"]
+        default: Short
       - name: EMEA Backup Policies
-        condition: $region == "EMEA"
         description: "Which backup policy do you want to use ?"
         key: backup_policy
         widget: dropdown
