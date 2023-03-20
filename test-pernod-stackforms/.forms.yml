@@ -2,23 +2,6 @@ version: "2"
 use_cases:
 - name: default
   sections:
-  - name: Common Informations
-    groups:
-    - name: Common Informations
-      technologies: [pipeline]
-      vars:
-      - name: "Role"
-        description: Server Role
-        key: server_role
-        widget: dropdown
-        type: string
-        values: ["APP", "WEB", "DBS", "TST", "JDE", "CTX"]
-      - name: "Environment"
-        description: "In which environment does the VM will be deploy ?"
-        key: environment
-        widget: dropdown
-        type: string
-        values: ["dev", "prod", "uat"]
   - name: Regional Settings
     groups:
     - name: Region
@@ -30,21 +13,6 @@ use_cases:
         widget: dropdown
         type: string
         values: ["AME", "ASIA", "EMEA", "PAC"]
-      - widget: dropdown
-        values:
-          options:
-            - condition: $region == "AME"
-              values: ["CAN", "USA", "TRU", "USW", "MEX", "PER", "VEN", "ARG", "BRA", "CHL", "URY", "COL", "DOM", "CSW", "HWS", "GLB"]
-            - condition: $region == "ASIA"
-              values: ["CHN", "AHQ", "TRA", "JPN", "KOR", "TWN", "THA", "HKG", "PHL", "GLB"]
-            - condition: $region == "EMEA"
-              values: ["MEA", "FRA", "GLB", "MMP", "ZAF", "SVN", "ESP", "PWS", "TUR", "GRC"]
-            - condition: $region == "PAC"
-              values: ["AUS", "NZL", "ANZ", "GLB"]
-        type: string
-        key: affiliate
-        name: Affiliate Choice
-        description: "In which affiliate do you want to deploy your Virtual Machine ?"
     - name: EMEA Settings 
       technologies: [pipeline]
       condition: $region == "EMEA"
@@ -80,7 +48,7 @@ use_cases:
         values: ["PRW-PROD", "PRW-UAT"]
     - name: "PRW-PROD / Prod VM backup Policies"
       technologies: [pipeline]
-      condition: (($region == "PAC" && $subscription_pac == "PRW-PROD" && $environment == "prod") && ($server_role == "APP" || $server_role == "WEB" || $server_role == "TST"))
+      condition: (($subscription_pac == "PRW-PROD"))
       vars:
       - name: Backup Policies
         description: "Those are short backup policies. It means that the retention of the daily backups is between 15 and 30 days."
@@ -94,7 +62,7 @@ use_cases:
         - "VM-PROD-7Y"
     - name: "PRW-PROD / Prod Databse backup Policies"
       technologies: [pipeline]
-      condition: (($region == "PAC" && $subscription_pac == "PRW-PROD" && $environment == "prod" && $server_role == "DBS"))
+      condition: (($subscription_pac == "PRW-UAT"))
       vars:
       - name: Backup Policies
         description: "Those are short backup policies. It means that the retention of the daily backups is between 15 and 30 days."
@@ -105,81 +73,3 @@ use_cases:
         - "SQL-PROD-3M"
         - "SQL-PROD-2Y"
         - "SQL-PROD-7Y"
-    - name: "PRW-PROD / DEV/UAT VM Backup policies"
-      technologies: [pipeline]
-      condition: (($region == "PAC" && $subscription_pac == "PRW-PROD") && ($environment == "uat" || $environment == "dev") && ($server_role == "APP" || $server_role == "WEB" || $server_role == "TST"))
-      vars:
-      - name: Backup Policies
-        description: "Those are medium backup policies. It means that you can chose the retention of the daily backup and the monthly backups."
-        key: backup_policy_prod_uat_vm_pac
-        type: string
-        widget: dropdown
-        values: 
-        - "VM-UA"
-        - "VM-UA-3M"
-    - name: "PRW-PROD / DEV/UAT Database Backup policies"
-      technologies: [pipeline]
-      condition: (($region == "PAC" && $subscription_pac == "PRW-PROD") && ($environment == "uat" || $environment == "dev" && $server_role == "DBS"))
-      vars:
-      - name: Backup Policies
-        description: "Those are medium backup policies. It means that you can chose the retention of the daily backup and the monthly backups."
-        key: backup_policy_prod_uat_sql_pac
-        type: string
-        widget: dropdown
-        values: 
-        - "SQL-UA"
-        - "SQL-UA"
-        default: "SQL-UA"
-    - name: "PRW-UAT / Prod VM Backup policies"
-      technologies: [pipeline]
-      condition: (($region == "PAC" && $subscription_pac == "PRW-UAT" && $environment == "prod") && ($server_role == "APP" || $server_role == "WEB" || $server_role == "TST"))
-      vars:
-      - name: Backup Policies
-        description: "Those are medium backup policies. It means that you can chose the retention of the daily backup and the monthly backups."
-        key: backup_policy_uat_prod_vm_pac
-        type: string
-        widget: dropdown
-        values: 
-        - "VM-PROD-7Y"
-        - "VM-PROD-3M"
-        - "VM-PROD-14D"
-        - "VM-PROD-2Y"
-    - name: "PRW-UAT / Prod Database backup Policies"
-      technologies: [pipeline]
-      condition: $region == "PAC" && $subscription_pac == "PRW-UAT" && $environment == "prod" && $server_role == "DBS"
-      vars:
-      - name: Backup Policies
-        description: "Those are short backup policies. It means that the retention of the daily backups is between 15 and 30 days."
-        key: backup_policy_uat_prod_sql_pac
-        type: string
-        widget: dropdown
-        values: 
-        - "SQL-PROD-2Y"
-        - "SQL-PROD-7Y"
-        - "SQL-PROD-3M"
-    - name: "PRW-UAT / DEV/UAT VM Backup policies"
-      technologies: [pipeline]
-      condition: (($region == "PAC" && $subscription_pac == "PRW-UAT") && ($environment == "uat" || $environment == "dev") && ($server_role == "APP" || $server_role == "WEB" || $server_role == "TST"))
-      vars:
-      - name: Backup Policies
-        description: "Those are medium backup policies. It means that you can chose the retention of the daily backup and the monthly backups."
-        key: backup_policy_uat_uat_vm_pac
-        type: string
-        widget: dropdown
-        values:
-        - "VM-UA"
-        - "VM-UA"
-        default: "VM-UA"
-    - name: "PRW-UAT / UAT Database Backup policies"
-      technologies: [pipeline]
-      condition: (($region == "PAC" && $subscription_pac == "PRW-UAT") && ($environment == "uat" || $environment == "dev") && ($server_role == "DBS"))
-      vars:
-      - name: Backup Policies
-        description: "Those are medium backup policies. It means that you can chose the retention of the daily backup and the monthly backups."
-        key: backup_policy_uat_uat_sql_pac
-        type: string
-        widget: dropdown
-        values: 
-        - "SQL-UA"
-        - "SQL-UA"
-        default: "SQL-UA"
