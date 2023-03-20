@@ -1,6 +1,6 @@
 version: "2"
 use_cases:
-- name: windows_azure
+- name: default
   sections:
   - name: Common Informations
     groups:
