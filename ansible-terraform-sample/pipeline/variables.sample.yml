@@ -1,0 +1,14 @@
+env: ($ environment $)
+project: ($ project $)
+org: ($ organization_canonical $)
+
+config_git_private_key: "Filled by stackforms"
+stack_git_private_key: "Filled by stackforms"
+
+stack_path: terraform-sample/terraform
+cycloid_api_url: https://http-api.cycloid.io
+
+
+#
+## Terraform tfstate storage Configuration
+#terraform_storage_bucket_name: ($ organization_canonical $)-terraform-remote-state

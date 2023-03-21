@@ -1,0 +1,48 @@
+---
+version: "2"
+use_cases:
+- name: default
+  sections:
+
+  - name: App
+    groups:
+    - name: config
+      technologies: [terraform]
+      vars:
+      - name: "Random string length"
+        description: "Specify the length of the random string"
+        key: random_length
+        widget: number
+        type: integer
+        default: 16
+
+  - name: Git
+    groups:
+    - name: config
+      technologies: [pipeline]
+      vars:
+      - name: "Config git key"
+        description: "SSH key pair to fetch the config Git repository."
+        key: config_git_private_key
+        type: string
+        widget: cy_cred
+        widget_config:
+          cred_types:
+            - ssh
+        #default: "((ssh_config.ssh_key))"
+        required: true
+
+    - name: stack
+      technologies: [pipeline]
+      vars:
+      - name: "Stack git key"
+        description: "SSH key pair to fetch the stack Git repository."
+        key: stack_git_private_key
+        type: string
+        widget: cy_cred
+        widget_config:
+          cred_types:
+            - ssh
+        #default: "((ssh_stack.ssh_key))"
+        required: true
+
