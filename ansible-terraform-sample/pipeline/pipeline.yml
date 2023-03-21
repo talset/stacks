@@ -21,7 +21,7 @@ shared:
           path: "merged-stack"
     params:
       CONFIG_PATH: ((project))/terraform/((env))
-      STACK_PATH: ((stack_path))
+      STACK_PATH: ((stack_path))/terraform
 
 groups:
 - name: overview
@@ -62,7 +62,7 @@ resources:
     branch: ($ scs_branch $)
     private_key: ((stack_git_private_key))
     paths:
-      - ((stack_path))/*
+      - ((stack_path))/terraform/*
 
 # The Terraform config (will be merged with the stack)
 - name: git_config

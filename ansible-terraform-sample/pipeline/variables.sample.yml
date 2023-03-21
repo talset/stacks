@@ -5,7 +5,7 @@ org: ($ organization_canonical $)
 config_git_private_key: "Filled by stackforms"
 stack_git_private_key: "Filled by stackforms"
 
-stack_path: terraform-sample/terraform
+stack_path: ansible-terraform-sample
 cycloid_api_url: https://http-api.cycloid.io
 
 
