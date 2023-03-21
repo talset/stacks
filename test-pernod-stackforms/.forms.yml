@@ -13,6 +13,32 @@ use_cases:
         widget: dropdown
         type: string
         values: ["AME", "EMEA", "PAC"]
+    - name: EMEA Settings 
+      technologies: [pipeline]
+      condition: $region == "EMEA"
+      vars:
+      - name: EMEA Backup Policy
+        description: "Which type of retention do you want to use for the backup storage ?"
+        key: retention
+        widget: dropdown
+        type: string
+        values: ["Short", "Medium", "Long"]
+        default: Short
+      - name: EMEA Backup Policies
+        description: "Which backup policy do you want to use ?"
+        key: backup_policy
+        widget: dropdown
+        type: string
+        values:
+          options:
+            - condition: $retention == "Short"
+              values: ["15 daily at 4 AM", "15 daily at 5 PM", "30 daily at 6 AM", "30 daily at 4 PM"]
+            - condition: $retention == "Medium"
+              values: ["15 daily, 6 monthly at 2:30 AM", "15 daily, 6 monthly at 4 PM", "30 daily, 6 monthly at 3:30 AM", "30 daily, 6 monthly at 7 PM", "15 daily, 13 monthly at 3 AM", "30 daily, 13 monthly at 5:30 AM", "30 daily, 13 monthly at 8 PM"]
+            - condition: $retention == "Long"
+              values: ["30 daily, 13 monthly, 3 yearly at midnight", "30 daily, 13 monthly, 5 yearly at 9 PM", "30 daily, 13 monthly, 10 yearly at 1 AM", "30 daily, 13 monthly, 10 yearly at 10:30 PM", "60 daily, 13 monthly, 10 yearly at 10 PM"] 
+            #- condition: $retention == ""
+            #  values: [""]
     - name: PAC Backup policy
       technologies: [pipeline]
       condition: $region == "PAC"
