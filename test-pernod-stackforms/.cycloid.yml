@@ -19,7 +19,21 @@ technologies:
     version: n/a
 
 config:
-  default:
+  linux:
+    name: 'Defaultl'
+    description: 'Default pipeline usecase'
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ project $)/pipeline/variables-($ environment $).yml'
+    terraform:
+      main:
+        path: 'terraform/main.tf.sample'
+        destination: '($ project $)/terraform/($ environment $)/main.tf'
+
+  windows:
     name: 'Default'
     description: 'Default pipeline usecase'
     pipeline:
