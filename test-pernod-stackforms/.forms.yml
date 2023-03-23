@@ -407,8 +407,7 @@ use_cases:
         groups:
 
           - name: VM 
-            technologies: [pipeline] 
-            #technologies: [terraform,pipeline] 
+            technologies: [terraform,pipeline] 
             vars: 
               - name: Cluster Name 
                 description: Select Cluster 
@@ -419,7 +418,7 @@ use_cases:
                   options: 
                     - name: Normal VM 
                       condition: "$vmtype == 'Normal'" 
-                      default: "1"
+                      default: ["1"]
                     - name: Monster VM 
                       condition: "$vmtype == 'Monster'" 
                       default: "7"
