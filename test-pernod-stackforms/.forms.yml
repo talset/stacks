@@ -407,7 +407,7 @@ use_cases:
         groups:
 
           - name: VM 
-            technologies: [terraform] 
+            technologies: [pipeline] 
             #technologies: [terraform,pipeline] 
             vars: 
               - name: Cluster Name 
