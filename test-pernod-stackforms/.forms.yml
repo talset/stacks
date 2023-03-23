@@ -413,15 +413,16 @@ use_cases:
                 description: Select Cluster 
                 key: cluster_name 
                 widget: dropdown 
-                type: map 
+                type: string
+                #type: map 
                 default: 
                   options: 
                     - name: Normal VM 
                       condition: "$vmtype == 'Normal'" 
-                      default: {"label":"a",        "value":"1"} 
+                      default: "1"
                     - name: Monster VM 
                       condition: "$vmtype == 'Monster'" 
-                      default: {"label":"g",          "value":"7"}
+                      default: "7"
                 values: 
                   options: 
                     - name: Normal VM 
