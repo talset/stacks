@@ -407,13 +407,14 @@ use_cases:
         groups:
 
           - name: VM 
-            technologies: [terraform,pipeline] 
+            technologies: [terraform] 
+            #technologies: [terraform,pipeline] 
             vars: 
               - name: Cluster Name 
                 description: Select Cluster 
                 key: cluster_name 
                 widget: dropdown 
-                type: map 
+                type: map
                 default: 
                   options: 
                     - name: Normal VM 
