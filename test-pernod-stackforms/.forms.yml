@@ -418,10 +418,10 @@ use_cases:
                   options: 
                     - name: Normal VM 
                       condition: "$vmtype == 'Normal'" 
-                      default: "1"
+                      default: "a"
                     - name: Monster VM 
                       condition: "$vmtype == 'Monster'" 
-                      default: "7"
+                      default: "g"
                 values: 
                   options: 
                     - name: Normal VM 
