@@ -413,8 +413,7 @@ use_cases:
                 description: Select Cluster 
                 key: cluster_name 
                 widget: dropdown 
-                type: string
-                #type: map 
+                type: map 
                 default: 
                   options: 
                     - name: Normal VM 
