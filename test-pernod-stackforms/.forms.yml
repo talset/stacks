@@ -41,7 +41,7 @@ use_cases:
                 default: 'Normal'
                 values:
                   - 'Normal'
-                  - 'Anormal'
+                  - 'Monster'
                 required: true
 
           - name: VM 
