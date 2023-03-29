@@ -30,6 +30,19 @@ use_cases:
                   - {"label": "Derriere", "value": "2"}
                   - {"label": "Agent", "value": "3"}     
 
+          - name: VM Type
+            technologies: [terraform,pipeline]
+            vars:
+              - name: VM Type
+                description: What type of VM do you need ?
+                key: vmtype
+                widget: dropdown
+                type: string
+                default: 'Normal'
+                values:
+                  - 'Normal'
+                  - 'Anormal'
+                required: true
 
           - name: VM 
             technologies: [terraform,pipeline] 
