@@ -46,23 +46,23 @@ use_cases:
                 required: true
 
           - name: VM 
-            #technologies: [pipeline] 
+            technologies: [pipeline] 
             #technologies: [terraform]
-            technologies: [terraform,pipeline] 
+            #technologies: [terraform,pipeline] 
             vars: 
               - name: Cluster Name 
                 description: Select Cluster 
                 key: cluster_name 
                 widget: dropdown 
                 type: map
-                #default: 
-                #  options: 
-                #    - name: Normal VM 
-                #      condition: "$vmtype == 'Normal'" 
-                #      default: "1"
-                #    - name: Monster VM 
-                #      condition: "$vmtype == 'Monster'" 
-                #      default: "7"
+                default: 
+                  options: 
+                    - name: Normal VM 
+                      condition: "$vmtype == 'Normal'" 
+                      default: "1"
+                    - name: Monster VM 
+                      condition: "$vmtype == 'Monster'" 
+                      default: "7"
                 values: 
                   options: 
                     - name: Normal VM 
