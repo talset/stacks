@@ -47,8 +47,8 @@ use_cases:
 
           - name: VM 
             #technologies: [pipeline] 
-            technologies: [terraform]
-            #technologies: [terraform,pipeline] 
+            #technologies: [terraform]
+            technologies: [terraform,pipeline] 
             vars: 
               - name: Cluster Name 
                 description: Select Cluster 
