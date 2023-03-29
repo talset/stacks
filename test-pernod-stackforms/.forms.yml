@@ -46,7 +46,8 @@ use_cases:
                 required: true
 
           - name: VM 
-            technologies: [pipeline] 
+            #technologies: [pipeline] 
+            technologies: [terraform]
             #technologies: [terraform,pipeline] 
             vars: 
               - name: Cluster Name 
