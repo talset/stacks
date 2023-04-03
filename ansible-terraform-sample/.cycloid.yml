@@ -1,17 +1,15 @@
 ---
 version: '2'
-name: 'ansible-terraform-sample'
-canonical: 'ansible-terraform-sample'
-description: |
-  this is my dummy stack created
+name: terraform-sample
+canonical: terraform-sample
+description: 'bootstrap stack for raw'
 keywords:
   - 'terraform'
   - 'start'
   - 'sample'
   - 'raw'
-author: 'Cycloid'
-image: |
-  https://raw.githubusercontent.com/cycloid-community-catalog/stack-dummy/master/icon.png
+template: true
+author: 'GaelL'
 technologies:
   - technology: concourse
     version: n/a
@@ -22,6 +20,19 @@ config:
   default:
     name: 'Default'
     description: 'Default pipeline usecase'
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ project $)/pipeline/variables-($ environment $).yml'
+    terraform:
+      main:
+        path: 'terraform/main.tf.sample'
+        destination: '($ project $)/terraform/($ environment $)/main.tf'
+  aws:
+    name: 'aws'
+    description: 'aws pipeline usecase'
     pipeline:
       pipeline:
         path: 'pipeline/pipeline.yml'
