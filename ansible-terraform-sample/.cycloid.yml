@@ -19,50 +19,6 @@ technologies:
     version: n/a
 
 config:
-  aws:
-    name: 'aws'
-    description: 'aws pipeline usecase'
-    cloud_provider: aws
-    pipeline:
-      pipeline:
-        path: 'pipeline/pipeline.yml'
-      variables:
-        path: 'pipeline/variables.sample.yml'
-        destination: '($ project $)/pipeline/variables-($ environment $).yml'
-    terraform:
-      main:
-        path: 'terraform/main.tf.sample'
-        destination: '($ project $)/terraform/($ environment $)/main.tf'
-
-  azure:
-    name: 'azure'
-    description: 'azure pipeline usecase'
-    cloud_provider: azure
-    pipeline:
-      pipeline:
-        path: 'pipeline/pipeline.yml'
-      variables:
-        path: 'pipeline/variables.sample.yml'
-        destination: '($ project $)/pipeline/variables-($ environment $).yml'
-    terraform:
-      main:
-        path: 'terraform/main.tf.sample'
-        destination: '($ project $)/terraform/($ environment $)/main.tf'
-
-  gcp:
-    name: 'gcp'
-    description: 'gcp pipeline usecase'
-    cloud_provider: gcp
-    pipeline:
-      pipeline:
-        path: 'pipeline/pipeline.yml'
-      variables:
-        path: 'pipeline/variables.sample.yml'
-        destination: '($ project $)/pipeline/variables-($ environment $).yml'
-    terraform:
-      main:
-        path: 'terraform/main.tf.sample'
-        destination: '($ project $)/terraform/($ environment $)/main.tf'
 
   raw:
     name: 'raw'
