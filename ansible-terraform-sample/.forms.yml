@@ -17,6 +17,17 @@ use_cases:
         values: ["micro","small","medium","large"]
         default: medium
 
+      - name: "Ansible SSH key"
+        description: "The SSH key to use when running Ansible to connect on the servers"
+        key: ansible_ssh_private_key_pair
+        widget: cy_cred
+        widget_config:
+          display_keys: false
+          cred_types:
+            - ssh
+        type: string
+        default: "((ssh))"
+
   - name: Git
     groups:
     - name: config

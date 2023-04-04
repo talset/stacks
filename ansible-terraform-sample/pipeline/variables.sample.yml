@@ -1,10 +1,12 @@
-env: ($ environment $)
-project: ($ project $)
-org: ($ organization_canonical $)
 
+# Ansible
+ansible_ssh_private_key_pair: "Filled by stackforms"
+
+# Git access
 config_git_private_key: "Filled by stackforms"
 stack_git_private_key: "Filled by stackforms"
 
+# Stack parameters
 stack_path: ansible-terraform-sample
 cycloid_api_url: https://http-api.cycloid.io
 
@@ -12,3 +14,8 @@ cycloid_api_url: https://http-api.cycloid.io
 #
 ## Terraform tfstate storage Configuration
 #terraform_storage_bucket_name: ($ organization_canonical $)-terraform-remote-state
+
+# Cycloid envs
+env: ($ environment $)
+project: ($ project $)
+org: ($ organization_canonical $)
