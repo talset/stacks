@@ -7,7 +7,7 @@ shared:
       type: docker-image
       source:
         repository: cycloid/cycloid-toolkit
-        tag: "((cycloid_toolkit_tag_prefix))((ansible_version))"
+        tag: "v2.9"
     run:
       path: /usr/bin/merge-stack-and-config
     outputs:
@@ -21,7 +21,7 @@ shared:
         type: docker-image
         source:
           repository: cycloid/cycloid-toolkit
-          tag: "((cycloid_toolkit_tag_prefix))((ansible_version))"
+          tag: "v2.9"
       run:
         path: /usr/bin/ansible-runner
       caches:
