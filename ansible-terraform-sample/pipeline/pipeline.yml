@@ -73,7 +73,7 @@ resources:
     branch: ($ scs_branch $)
     private_key: ((stack_git_private_key))
     paths:
-      - terraform/*
+      - ((stack_path))/terraform/*
 
 - name: git_stack-ansible
   type: git
@@ -83,7 +83,7 @@ resources:
     branch: ($ scs_branch $)
     private_key: ((stack_git_private_key))
     paths:
-      - ansible/*
+      - ((stack_path))/ansible/*
 
 # Git config repositories
 - name: git_config-ansible
@@ -132,7 +132,7 @@ jobs:
               path: "stack"
           params:
             CONFIG_PATH: ((project))/terraform/((env))
-            STACK_PATH: terraform
+            STACK_PATH: ((stack_path))/terraform
 
         - put: tfstate
           params:
@@ -169,7 +169,7 @@ jobs:
               path: "stack"
           params:
             CONFIG_PATH: ((project))/terraform/((env))
-            STACK_PATH: terraform
+            STACK_PATH: ((stack_path))/terraform
 
         - put: tfstate
           params:
@@ -197,7 +197,7 @@ jobs:
                 path: "stack"
             params:
               CONFIG_PATH: ((project))/terraform/((env))
-              STACK_PATH: terraform
+              STACK_PATH: ((stack_path))/terraform
 
           - put: tfstate
             params:
@@ -236,7 +236,7 @@ jobs:
             path: "terraform"
         params:
           CONFIG_PATH: ((project))/ansible/
-          STACK_PATH: ansible
+          STACK_PATH: ((stack_path))/ansible
 
       - task: run-ansible
         <<: *run-ansible-from-bastion
