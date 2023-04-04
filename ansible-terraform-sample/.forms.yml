@@ -30,6 +30,7 @@ use_cases:
             - ssh
         type: string
         default: "((ssh.ssh_key))"
+        required: true
   - name: Git
     groups:
     - name: config
