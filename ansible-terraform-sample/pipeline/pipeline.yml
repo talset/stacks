@@ -23,6 +23,21 @@ shared:
           tag: "v2.9"
       run:
         path: /usr/bin/ansible-runner
+    run:
+      path: /bin/bash
+      args:
+        - '-exc'
+        - |
+          # Here is a placeholder to create a static inventory file.
+          # In this example we will simply run locally ansible inside the worker.
+          cat > inventory.ini <<EOF
+          [all]
+          localhost ansible_connection=local gather_facts=false
+          EOF
+          export ANSIBLE_INVENTORY=inventory.ini
+
+          # Run ansible
+          /usr/bin/ansible-runner
       caches:
         - path: ansible-playbook/roles
       inputs:
