@@ -13,7 +13,7 @@
   pre_tasks:
     - name: Print the message
       ansible.builtin.debug:
-        msg: {{ message_content }}
+        msg: "{{ message_content }}"
 
   # roles:
     # - role: cycloid.telegraf
