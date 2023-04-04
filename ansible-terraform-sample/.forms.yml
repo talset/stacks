@@ -32,14 +32,14 @@ use_cases:
         default: "((ssh.ssh_key))"
         required: true
     - name: Ansible variables
-      technologies: [pipeline]
+      technologies: [ansible]
       vars:
       - name: "Message content"
         description: "Fill the Ansible variable message_content"
         key: message_content
         widget: simple_text
         type: string
-        default: "Hello from Cycloid"
+        default: "Hello from Cycloid stackforms"
   - name: Git
     groups:
     - name: config
