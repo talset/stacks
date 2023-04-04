@@ -28,7 +28,7 @@ shared:
           - |
             # Here is a placeholder to create a static inventory file.
             # In this example we will simply run locally ansible inside the worker.
-            cat > inventory.ini <<EOF
+            cat > merged-stack/inventory.ini <<EOF
             [all]
             localhost ansible_connection=local gather_facts=false
             EOF
