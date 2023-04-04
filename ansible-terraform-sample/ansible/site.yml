@@ -14,7 +14,7 @@
     - name: Print the message
       ansible.builtin.debug:
         msg: "{{ message_content }}"
-      changed_when: True is not False # Enforce the display due to usage of default ansible stdout callback set to actionnable
+      changed_when: "True != False" # Enforce the display due to usage of default ansible stdout callback set to actionnable
 
   # roles:
     # - role: cycloid.telegraf
