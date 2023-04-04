@@ -35,7 +35,7 @@ groups:
   jobs:
   - terraform-plan
   - terraform-apply
-  - run-ansible
+  - ansible-run
 - name: destroy
   jobs:
   - terraform-destroy
