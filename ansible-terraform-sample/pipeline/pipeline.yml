@@ -1,33 +1,41 @@
 # YAML anchors
 shared:
-  - &task-merge-stack-and-config
-    task: merge-stack-and-config
+
+  - &merge-stack-and-config
+    platform: linux
+    image_resource:
+      type: docker-image
+      source:
+        repository: cycloid/cycloid-toolkit
+        tag: "((cycloid_toolkit_tag_prefix))((ansible_version))"
+    run:
+      path: /usr/bin/merge-stack-and-config
+    outputs:
+    - name: merged-stack
+      path: "merged-stack"
+
+  - &run-ansible-from-bastion
     config:
       platform: linux
       image_resource:
         type: docker-image
         source:
           repository: cycloid/cycloid-toolkit
-          tag: latest
+          tag: "((cycloid_toolkit_tag_prefix))((ansible_version))"
       run:
-        path: /usr/bin/merge-stack-and-config
+        path: /usr/bin/ansible-runner
+      caches:
+        - path: ansible-playbook/roles
       inputs:
-        - name: git_config
-          path: "config"
-        - name: git_stack
-          path: "stack"
-      outputs:
-        - name: merged-stack
-          path: "merged-stack"
-    params:
-      CONFIG_PATH: ((project))/terraform/((env))
-      STACK_PATH: ((stack_path))/terraform
+      - name: merged-stack
+        path: merged-stack
 
 groups:
 - name: overview
   jobs:
   - terraform-plan
   - terraform-apply
+  - run-ansible
 - name: destroy
   jobs:
   - terraform-destroy
@@ -55,8 +63,19 @@ resources:
       organization: ((org))
 
 
-# The Terraform stack (will be merged with the config)
-- name: git_stack
+# Git stack repositories
+
+- name: git_stack-terraform
+  icon: github-circle
+  type: git
+  source:
+    uri: ($ scs_url $)
+    branch: ($ scs_branch $)
+    private_key: ((stack_git_private_key))
+    paths:
+      - terraform/*
+
+- name: git_stack-ansible
   type: git
   icon: github-circle
   source:
@@ -64,10 +83,20 @@ resources:
     branch: ($ scs_branch $)
     private_key: ((stack_git_private_key))
     paths:
-      - ((stack_path))/terraform/*
+      - ansible/*
 
-# The Terraform config (will be merged with the stack)
-- name: git_config
+# Git config repositories
+- name: git_config-ansible
+  type: git
+  icon: github-circle
+  source:
+    uri: ($ cr_url $)
+    branch: ($ cr_branch $)
+    private_key: ((config_git_private_key))
+    paths:
+      - ((project))/ansible/environments/((env))-*
+
+- name: git_config-terraform
   type: git
   icon: github-circle
   source:
@@ -78,6 +107,7 @@ resources:
       - ((project))/terraform/((env))/*
 
 jobs:
+
   - name: terraform-plan
     serial: true
     serial_groups: [terraform]
@@ -85,11 +115,25 @@ jobs:
     build_logs_to_retain: 10
     plan:
       - do:
-        - get: git_stack
+        - get: git_stack-terraform
+          params: {depth: 1}
           trigger: true
-        - get: git_config
+        - get: git_config-terraform
+          params: {depth: 1}
           trigger: true
-        - *task-merge-stack-and-config
+
+        - task: merge-stack-and-config
+          config:
+            <<: *merge-stack-and-config
+            inputs:
+            - name: git_config-terraform
+              path: "config"
+            - name: git_stack-terraform
+              path: "stack"
+          params:
+            CONFIG_PATH: ((project))/terraform/((env))
+            STACK_PATH: terraform
+
         - put: tfstate
           params:
             plan_only: true
@@ -98,14 +142,15 @@ jobs:
   - name: terraform-apply
     serial: true
     serial_groups: [terraform]
+    max_in_flight: 1
     build_logs_to_retain: 10
     plan:
       - do:
-        - get: git_stack
+        - get: git_stack-terraform
           trigger: false
           passed:
             - terraform-plan
-        - get: git_config
+        - get: git_config-terraform
           trigger: false
           passed:
             - terraform-plan
@@ -113,26 +158,102 @@ jobs:
           trigger: false
           passed:
             - terraform-plan
-        - *task-merge-stack-and-config
+
+        - task: merge-stack-and-config
+          config:
+            <<: *merge-stack-and-config
+            inputs:
+            - name: git_config-terraform
+              path: "config"
+            - name: git_stack-terraform
+              path: "stack"
+          params:
+            CONFIG_PATH: ((project))/terraform/((env))
+            STACK_PATH: terraform
+
         - put: tfstate
           params:
             plan_run: true
             terraform_source: merged-stack/
 
   - name: terraform-destroy
-    serial: true
-    serial_groups: [terraform]
+    max_in_flight: 1
     build_logs_to_retain: 10
     plan:
       - do:
-          - get: git_stack
+          - get: git_stack-terraform
+            params: {depth: 1}
             trigger: false
-          - get: git_config
+          - get: git_config-terraform
+            params: {depth: 1}
             trigger: false
-          - *task-merge-stack-and-config
+          - task: merge-stack-and-config
+            config:
+              <<: *merge-stack-and-config
+              inputs:
+              - name: git_config-terraform
+                path: "config"
+              - name: git_stack-terraform
+                path: "stack"
+            params:
+              CONFIG_PATH: ((project))/terraform/((env))
+              STACK_PATH: terraform
+
           - put: tfstate
             params:
               action: destroy
               terraform_source: merged-stack/
             get_params:
               action: destroy
+
+  - name: ansible-run
+    serial: true
+    build_logs_to_retain: 10
+    plan:
+    - do:
+      - get: git_stack-ansible
+        params: {depth: 1}
+        trigger: true
+
+      - get: git_config-ansible
+        params: {depth: 1}
+        trigger: true
+
+      - get: tfstate
+        passed:
+          - terraform-apply
+        trigger: true
+
+      - task: merge-stack-and-config
+        config:
+          <<: *merge-stack-and-config
+          inputs:
+          - name: git_config-ansible
+            path: "config"
+          - name: git_stack-ansible
+            path: "stack"
+          - name: tfstate
+            path: "terraform"
+        params:
+          CONFIG_PATH: ((project))/ansible/
+          STACK_PATH: ansible
+
+      - task: run-ansible
+        <<: *run-ansible-from-bastion
+        params:
+          # See ansible-runner doc for more details on the following environment variables
+          # https://github.com/cycloidio/docker-cycloid-toolkit#ansible-runner
+          SSH_PRIVATE_KEY: ((bastion_private_key_pair))
+          ANSIBLE_PLAYBOOK_PATH: merged-stack
+          ANSIBLE_PLAYBOOK_NAME: site.yml
+          ANSIBLE_FORCE_GALAXY: false
+          EXTRA_ANSIBLE_VARS:
+            customer: ((customer))
+            project: ((project))
+            env: ((env))
+
+          SSH_JUMP_URL: ((bastion_url))
+
+          AWS_DEFAULT_REGION: ((aws_default_region))
+          AWS_ACCESS_KEY_ID: ((aws_access_key))
+          AWS_SECRET_ACCESS_KEY: ((aws_secret_key))
