@@ -1,6 +1,0 @@
----
-
-#- src: https://github.com/cycloidio/ansible-telegraf
-#  version: master
-#  name: cycloid.telegraf
-#  scm: git
