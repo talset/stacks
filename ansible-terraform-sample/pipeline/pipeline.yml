@@ -76,20 +76,9 @@ resources:
 
 
 # Git stack repositories
-
-- name: git_stack-terraform
-  icon: github-circle
-  type: git
-  source:
-    uri: ($ scs_url $)
-    branch: ($ scs_branch $)
-    private_key: ((stack_git_private_key))
-    paths:
-      - ((stack_path))/terraform/*
-
 - name: git_stack-ansible
-  type: git
   icon: github-circle
+  type: git
   source:
     uri: ($ scs_url $)
     branch: ($ scs_branch $)
@@ -108,6 +97,18 @@ resources:
     paths:
       - ((project))/ansible/environments/((env))-*
 
+# Git stack repositories
+- name: git_stack-terraform
+  icon: github-circle
+  type: git
+  source:
+    uri: ($ scs_url $)
+    branch: ($ scs_branch $)
+    private_key: ((stack_git_private_key))
+    paths:
+      - ((stack_path))/terraform/*
+
+# Git config repositories
 - name: git_config-terraform
   type: git
   icon: github-circle
@@ -117,6 +118,7 @@ resources:
     private_key: ((config_git_private_key))
     paths:
       - ((project))/terraform/((env))/*
+
 
 jobs:
 
@@ -256,7 +258,8 @@ jobs:
           # See ansible-runner doc for more details on the following environment variables
           # https://github.com/cycloidio/docker-cycloid-toolkit#ansible-runner
           SSH_PRIVATE_KEY: ((ansible_ssh_private_key_pair))
-          # SSH_JUMP_URL: ((bastion_url))
+          # You can put here the IP address of a Bastion server
+          # SSH_JUMP_URL: 1.2.3.4
           ANSIBLE_PLAYBOOK_PATH: merged-stack
           ANSIBLE_PLAYBOOK_NAME: site.yml
           ANSIBLE_FORCE_GALAXY: false
@@ -264,4 +267,3 @@ jobs:
             org: ((org))
             project: ((project))
             env: ((env))
-
