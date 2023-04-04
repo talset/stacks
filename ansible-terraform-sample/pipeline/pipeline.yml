@@ -243,17 +243,13 @@ jobs:
         params:
           # See ansible-runner doc for more details on the following environment variables
           # https://github.com/cycloidio/docker-cycloid-toolkit#ansible-runner
-          SSH_PRIVATE_KEY: ((bastion_private_key_pair))
+          # SSH_PRIVATE_KEY: ((bastion_private_key_pair))
+          # SSH_JUMP_URL: ((bastion_url))
           ANSIBLE_PLAYBOOK_PATH: merged-stack
           ANSIBLE_PLAYBOOK_NAME: site.yml
           ANSIBLE_FORCE_GALAXY: false
           EXTRA_ANSIBLE_VARS:
-            customer: ((customer))
+            org: ((org))
             project: ((project))
             env: ((env))
 
-          SSH_JUMP_URL: ((bastion_url))
-
-          AWS_DEFAULT_REGION: ((aws_default_region))
-          AWS_ACCESS_KEY_ID: ((aws_access_key))
-          AWS_SECRET_ACCESS_KEY: ((aws_secret_key))
