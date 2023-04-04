@@ -4,9 +4,10 @@ use_cases:
 - name: raw
   sections:
 
+
   - name: App
     groups:
-    - name: config
+    - name: Instance
       technologies: [terraform]
       vars:
       - name: "Instance type"
@@ -16,9 +17,10 @@ use_cases:
         type: string
         values: ["micro","small","medium","large"]
         default: medium
-
+    - name: Ansible config
+      technologies: [pipeline]
+      vars:
       - name: "Ansible SSH key"
-        technologies: [pipeline]
         description: "The SSH key to use when running Ansible to connect on the servers"
         key: ansible_ssh_private_key_pair
         widget: cy_cred
@@ -28,7 +30,6 @@ use_cases:
             - ssh
         type: string
         default: "((ssh.ssh_key))"
-
   - name: Git
     groups:
     - name: config
