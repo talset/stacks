@@ -1,26 +1,19 @@
 ---
 
-
-# - hosts: tag_role_front:&tag_project_{{project}}:&tag_env_{{ env }}:!tag_packer_build_true
-
 - hosts: all
-  become: yes
+
 
   vars_files:
     - "environments/default_variables.yml"
     - [ "environments/{{ env }}-variables.yml", "environments/empty.yml" ]
 
-  pre_tasks:
+  tasks:
     - name: Print the message
       ansible.builtin.debug:
         msg: "{{ message_content }}"
-      changed_when: "True != False" # Enforce the display due to usage of default ansible stdout callback set to actionnable
 
     # Terraform outputs are automatically sent as variable to Ansible due to Cycloid scripts
     - name: Display a variable from Terraform outputs
       ansible.builtin.debug:
         msg: "instance_id from Terraform output - {{ instance_id }}"
-      changed_when: "True != False" # Enforce the display due to usage of default ansible stdout callback set to actionnable
 
-  # roles:
-    # - role: cycloid.telegraf

@@ -13,7 +13,7 @@ shared:
     - name: merged-stack
       path: "merged-stack"
 
-  - &run-ansible-from-bastion
+  - &run-ansible
     config:
       platform: linux
       image_resource:
@@ -253,7 +253,7 @@ jobs:
           STACK_PATH: ((stack_path))/ansible
 
       - task: run-ansible
-        <<: *run-ansible-from-bastion
+        <<: *run-ansible
         params:
           # See ansible-runner doc for more details on the following environment variables
           # https://github.com/cycloidio/docker-cycloid-toolkit#ansible-runner
@@ -263,6 +263,7 @@ jobs:
           ANSIBLE_PLAYBOOK_PATH: merged-stack
           ANSIBLE_PLAYBOOK_NAME: site.yml
           ANSIBLE_FORCE_GALAXY: false
+          ANSIBLE_STDOUT_CALLBACK: default
           EXTRA_ANSIBLE_VARS:
             org: ((org))
             project: ((project))
