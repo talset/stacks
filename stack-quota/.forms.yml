@@ -118,7 +118,6 @@ use_cases:
           default: dev
           description: Dict of extra tags to add to the vm instance.
           key: instance_d_env
-          mismatch_values:
           type: string
           values:
           - "dev"
@@ -127,7 +126,6 @@ use_cases:
         - name: Vm type
           description: Type of instance to use for the instance.
           key: instance_d_type
-          mismatch_values:
           required: true
           type: map
           default: "M"
