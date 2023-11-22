@@ -30,5 +30,5 @@ config:
         destination: '($ project $)/pipeline/($ environment $)/variables.yml'
     terraform:
       eks:
-        path: 'terraform/main.tf.sample'
+        path: 'terraform/main.tf'
         destination: '($ project $)/terraform/($ environment $)/main.tf'
