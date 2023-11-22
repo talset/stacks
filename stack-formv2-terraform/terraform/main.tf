@@ -1,9 +1,5 @@
 module "eks" {
   source = "./module-dummy"
-
-  depends_on = [
-    time_sleep.wait_eks_destroy
-  ]
 }
 
 module "aws-load-balancer-controller" {
