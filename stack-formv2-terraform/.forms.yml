@@ -1,0 +1,27 @@
+################################################################################
+# Stackforms: documentation at https://docs.cycloid.io/deploy/stackforms/feature.html
+################################################################################
+
+version: "2"
+use_cases:
+- name: default
+  sections:
+  - name: Extra services
+    groups:
+  - name: Extra services
+    groups:
+    - name: Global
+      technologies: [terraform]
+      vars:
+      - name: "Create Prometheus server ?"
+        description: "If true, deploy Prometheus server."
+        key: module.monitoring.prometheus_enabled
+        widget: switch
+        type: boolean
+        default: false
+      - name: "Create fluent-bit server ?"
+        description: "If true, deploy fluent-bit server."
+        key: module.fluent-bit.fluentbit_enabled
+        widget: switch
+        type: boolean
+        default: false
