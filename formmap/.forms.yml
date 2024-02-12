@@ -11,7 +11,7 @@ use_cases:
     - name: pipeline
       technologies: [pipeline]
       vars:
-        - name: "Cronjobs definitions"
+        - name: "Cronjobs definitions pp"
           description: |-
             Aws doc [here](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html). Example:
             ```
@@ -19,7 +19,7 @@ use_cases:
               cpu: 256
               memory: 1024
             ```
-          key: module.app.cronjobs
+          key: cronjobspp
           widget: text_area
           type: map
           default:
@@ -43,7 +43,7 @@ use_cases:
               schedule: "*/30 * * * ? *"
               cmd: "/var/www/html/app/bin/console app:quiz:reset"
             ```
-          key: module.app.cronjobs
+          key: module.myapp.cronjobs
           widget: text_area
           type: map
           default:
