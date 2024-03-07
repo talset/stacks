@@ -1,29 +1,32 @@
-# Configuration of the CI pipeline
-name: 'My test stack'
-canonical: 'stack-flo-test'
-description: 'Test with terraform'
+---
+version: '2'
+name: 'stack-test-flo'
+canonical: 'stack-test-flo'
 status: 'private'
+description: 'Validate forms'
 keywords:
-  - 'aws'
-  - 'ec2'
-  - 'ansible'
-  - 'demo'
-technologies:
-  - technology: Aws ec2 instance
-    version: n/a
+  - 'cycloid'
 author: 'Cycloid'
-image: 'https://raw.githubusercontent.com/cycloid-community-catalog/docs-step-by-step-stack/stacks/icon.png'
-type: 'stack'
+image: 'https://www.cycloid.io/themes/cycloid/images/owl_logo.png'
+technologies:
+  - technology: cycloid-core
+    version: n/a
 config:
-  # Configuration of the CI pipeline
-  pipeline:
+  # define the default pipeline here
+  default:
+    name: 'AWS ec2 instances'
+    description: 'Setup onprem on aws ec2 instances.'
     pipeline:
-      path: 'pipeline/pipeline.yml'
-    variables:
-      path: 'pipeline/variables.sample.yml'
-      destination: '($ project $)/pipeline/variables-($ environment $)/pipleline_var.yml'
-  # Configuration of terraform
-  custom:
-    puppet:
-      path: 'terraform/main.tf.sample'
-      destination: '($ project $)/terraform/($ environment $)/main.tf'
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ project $)/pipeline/variables-($ environment $).yml'
+    terraform:
+      onprem:
+        path: 'terraform/main.tf.sample'
+        destination: '($ project $)/terraform/($ environment $)/main.tf'
+    ansible:
+      onprem:
+        path: 'ansible/environments/cycloid.yml.sample'
+        destination: '($ project $)/ansible/environments/cycloid-($ environment $).yml'

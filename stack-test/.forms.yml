@@ -1,12 +1,38 @@
----
-default:
-  pipeline:
-    Git:
-      - name: Config git branch
-        key: config_git_branch
-        widget: simple_text
-        type: string
-        description: "Config git branch"
-        default:  master
-        required: true
+shared:
+  - &computed-rules
+    - all-all
+    - activemq-5671-tcp
+    - activemq-8883-tcp
+    - activemq-61614-tcp
+    - activemq-61617-tcp
+    - activemq-61619-tcp
+    - alertmanager-9093-tcp
+    - alertmanager-9094-tcp
+    - carbon-line-in-tcp
+    - carbon-line-in-udp
+    - carbon-pickle-tcp
+    - carbon-pickle-udp
+    - carbon-gui-udp
+    - cassandra-clients-tcp
+    - cassandra-thrift-clients-tcp
+    - cassandra-jmx-tcp
+    - consul-tcp
+    - consul-grpc-tcp
 
+version: "2"
+use_cases:
+- name: default
+  sections:
+  - name: terraform
+    groups:
+    - name: application
+      technologies: [pipeline]
+      vars:
+      - name: Egress rule
+        description: |
+          The specific egress rule to apply to the security group.
+        key: egress_rules
+        widget: dropdown
+        type: string
+        required: false
+        values: *computed-rules
