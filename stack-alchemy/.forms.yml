@@ -2,9 +2,12 @@ version: "2"
 use_cases:
 - name: default
   sections:
-  - name: terraform
+  - name: Example section
     groups:
-    - name: application
+    - name: terraform
+      technologies: [terraform]
+      vars:
+    - name: pipeline
       technologies: [pipeline]
       vars:
       - widget: text_area
