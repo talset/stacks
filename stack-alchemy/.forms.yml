@@ -71,14 +71,11 @@ use_cases:
                   schedule: "* 4 * * 3"
                   command: "bin/maintenance clean:WorkerRunningJob --help"
 
-      - name: Pluginslaunc
-        technologies: [pipeline]
-        vars:
-        - name: "Configurations"
-          description: "Content of the configmap used by plugins"
-          key: plugins_configuration
-          widget: text_area
-          type: raw
-          required: false
-          default: |+
-            # Specific plugin config. Can't be empty
+      - name: "Configurations"
+        description: "Content of the configmap used by plugins"
+        key: plugins_configuration
+        widget: text_area
+        type: raw
+        required: false
+        default: |+
+          # Specific plugin config. Can't be empty
