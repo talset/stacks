@@ -1,0 +1,34 @@
+---
+version: '2'
+name: 'stack-flo-alchemy'
+canonical: 'stack-flo-alchemy'
+status: 'private'
+description: 'Validate forms'
+keywords:
+  - 'cycloid'
+  - 'test'
+  - 'alchemy'
+author: 'Cycloid'
+image: 'https://www.cycloid.io/themes/cycloid/images/owl_logo.png'
+technologies:
+  - technology: cycloid-core
+    version: n/a
+config:
+  # define the default pipeline here
+  default:
+    name: 'AWS ec2 instances'
+    description: 'Setup onprem on aws ec2 instances.'
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ project $)/pipeline/variables-($ environment $).yml'
+    terraform:
+      onprem:
+        path: 'terraform/main.tf.sample'
+        destination: '($ project $)/terraform/($ environment $)/main.tf'
+#    ansible:
+#      onprem:
+#        path: 'ansible/environments/cycloid.yml.sample'
+#        destination: '($ project $)/ansible/environments/cycloid-($ environment $).yml'
