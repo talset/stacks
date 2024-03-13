@@ -1,23 +1,20 @@
----
-version: '2'
-name: 'stack-flo-alchemy'
-canonical: 'stack-flo-alchemy'
+# Use the latest version 2 of the Cycloid stack engine.
+version: 2
+name: stack-flo-alchemy
+canonical: stack-flo-alchemy
+author: 'florian'
+# Fill in the stack details.
+description: 'The bare minimum files to build your stack from scratch.'
+image: https://github.com/cycloidio/bootstrap-stacks/blob/master/blank-sample/thumbnail.png
+template: false
 status: 'private'
-description: 'Validate forms'
 keywords:
   - 'cycloid'
   - 'test'
   - 'alchemy'
-author: 'Cycloid'
-image: 'https://www.cycloid.io/themes/cycloid/images/owl_logo.png'
-technologies:
-  - technology: cycloid-core
-    version: n/a
 config:
-  # define the default pipeline here
   default:
-    name: 'AWS ec2 instances'
-    description: 'Setup onprem on aws ec2 instances.'
+    name: 'Default'
     pipeline:
       pipeline:
         path: 'pipeline/pipeline.yml'
@@ -28,7 +25,3 @@ config:
       onprem:
         path: 'terraform/main.tf.sample'
         destination: '($ project $)/terraform/($ environment $)/main.tf'
-#    ansible:
-#      onprem:
-#        path: 'ansible/environments/cycloid.yml.sample'
-#        destination: '($ project $)/ansible/environments/cycloid-($ environment $).yml'
