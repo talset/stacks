@@ -92,8 +92,9 @@ use_cases:
         description: |
           The specific ingress rule to apply to the security group.
         key: ingress_rules
-        widget: auto_complete
+        #widget: auto_complete
+        widget: dropdown
         type: string
         required: false
         values: *computed-rules
-        default: ""
+        #default: ""
