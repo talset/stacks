@@ -10,6 +10,6 @@ app:
  EOL
 }
 
-output "test" {
+output "cron" {
   value = local.app_cronjobs
 }

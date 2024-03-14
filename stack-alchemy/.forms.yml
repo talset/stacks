@@ -1,3 +1,9 @@
+shared:
+  - &computed-rules
+    - all-all
+    - activemq-5671-tcp
+    - zookeeper-jmx-tcp
+
 version: "2"
 use_cases:
 - name: default
@@ -79,3 +85,15 @@ use_cases:
         required: false
         default: |+
           # Specific plugin config. Can't be empty
+
+
+
+      - name: Ingress rule
+        description: |
+          The specific ingress rule to apply to the security group.
+        key: ingress_rules
+        widget: auto_complete
+        type: string
+        required: false
+        values: *computed-rules
+        default: ""
