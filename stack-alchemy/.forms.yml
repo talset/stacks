@@ -3,6 +3,7 @@ shared:
     - all-all
     - activemq-5671-tcp
     - zookeeper-jmx-tcp
+    - ""
 
 version: "2"
 use_cases:
@@ -97,4 +98,4 @@ use_cases:
         type: string
         required: false
         values: *computed-rules
-        #default: ""
+        default: ""
