@@ -1,19 +1,50 @@
-# Use the latest version 2 of the Cycloid StackForms engine.
-version: 2
-
-# Define the stack configuration form and organize inputs of various types into sections and groups.
-# See: https://docs.staging.cycloid.io/deploy/stackforms/file-format.html
+---
 use_cases:
-- name: {{ stack_usecase }}
-  sections:
-  - name: Example section
-    groups:
-    - name: Example group
-      technologies: [pipeline]
-      vars:
-      - name: "Message"
-        description: "A message echoed during pipeline runs."
-        key: message
-        type: string
-        widget: simple_text
-        default: "hello world"
+  - name: default
+    sections:
+      - name: Source base image
+        groups:
+          - name: Operating System
+            technologies: [pipeline]
+            vars:
+              - name: Region
+                key: region
+                widget: auto_complete
+                type: string
+                default: "967d166"
+
+              - name: VPC ID
+                key: cycloid_vpc_id
+                widget: dropdown
+                type: map
+                values_ref: https://pastefile.owl.cycloid.io/505c158da992cd3cd031278ab${region}
+                required: true
+
+              - name: Subnets to include in subnet group
+                key: subnet_ids
+                widget: dropdown
+                required: true
+                values_ref: https://pastefile.owl.cycloid.io/${cycloid_vpc_id}
+                type: array
+                widget_config:
+                  multiselect: true
+
+# vpc json 967d166:
+# [
+#   {"label": "vpc1","value": "b5b7ab905876aaf87432b39a0ae3da7f"},
+#   {"label": "vpc2","value": "3a7cb912d6df14bea1005eeba54857a2"}
+# ]
+
+# subnet for vpc1 b5b7ab905876aaf87432b39a0ae3da7f:
+# [
+#   "sub1a",
+#   "sub1b",
+#   "sub1c"
+# ]
+
+# subnet for vpc2 3a7cb912d6df14bea1005eeba54857a2:
+# [
+#   "sub2a",
+#   "sub2b",
+#   "sub2c"
+# ]
